@@ -21,7 +21,7 @@ session = AsyncHTMLSession()
 
 origins = [
     "http://localhost:8000",
-    "https://fistbump-api.gnerd.dk"
+    "https://fistbump.gnerd.dk"
 ]
 app.add_middleware(
     CORSMiddleware,
