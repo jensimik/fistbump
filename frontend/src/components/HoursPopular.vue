@@ -8,7 +8,6 @@ const type = 'ColumnChart';
 
 const options = {
     chartArea: { width: '100%' },
-    // width: 800,
     legend: { position: "none" },
     series: {
         0: {
@@ -35,7 +34,6 @@ const options = {
 
 const hours = ref({});
 hours.value = [["Hour", "People"]].concat(await HoursPopularMethodsAPI.index());
-console.log(hours.value);
 </script>
 
 <template>
@@ -43,28 +41,9 @@ console.log(hours.value);
     <div>
         <GChart id="ccc" :data="hours" :options="options" :type="type"></GChart>
     </div>
-    <!-- <table class="primary">
-        <thead>
-            <tr>
-                <th colspan="2">Gym load</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Today</td>
-                <td class="cc">
-                    <GChart id="ccc" :data="hours" :options="options" :type="type"></GChart>
-                </td>
-            </tr>
-        </tbody>
-    </table> -->
 </template>
 
 <style scoped>
-td.cc {
-    width: 100%;
-}
-
 #ccc {
     height: 6em;
 }

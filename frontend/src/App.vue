@@ -17,7 +17,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
         <div class="menu">
           <router-link :to="{ name: 'home' }" class="pseudo button icon-picture">Home</router-link>
-          <router-link :to="{ name: 'about' }" class="button icon-puzzle">other</router-link>
+          <router-link :to="{ name: 'about' }" class="button icon-puzzle">+problem</router-link>
         </div>
       </nav>
     </div>
@@ -31,7 +31,6 @@ div.main {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #fff;
 }
 
 nav.imponent {
@@ -42,10 +41,6 @@ nav.imponent {
 }
 </style>
 <style>
-body {
-  background-color: #000;
-}
-
 table.primary {
   width: 100%;
 }

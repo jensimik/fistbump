@@ -9,11 +9,6 @@ items.value = await FeedMethodsAPI.index();
 <template>
     <h2>Problems</h2>
     <table class="primary">
-        <!-- <thead>
-            <tr>
-                <th colspan="2">Feed/news</th>
-            </tr>
-        </thead> -->
         <tbody>
             <tr v-for="item in items">
                 <td>-{{ item.days_back }}d</td>
