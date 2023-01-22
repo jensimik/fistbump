@@ -11,7 +11,7 @@ items.value = await CalendarMethodsAPI.index();
     <table class="primary" v-if="items.length">
         <tbody>
             <tr v-for="item in items">
-                <td>{{ item.time }}</td>
+                <td>{{ item.date }} {{ item.time }}</td>
                 <td>{{ item.title }}</td>
             </tr>
         </tbody>
