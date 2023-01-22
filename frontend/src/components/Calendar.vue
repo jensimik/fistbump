@@ -7,20 +7,16 @@ items.value = await CalendarMethodsAPI.index();
 </script>
 
 <template>
-    <table class="primary">
-        <thead>
-            <tr>
-                <th colspan="2">Calendar</th>
-            </tr>
-        </thead>
+    <h2>Calendar</h2>
+    <table class="primary" v-if="items.length">
         <tbody>
-            <tr v-for="item in items" v-if="items.length">
+            <tr v-for="item in items">
                 <td>{{ item.hour }}</td>
                 <td>{{ item.title }}</td>
             </tr>
-            <tr v-else>
-                <td colspan="2">empty calendar for today</td>
-            </tr>
         </tbody>
     </table>
+    <div v-else>
+        empty calendar for today
+    </div>
 </template>

@@ -39,20 +39,17 @@ console.log(hours.value);
 </script>
 
 <template>
-    <table class="primary">
+    <h2>Gym load</h2>
+    <div>
+        <GChart id="ccc" :data="hours" :options="options" :type="type"></GChart>
+    </div>
+    <!-- <table class="primary">
         <thead>
             <tr>
                 <th colspan="2">Gym load</th>
             </tr>
         </thead>
         <tbody>
-            <!--
-            <tr>
-                <td>Currently</td>
-                <td>15</td>
-            </tr>
-
--->
             <tr>
                 <td>Today</td>
                 <td class="cc">
@@ -60,7 +57,7 @@ console.log(hours.value);
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
 </template>
 
 <style scoped>

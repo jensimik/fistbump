@@ -6,29 +6,20 @@ import Calendar from '../components/Calendar.vue'
 </script>
 
 <template>
-  <main>
-    <Suspense>
-      <main class="flexet">
-        <Hours></Hours>
-        <Calendar></Calendar>
-        <HoursPopular></HoursPopular>
-        <Feed></Feed>
-      </main>
-      <template #fallback>
-        <div>Loading...</div>
-      </template>
-    </Suspense>
-  </main>
+  <Suspense>
+    <div class="full">
+      <Hours></Hours>
+      <Calendar></Calendar>
+      <HoursPopular></HoursPopular>
+      <Feed></Feed>
+    </div>
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
 </template>
 
-
 <style scoped>
-main {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 table.primary {
   width: 100%;
 }

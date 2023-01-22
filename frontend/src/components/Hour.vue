@@ -7,6 +7,10 @@ hours.value = await HourMethodsAPI.index();
 </script>
 
 <template>
+    <h2>Hours</h2>
+    <div>{{ hours.hours_today }}</div>
+
+    <!--
     <table class="primary">
         <thead>
             <tr>
@@ -24,4 +28,5 @@ hours.value = await HourMethodsAPI.index();
             </tr>
         </tbody>
     </table>
+-->
 </template>
