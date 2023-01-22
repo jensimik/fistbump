@@ -1,6 +1,6 @@
 uvicorn[standard]
 fastapi
-jinja2
+# jinja2
 requests-html
 python-dateutil
 async-lru

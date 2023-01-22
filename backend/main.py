@@ -121,7 +121,8 @@ async def _get_calendar_agenda(today):
 async def get_calendar_agenda():
     today = datetime.now(tz=TZ).date()
     data, today, tomorrow = await _get_calendar_agenda(today)
-    return {"today": today, "tomorrow": tomorrow, "data": data}
+    return today
+    # return {"today": today, "tomorrow": tomorrow, "data": data}
 
 
 @app.get("/popular_hours")
