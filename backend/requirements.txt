@@ -2,6 +2,7 @@ uvicorn[standard]
 fastapi
 jinja2
 requests-html
+async-lru
 fastapi-mqtt
 LivePopularTimes
 git+https://github.com/aiotinydb/aiotinydb.git
