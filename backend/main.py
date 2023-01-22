@@ -20,7 +20,7 @@ session = AsyncHTMLSession()
 # fast_mqtt.init_app(app)
 
 origins = [
-    "http://localhost:8000",
+    "http://localhost:5173",
     "https://fistbump.gnerd.dk"
 ]
 app.add_middleware(
