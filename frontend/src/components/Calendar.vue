@@ -8,14 +8,11 @@ items.value = await CalendarMethodsAPI.index();
 
 <template>
     <h2>Calendar <span class="small">(<a href="https://nkk.klub-modul.dk/cms/Activity.aspx">klubmodul</a>)</span></h2>
-    <table class="primary" v-if="items.length">
-        <tbody>
-            <tr v-for="item in items">
-                <td>{{ item.date }} {{ item.time }}</td>
-                <td>{{ item.title }}</td>
-            </tr>
-        </tbody>
-    </table>
+
+    <div class="flex two" v-for="item in items" v-if="items.length">
+        <div class="">{{ item.time }}</div>
+        <div class="">{{ item.title }}</div>
+    </div>
     <div v-else>
         empty calendar for today
     </div>
