@@ -2,3 +2,4 @@ uvicorn[standard]
 fastapi
 jinja2
 fastapi-mqtt
+LivePopularTimes

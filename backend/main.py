@@ -4,6 +4,8 @@ from requests_html import AsyncHTMLSession
 from fastapi_mqtt.fastmqtt import FastMQTT
 from fastapi_mqtt.config import MQTTConfig
 from async_lru import alru_cache
+from functools import lru_cache
+from livepopulartimes import get_populartimes_by_place_id
 
 app = FastAPI()
 session = AsyncHTMLSession()
@@ -11,6 +13,25 @@ session = AsyncHTMLSession()
 # mqtt_config = MQTTConfig()
 # fast_mqtt = FastMQTT(config=mqtt_config)
 # fast_mqtt.init_app(app)
+
+GOOGLE_MAPS_API_KEY = "AIzaSyAWEoNtxFZFCNxOi-9il0whTnRr7dP331w"
+GOOGLE_MAPS_PLACE_ID = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
+
+WEEKDAYS = {
+    "Monday": 0,
+    "Tuesday": 1,
+    "Wednesday": 2,
+    "Thursday": 3,
+    "Friday": 4,
+    "Saturday": 5,
+    "Sunday": 6
+}
+
+
+@lru_cache(maxsize=1)
+def _get_popular_times():
+    data = get_populartimes_by_place_id(GOOGLE_MAPS_API_KEY, GOOGLE_MAPS_PLACE_ID)
+    return {WEEKDAYS.get(d["name"]) : d["data"] for d in data["populartimes"]}
 
 WEEKDAY_REVERSE = {
     "Mandag": [0],
@@ -79,6 +100,11 @@ async def get_calendar_agenda():
     data, today, tomorrow = await _get_calendar_agenda(date.today())
     return {"today": today, "tomorrow": tomorrow, "data": data}
 
+
+@app.get("/popular_hours")
+def get_popular_hours():
+    today = date.today().weekday()
+    return _get_popular_times()[today]
 
 
 @app.get("/")
