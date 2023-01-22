@@ -3,3 +3,4 @@ fastapi
 jinja2
 fastapi-mqtt
 LivePopularTimes
+git+https://github.com/aiotinydb/aiotinydb.git

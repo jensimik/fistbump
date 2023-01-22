@@ -1,11 +1,16 @@
+from pprint import pprint
 from datetime import date, timedelta
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from requests_html import AsyncHTMLSession
 from fastapi_mqtt.fastmqtt import FastMQTT
 from fastapi_mqtt.config import MQTTConfig
 from async_lru import alru_cache
 from functools import lru_cache
 from livepopulartimes import get_populartimes_by_place_id
+from aiotinydb import AIOTinyDB
+from tinydb import where
+from tasks import repeat_every
 
 app = FastAPI()
 session = AsyncHTMLSession()
@@ -14,6 +19,20 @@ session = AsyncHTMLSession()
 # fast_mqtt = FastMQTT(config=mqtt_config)
 # fast_mqtt.init_app(app)
 
+origins = [
+    "http://localhost:8000",
+    "https://fistbump-api.gnerd.dk"
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+FEED_DB = "/data/feed.json"
+STOKT_TOKEN = "3ea0c2f73089ed54ea0b13325204f3be45bd7788"
 GOOGLE_MAPS_API_KEY = "AIzaSyAWEoNtxFZFCNxOi-9il0whTnRr7dP331w"
 GOOGLE_MAPS_PLACE_ID = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
 
@@ -104,9 +123,65 @@ async def get_calendar_agenda():
 @app.get("/popular_hours")
 def get_popular_hours():
     today = date.today().weekday()
-    return _get_popular_times()[today]
+    return [(i, x) for i, x in enumerate(_get_popular_times()[today])]
 
 
 @app.get("/")
 async def read_root():
     return {"noting": "tofindhere"}
+
+@app.on_event("startup")
+@repeat_every(seconds=60*30) # every half hour?
+async def _refresh_stokt():
+    problems = []
+    headers = {
+        "Accept": "application/json, text/plain, */*",
+        "User-Agent": "stokt/1 CFNetwork/1402.0.8 Darwin/22.2.0",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Authorization": f"Token {STOKT_TOKEN}"
+    }
+    params = {
+        "grade_from": "4",
+        "grade_to": "?",
+        "ordering": "most_recent",
+        "tags": "",
+        "search": "",
+        "exclude_mine": "false",
+        "show_circuit_only": "false",
+        "cursor": "",
+        "tags": "",
+    }
+    r = await session.get(
+        "https://www.sostokt.com/api/faces/54c4b9f2-2e12-4f60-8243-6f520bc81d13/latest-climbs/paginated", 
+        params=params, 
+        headers=headers
+    )
+    if r.ok:
+        data = r.json()
+        problems = [
+            {
+                "stokt_id": p["id"], 
+                "section": "S", 
+                "name": p["name"], 
+                "grade": p["crowdGrade"]["font"], 
+                "created": p["dateCreated"][:10]
+            } for p in data["results"]]
+    async with AIOTinyDB(FEED_DB) as db:
+        for problem in problems:
+            db.upsert(problem, where("stokt_id") == problem["stokt_id"])
+    return problems
+    
+
+@app.get("/feed")
+async def feed():
+    async with AIOTinyDB(FEED_DB) as db:
+        data = sorted(db, key=lambda d: d["created"], reverse=True)[:20]
+        today = date.today()
+        for d in data:
+            d["days_back"] = (today - date.fromisoformat(d["created"])).days
+        return data
+
+@app.post("/feed")
+async def feed_post():
+    pass
+    # TODO: implement adding an entry to the feed
