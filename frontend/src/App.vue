@@ -56,4 +56,8 @@ a.brand {
 table.primary {
   width: 100%;
 }
+
+span.small {
+  font-size: 0.3em;
+}
 </style>

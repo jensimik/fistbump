@@ -7,7 +7,7 @@ items.value = await CalendarMethodsAPI.index();
 </script>
 
 <template>
-    <h2>Calendar</h2>
+    <h2>Calendar <span class="small">(<a href="https://nkk.klub-modul.dk/cms/Activity.aspx">klubmodul</a>)</span></h2>
     <table class="primary" v-if="items.length">
         <tbody>
             <tr v-for="item in items">
