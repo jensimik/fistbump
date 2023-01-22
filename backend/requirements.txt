@@ -2,6 +2,7 @@ uvicorn[standard]
 fastapi
 jinja2
 requests-html
+python-dateutil
 async-lru
 fastapi-mqtt
 LivePopularTimes

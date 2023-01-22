@@ -1,5 +1,6 @@
 from pprint import pprint
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
+from dateutil import tz
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from requests_html import AsyncHTMLSession
@@ -35,6 +36,7 @@ FEED_DB = "/data/feed.json"
 STOKT_TOKEN = "3ea0c2f73089ed54ea0b13325204f3be45bd7788"
 GOOGLE_MAPS_API_KEY = "AIzaSyAWEoNtxFZFCNxOi-9il0whTnRr7dP331w"
 GOOGLE_MAPS_PLACE_ID = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
+TZ = tz.gettz("Europe/Copenhagen")
 
 WEEKDAYS = {
     "Monday": 0,
@@ -88,7 +90,8 @@ async def _get_opening_hours(today):
 
 @app.get("/hours")
 async def get_opening_hours():
-    data, today, tomorrow = await _get_opening_hours(date.today())
+    today = datetime.now(tz=TZ).date()
+    data, today, tomorrow = await _get_opening_hours(today)
     return {"hours_today": today, "hours_tomorrow": tomorrow, "data": data}
 
 @alru_cache(maxsize=2)
@@ -116,13 +119,14 @@ async def _get_calendar_agenda(today):
 
 @app.get("/calendar")
 async def get_calendar_agenda():
-    data, today, tomorrow = await _get_calendar_agenda(date.today())
+    today = datetime.now(tz=TZ).date()
+    data, today, tomorrow = await _get_calendar_agenda(today)
     return {"today": today, "tomorrow": tomorrow, "data": data}
 
 
 @app.get("/popular_hours")
 def get_popular_hours():
-    today = date.today().weekday()
+    today = datetime.now(tz=TZ).date().weekday()
     return [(i, x) for i, x in enumerate(_get_popular_times()[today])]
 
 
@@ -176,7 +180,7 @@ async def _refresh_stokt():
 async def feed():
     async with AIOTinyDB(FEED_DB) as db:
         data = sorted(db, key=lambda d: d["created"], reverse=True)[:20]
-        today = date.today()
+        today = datetime.now(tz=TZ).date()
         for d in data:
             d["days_back"] = (today - date.fromisoformat(d["created"])).days
         return data
