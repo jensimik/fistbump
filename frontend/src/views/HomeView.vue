@@ -65,29 +65,25 @@ import TheWelcome from '../components/TheWelcome.vue'
     <table class="primary">
       <thead>
         <tr>
-          <th colspan="3">Feed/news</th>
+          <th colspan="2">Feed/news</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>01-22</td>
-          <td>S</td>
-          <td>Planned expiration 7a+</td>
+          <td>-1d</td>
+          <td>Planned expiration 7a+/S</td>
         </tr>
         <tr>
-          <td>01-20</td>
-          <td>S</td>
-          <td>One Jump 7a</td>
+          <td>-2d</td>
+          <td>One Jump 7a/S</td>
         </tr>
         <tr>
-          <td>01-18</td>
-          <td>S1</td>
-          <td>Blue problem 5c</td>
+          <td>-3d</td>
+          <td>Blue problem 5c/S1</td>
         </tr>
         <tr>
-          <td>01-16</td>
-          <td>S2</td>
-          <td>Red problem 6c+</td>
+          <td>-4d</td>
+          <td>Red problem 6c+/S2</td>
         </tr>
       </tbody>
     </table>
