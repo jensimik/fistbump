@@ -12,6 +12,8 @@ from livepopulartimes import get_populartimes_by_place_id
 from aiotinydb import AIOTinyDB
 from tinydb import where
 from tasks import repeat_every
+from pydantic import BaseModel, Field
+from pydantic.typing import Literal
 
 app = FastAPI()
 session = AsyncHTMLSession()
@@ -186,7 +188,15 @@ async def feed():
             d["days_back"] = (today - date.fromisoformat(d["created"])).days
         return data
 
+
+class Problem(BaseModel):
+    name: str
+    grade: str
+    section: Literal['S1', 'S2', 'S3', 'S4', 'S5']
+
 @app.post("/feed")
-async def feed_post():
-    pass
-    # TODO: implement adding an entry to the feed
+async def feed_post(problem: Problem):
+    today = datetime.now(tz=TZ).date()
+    async with AIOTinyDB(FEED_DB) as db:
+        db.insert({**problem, "created": f"{today:%Y-%m-%d}"})
+    return problem

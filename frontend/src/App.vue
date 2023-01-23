@@ -19,7 +19,7 @@ import { RouterLink, RouterView } from 'vue-router'
     </div>
   </nav>
 
-  <div class="flex main">
+  <div class="flex main one">
     <div class="full paddypower"></div>
     <RouterView />
   </div>

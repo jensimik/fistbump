@@ -15,4 +15,18 @@ export default {
                 }
             });
     },
+    store(data) {
+        return fetch(APISettings.baseURL + '/feed', {
+            method: 'POST',
+            headers: { ...APISettings, ...{ 'Content-Type': 'application/json' } },
+            body: JSON.stringify(data)
+        })
+            .then(function (response) {
+                if (response.status != 201) {
+                    throw response.status;
+                } else {
+                    return response.json();
+                }
+            });
+    },
 }
