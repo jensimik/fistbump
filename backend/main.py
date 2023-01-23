@@ -22,10 +22,7 @@ session = AsyncHTMLSession()
 # fast_mqtt = FastMQTT(config=mqtt_config)
 # fast_mqtt.init_app(app)
 
-origins = [
-    "http://localhost:5173",
-    "https://fistbump.gnerd.dk"
-]
+origins = ["http://localhost:5173", "https://fistbump.gnerd.dk"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -47,14 +44,15 @@ WEEKDAYS = {
     "Thursday": 3,
     "Friday": 4,
     "Saturday": 5,
-    "Sunday": 6
+    "Sunday": 6,
 }
 
 
 @lru_cache(maxsize=1)
 def _get_popular_times():
     data = get_populartimes_by_place_id(GOOGLE_MAPS_API_KEY, GOOGLE_MAPS_PLACE_ID)
-    return {WEEKDAYS.get(d["name"]) : d["data"] for d in data["populartimes"]}
+    return {WEEKDAYS.get(d["name"]): d["data"] for d in data["populartimes"]}
+
 
 WEEKDAY_REVERSE = {
     "Mandag": [0],
@@ -66,8 +64,9 @@ WEEKDAY_REVERSE = {
     "Søndag": [6],
     "Mandag - Torsdag": [0, 1, 2, 3],
     "Mandag - Fredag": [0, 1, 2, 3, 4],
-    "Lørdag - Søndag": [5, 6]
+    "Lørdag - Søndag": [5, 6],
 }
+
 
 @alru_cache(maxsize=2)
 async def _get_opening_hours(today):
@@ -96,6 +95,7 @@ async def get_opening_hours():
     data, today, tomorrow = await _get_opening_hours(today)
     return {"hours_today": today, "hours_tomorrow": tomorrow, "data": data}
 
+
 @alru_cache(maxsize=2)
 async def _get_calendar_agenda(today):
     data = []
@@ -103,7 +103,9 @@ async def _get_calendar_agenda(today):
     tomorrow_str = "{0:%d}.{0:%m}.{0:%Y}".format(today + timedelta(days=1))
     today = []
     tomorrow = []
-    r = await session.get("https://nkk.klub-modul.dk/cms/activity.aspx?CalendarType=Agenda")
+    r = await session.get(
+        "https://nkk.klub-modul.dk/cms/activity.aspx?CalendarType=Agenda"
+    )
     if r.ok:
         div_calendar = r.html.find("div#km_cal_agenda", first=True)
         for row in div_calendar.find("div.km-agenda-item"):
@@ -111,13 +113,19 @@ async def _get_calendar_agenda(today):
             entry_date = entry_datetime[:10]
             entry_time = entry_datetime[11:]
             entry_title = row.find("div.km-agenda-eventname", first=True).text
-            d = {"datetime": entry_datetime, "date": entry_date, "time": entry_time, "title": entry_title}
+            d = {
+                "datetime": entry_datetime,
+                "date": entry_date,
+                "time": entry_time,
+                "title": entry_title,
+            }
             data.append(d)
             if entry_date == today_str:
                 today.append(d)
             elif entry_date == tomorrow_str:
                 tomorrow.append(d)
     return data, today, tomorrow
+
 
 @app.get("/calendar")
 async def get_calendar_agenda():
@@ -137,15 +145,16 @@ def get_popular_hours():
 async def read_root():
     return {"noting": "tofindhere"}
 
+
 @app.on_event("startup")
-@repeat_every(seconds=60*30) # every half hour?
+@repeat_every(seconds=60 * 30)  # every half hour?
 async def _refresh_stokt():
     problems = []
     headers = {
         "Accept": "application/json, text/plain, */*",
         "User-Agent": "stokt/1 CFNetwork/1402.0.8 Darwin/22.2.0",
         "Accept-Language": "en-GB,en;q=0.9",
-        "Authorization": f"Token {STOKT_TOKEN}"
+        "Authorization": f"Token {STOKT_TOKEN}",
     }
     params = {
         "grade_from": "4",
@@ -159,25 +168,27 @@ async def _refresh_stokt():
         "tags": "",
     }
     r = await session.get(
-        "https://www.sostokt.com/api/faces/54c4b9f2-2e12-4f60-8243-6f520bc81d13/latest-climbs/paginated", 
-        params=params, 
-        headers=headers
+        "https://www.sostokt.com/api/faces/54c4b9f2-2e12-4f60-8243-6f520bc81d13/latest-climbs/paginated",
+        params=params,
+        headers=headers,
     )
     if r.ok:
         data = r.json()
         problems = [
             {
-                "stokt_id": p["id"], 
-                "section": "Ö", 
-                "name": p["name"], 
-                "grade": p["crowdGrade"]["font"], 
-                "created": p["dateCreated"][:10]
-            } for p in data["results"]]
+                "stokt_id": p["id"],
+                "section": "Ö",
+                "name": p["name"],
+                "grade": p["crowdGrade"]["font"],
+                "created": p["dateCreated"][:10],
+            }
+            for p in data["results"]
+        ]
     async with AIOTinyDB(FEED_DB) as db:
         for problem in problems:
             db.upsert(problem, where("stokt_id") == problem["stokt_id"])
     return problems
-    
+
 
 @app.get("/feed")
 async def feed():
@@ -185,6 +196,7 @@ async def feed():
         data = sorted(db, key=lambda d: d["created"], reverse=True)[:50]
         today = datetime.now(tz=TZ).date()
         for d in data:
+            d["id"] = d.doc_id
             d["days_back"] = (today - date.fromisoformat(d["created"])).days
         return data
 
@@ -192,7 +204,8 @@ async def feed():
 class Problem(BaseModel):
     name: str
     grade: str
-    section: Literal['S1', 'S2', 'S3', 'S4', 'S5']
+    section: Literal["S1", "S2", "S3", "S4", "S5"]
+
 
 @app.post("/feed")
 async def feed_post(problem: Problem):
