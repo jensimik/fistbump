@@ -188,6 +188,7 @@ async def _refresh_stokt():
                 "name": p["name"],
                 "grade": p["crowdGrade"]["font"],
                 "holds": p["holdsList"],
+                "setter": p["climbSetters"]["fullName"],
                 "created": p["dateCreated"][:10],
             }
             for p in data  # ["results"]
