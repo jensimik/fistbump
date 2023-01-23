@@ -190,7 +190,7 @@ async def _refresh_stokt():
                 "holds": p["holdsList"],
                 "created": p["dateCreated"][:10],
             }
-            for p in data["results"]
+            for p in data  # ["results"]
         ]
     async with AIOTinyDB(FEED_DB) as db:
         for problem in problems:
