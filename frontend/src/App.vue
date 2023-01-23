@@ -15,7 +15,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
     <div class="menu">
       <router-link :to="{ name: 'home' }" class="pseudo button icon-picture">Home</router-link>
-      <router-link :to="{ name: 'about' }" class="button icon-puzzle">+problem</router-link>
+      <router-link :to="{ name: 'addproblem' }" class="button icon-puzzle">+problem</router-link>
     </div>
   </nav>
 

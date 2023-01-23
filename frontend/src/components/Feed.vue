@@ -8,7 +8,7 @@ items.value = await FeedMethodsAPI.index();
 
 <template>
     <h2>Problems <span class="small">(<a href="https://www.getstokt.com/">stökt</a>, bennehul2000, <router-link
-                :to="{ name: 'about' }">user-entry</router-link>)</span>
+                :to="{ name: 'addproblem' }">user-entry</router-link>)</span>
     </h2>
     <table class="primary">
         <tbody>
