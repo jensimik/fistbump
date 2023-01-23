@@ -11,6 +11,8 @@ import Calendar from '../components/Calendar.vue'
       <Hours></Hours>
       <Calendar></Calendar>
       <HoursPopular></HoursPopular>
+      <h2>Strip</h2>
+      <div><img src="@/assets/sections.png" style="width:100%" /></div>
       <Feed></Feed>
     </div>
     <template #fallback>

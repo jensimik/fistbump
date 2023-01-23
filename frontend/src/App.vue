@@ -60,4 +60,8 @@ table.primary {
 span.small {
   font-size: 0.3em;
 }
+
+h2 {
+  padding-bottom: 0.2em;
+}
 </style>
