@@ -39,7 +39,7 @@ GOOGLE_MAPS_PLACE_ID = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
 TZ = tz.gettz("Europe/Copenhagen")
 
 # load holds setup from json file
-with open("feed.json", "r") as f:
+with open("setup.json", "r") as f:
     HOLDS_PATH = {f["id"]: h for h in json.load(f)["holds"]}
 
 WEEKDAYS = {
