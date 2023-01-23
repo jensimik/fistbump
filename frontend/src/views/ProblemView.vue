@@ -82,7 +82,7 @@ span.label {
 
 
 .hold {
-    stroke-width: 10px;
+    stroke-width: 15px;
     fill: none;
 }
 </style>
