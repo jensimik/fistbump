@@ -62,7 +62,7 @@ items.value = await FeedMethodsAPI.index();
         <tbody>
             <tr v-for="item in items">
                 <td>-{{ item.days_back }}d</td>
-                <td>{{ item.section }}</td>
+                <td class="section">{{ item.section }}</td>
                 <td class="name">{{ item.name }} </td>
                 <td><span class="label" :style="{ backgroundColor: gradeToColor(item.grade) }">{{
                         item.grade
@@ -79,6 +79,18 @@ td.name {
 
 td {
     padding-right: 0;
+    padding-left: 0;
+}
+
+tr td:first-child {
     padding-left: 0.3em;
+}
+
+tr td:last-child {
+    padding-right: 0.3em;
+}
+
+td.section {
+    padding-right: 0.15em;
 }
 </style>
