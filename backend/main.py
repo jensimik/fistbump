@@ -40,7 +40,7 @@ TZ = tz.gettz("Europe/Copenhagen")
 
 # load holds setup from json file
 with open("setup.json", "r") as f:
-    HOLDS_PATH = {f["id"]: h for h in json.load(f)["holds"]}
+    HOLDS_PATH = {h["id"]: h for h in json.load(f)["holds"]}
 
 WEEKDAYS = {
     "Monday": 0,
