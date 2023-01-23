@@ -241,6 +241,9 @@ async def feed_get_item(item_id: int):
                 elif hold.startswith("T"):
                     paths.append((HOLDS_PATH[hit]["pathStr"], "white"))
                     paths.append(("M" + HOLDS_PATH[hit]["topPolygonStr"], "white"))
+                elif hold.startswith("O"):
+                    paths.append((HOLDS_PATH[hit]["pathStr"], "white"))
+                    # paths.append(("M" + HOLDS_PATH[hit]["topPolygonStr"], "white"))
                 else:
                     paths.append((HOLDS_PATH[int(hold)]["pathStr"], "white"))
 
