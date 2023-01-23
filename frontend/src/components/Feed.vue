@@ -78,7 +78,7 @@ td.name {
 }
 
 td {
-    padding-right: 0;
+    padding-right: 0.15em;
     padding-left: 0;
 }
 
@@ -90,9 +90,9 @@ tr td:last-child {
     padding-right: 0.3em;
 }
 
-td.section {
+/* td.section {
     padding-right: 0.15em;
-}
+} */
 
 span.label {
     width: 3.5em;
