@@ -52,54 +52,37 @@ function gradeToColor(grade) {
             return "pink";
     }
 }
-console.log(props.id);
-const items = ref([]);
-items.value = await FeedMethodsAPI.get(props.id);
+const item = ref({});
+item.value = await FeedMethodsAPI.get(props.id);
 </script>
 
 <template>
-    <h2>Problems <span class="small">(<a href="https://www.getstokt.com/">stökt</a>, bennehul2000, <router-link
-                :to="{ name: 'addproblem' }">user-entry</router-link>)</span>
-    </h2>
-    <table class="primary">
-        <tbody>
-            <tr v-for="item in items" :key="item.id">
-                <td>-{{ item.days_back }}d</td>
-                <td class="section">{{ item.section }}</td>
-                <td class="name"><router-link :to="{ name: 'problem', params: { id: item.id } }">{{
-                    item.name
-                }}</router-link></td>
-                <td><span class="label" :style="{ backgroundColor: gradeToColor(item.grade) }">{{
-                    item.grade
-                }}</span></td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>{{ item.name }} ({{ item.section }}) <span class="label"
+            :style="{ backgroundColor: gradeToColor(item.grade) }">{{
+                item.grade
+            }}</span></h2>
+
+    <div v-if="item.section == 'Ö'">
+        <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
+            <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
+            <path class="hold" d="M362.67,2299.03L317.09,2302.68L312.84,2336.68L356.51,2342.14z"></path>
+        </svg>
+        STÖKT
+    </div>
+    <div v-else>
+        BOULDER
+    </div>
 </template>
 
 <style scoped>
-td.name {
-    width: 72%;
-}
-
-td {
-    padding-right: 0.15em;
-    padding-left: 0;
-}
-
-tr td:first-child {
-    padding-left: 0.3em;
-}
-
-tr td:last-child {
-    padding-right: 0.3em;
-}
-
-/* td.section {
-    padding-right: 0.15em;
-} */
-
 span.label {
     width: 3.5em;
+}
+
+
+.hold {
+    stroke: white;
+    stroke-width: 10px;
+    fill: none;
 }
 </style>

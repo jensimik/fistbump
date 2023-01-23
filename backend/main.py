@@ -1,3 +1,4 @@
+import json
 from pprint import pprint
 from datetime import date, datetime, timedelta
 from dateutil import tz
@@ -36,6 +37,10 @@ STOKT_TOKEN = "3ea0c2f73089ed54ea0b13325204f3be45bd7788"
 GOOGLE_MAPS_API_KEY = "AIzaSyAWEoNtxFZFCNxOi-9il0whTnRr7dP331w"
 GOOGLE_MAPS_PLACE_ID = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
 TZ = tz.gettz("Europe/Copenhagen")
+
+# load holds setup from json file
+with open("feed.json", "r") as f:
+    HOLDS_PATH = {f["id"]: h for h in json.load(f)["holds"]}
 
 WEEKDAYS = {
     "Monday": 0,
@@ -147,7 +152,7 @@ async def read_root():
 
 
 @app.on_event("startup")
-@repeat_every(seconds=60 * 30)  # every half hour?
+@repeat_every(seconds=60 * 60)  # every hour?
 async def _refresh_stokt():
     problems = []
     headers = {
@@ -156,20 +161,21 @@ async def _refresh_stokt():
         "Accept-Language": "en-GB,en;q=0.9",
         "Authorization": f"Token {STOKT_TOKEN}",
     }
-    params = {
-        "grade_from": "4",
-        "grade_to": "?",
-        "ordering": "most_recent",
-        "tags": "",
-        "search": "",
-        "exclude_mine": "false",
-        "show_circuit_only": "false",
-        "cursor": "",
-        "tags": "",
-    }
+    # params = {
+    #     "grade_from": "4",
+    #     "grade_to": "?",
+    #     "ordering": "most_recent",
+    #     "tags": "",
+    #     "search": "",
+    #     "exclude_mine": "false",
+    #     "show_circuit_only": "false",
+    #     "cursor": "",
+    #     "tags": "",
+    # }
     r = await session.get(
-        "https://www.sostokt.com/api/faces/54c4b9f2-2e12-4f60-8243-6f520bc81d13/latest-climbs/paginated",
-        params=params,
+        "https://www.sostokt.com/api/gyms/1ada530f-887b-44b2-b817-976f058e6696/new-climbs",
+        # "https://www.sostokt.com/api/faces/54c4b9f2-2e12-4f60-8243-6f520bc81d13/latest-climbs/paginated",
+        # params=params,
         headers=headers,
     )
     if r.ok:
@@ -180,6 +186,7 @@ async def _refresh_stokt():
                 "section": "Ö",
                 "name": p["name"],
                 "grade": p["crowdGrade"]["font"],
+                "holds": p["holdsList"],
                 "created": p["dateCreated"][:10],
             }
             for p in data["results"]
@@ -219,4 +226,19 @@ async def feed_post(problem: Problem):
 async def feed_get_item(item_id: int):
     async with AIOTinyDB(FEED_DB) as db:
         item = db.get(doc_id=item_id)
-        return {"id": item.doc_id, **item}
+        # parse hold paths if stökt
+        paths = []
+        if item["section"] == "Ö":
+            for hold in item["holds"].split(" "):
+                if hold.startswith("S"):
+                    paths.append(HOLDS_PATH[hold[1:]]["pathStr"], "white")
+                    paths.append("M" + HOLDS_PATH[hold[1:]]["rightTapeStr"], "white")
+                elif hold.startswith("F"):
+                    paths.append(HOLDS_PATH[hold[1:]]["pathStr"], "turquoise")
+                elif hold.startswith("T"):
+                    paths.append(HOLDS_PATH[hold[1:]]["pathStr"], "white")
+                    paths.append("M" + HOLDS_PATH[hold[1:]]["topPolygonStr"], "white")
+                else:
+                    paths.append(HOLDS_PATH[hold[1:]]["pathStr"], "white")
+
+        return {"id": item.doc_id, "paths": paths, **item}
