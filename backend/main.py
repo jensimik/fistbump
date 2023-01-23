@@ -180,7 +180,7 @@ async def _refresh_stokt():
 @app.get("/feed")
 async def feed():
     async with AIOTinyDB(FEED_DB) as db:
-        data = sorted(db, key=lambda d: d["created"], reverse=True)[:20]
+        data = sorted(db, key=lambda d: d["created"], reverse=True)[:50]
         today = datetime.now(tz=TZ).date()
         for d in data:
             d["days_back"] = (today - date.fromisoformat(d["created"])).days
