@@ -152,7 +152,7 @@ async def read_root():
 
 
 @app.on_event("startup")
-@repeat_every(seconds=60 * 60)  # every hour?
+# @repeat_every(seconds=60 * 60)  # every hour?
 async def _refresh_stokt():
     print("going to fetch stokt")
     problems = []
