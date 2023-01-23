@@ -65,7 +65,7 @@ items.value = await FeedMethodsAPI.index();
                 <td class="section">{{ item.section }}</td>
                 <td class="name">{{ item.name }} </td>
                 <td><span class="label" :style="{ backgroundColor: gradeToColor(item.grade) }">{{
-                        item.grade
+                    item.grade
                 }}</span></td>
             </tr>
         </tbody>
@@ -74,7 +74,7 @@ items.value = await FeedMethodsAPI.index();
 
 <style scoped>
 td.name {
-    width: 80%;
+    width: 75%;
 }
 
 td {
