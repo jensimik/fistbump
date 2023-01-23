@@ -34,7 +34,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="/static"), name="static")
 
 FEED_DB = "/data/feed.json"
 STOKT_TOKEN = "3ea0c2f73089ed54ea0b13325204f3be45bd7788"
@@ -218,7 +218,7 @@ async def feed_post(
         "image": f"https://fistbump.gnerd.dk/static/{save_filename}",
         "created": f"{today:%Y-%m-%d}",
     }
-    async with aiofiles.open(f"static/{save_filename}", "wb") as out_file:
+    async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
         while content := await upload_file.read(1024):  # async read chunk
             await out_file.write(content)  # async write chunk
 
