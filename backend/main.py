@@ -213,3 +213,10 @@ async def feed_post(problem: Problem):
     async with AIOTinyDB(FEED_DB) as db:
         db.insert({**problem.dict(), "created": f"{today:%Y-%m-%d}"})
     return problem
+
+
+@app.get("/feed/{item_id}")
+async def feed_get_item(item_id: int):
+    async with AIOTinyDB(FEED_DB) as db:
+        item = db.get(doc_id=item_id)
+        return {"id": item.doc_id, **item}

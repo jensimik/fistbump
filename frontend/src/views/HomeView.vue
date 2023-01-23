@@ -6,23 +6,10 @@ import Calendar from '../components/Calendar.vue'
 </script>
 
 <template>
-  <Suspense>
-    <div class="full">
-      <Hours></Hours>
-      <Calendar></Calendar>
-      <HoursPopular></HoursPopular>
-      <h2>Section4 strip 4 feb <span class="small">X days left to close the set</span></h2>
-      <div><img src="@/assets/sections.png" style="width:100%" /></div>
-      <Feed></Feed>
-    </div>
-    <template #fallback>
-      <div>Loading...</div>
-    </template>
-  </Suspense>
+  <Hours></Hours>
+  <Calendar></Calendar>
+  <HoursPopular></HoursPopular>
+  <h2>Section4 strip 4 feb <span class="small">X days left to close the set</span></h2>
+  <div><img src="@/assets/sections.png" style="width:100%" /></div>
+  <Feed></Feed>
 </template>
-
-<style scoped>
-table.primary {
-  width: 100%;
-}
-</style>

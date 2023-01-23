@@ -21,7 +21,14 @@ import { RouterLink, RouterView } from 'vue-router'
 
   <div class="flex main one">
     <div class="full paddypower"></div>
-    <RouterView />
+    <Suspense>
+      <div>
+        <RouterView />
+      </div>
+      <template #fallback>
+        <div>Loading...</div>
+      </template>
+    </Suspense>
   </div>
 </template>
 

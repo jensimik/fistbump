@@ -20,7 +20,8 @@ const router = createRouter({
     {
       path: '/problem/:id',
       name: 'problem',
-      component: () => import('../views/ProblemView.vue')
+      component: () => import('../views/ProblemView.vue'),
+      props: true,
     }
   ]
 })
