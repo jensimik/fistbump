@@ -54,6 +54,7 @@ function gradeToColor(grade) {
 }
 const item = ref({});
 item.value = await FeedMethodsAPI.get(props.id);
+console.log(item.value);
 </script>
 
 <template>
@@ -65,9 +66,7 @@ item.value = await FeedMethodsAPI.get(props.id);
     <div v-if="item.section == 'Ö'">
         <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
             <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
-            <g v-for="( { path, color }, index) in item.paths">
-                <path class="hold" :style="{ stroke: color }" :d="path"></path>
-            </g>
+            <path class="hold" :style="{ stroke: d.color }" :d="d.path" v-for="d in item.paths" />
         </svg>
     </div>
     <div v-else>
