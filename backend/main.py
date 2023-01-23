@@ -232,15 +232,17 @@ async def feed_get_item(item_id: int):
         paths = []
         if item["section"] == "Ö":
             for hold in item["holds"].split(" "):
+                hit = int(hold[1:])
+                his = int(hold)
                 if hold.startswith("S"):
-                    paths.append(HOLDS_PATH[hold[1:]]["pathStr"], "white")
-                    paths.append("M" + HOLDS_PATH[hold[1:]]["rightTapeStr"], "white")
+                    paths.append(HOLDS_PATH[hit]["pathStr"], "white")
+                    paths.append("M" + HOLDS_PATH[hit]["rightTapeStr"], "white")
                 elif hold.startswith("F"):
-                    paths.append(HOLDS_PATH[hold[1:]]["pathStr"], "turquoise")
+                    paths.append(HOLDS_PATH[hit]["pathStr"], "turquoise")
                 elif hold.startswith("T"):
-                    paths.append(HOLDS_PATH[hold[1:]]["pathStr"], "white")
-                    paths.append("M" + HOLDS_PATH[hold[1:]]["topPolygonStr"], "white")
+                    paths.append(HOLDS_PATH[hit]["pathStr"], "white")
+                    paths.append("M" + HOLDS_PATH[hit]["topPolygonStr"], "white")
                 else:
-                    paths.append(HOLDS_PATH[hold]["pathStr"], "white")
+                    paths.append(HOLDS_PATH[his]["pathStr"], "white")
 
         return {"id": item.doc_id, "paths": paths, **item}
