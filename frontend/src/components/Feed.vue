@@ -93,4 +93,8 @@ tr td:last-child {
 td.section {
     padding-right: 0.15em;
 }
+
+span.label {
+    width: 3.5em;
+}
 </style>
