@@ -74,7 +74,7 @@ items.value = await FeedMethodsAPI.index();
 
 <style scoped>
 td.name {
-    width: 100%;
+    width: 80%;
 }
 
 td {
