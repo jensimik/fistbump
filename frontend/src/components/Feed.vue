@@ -76,4 +76,9 @@ items.value = await FeedMethodsAPI.index();
 td.name {
     width: 100%;
 }
+
+td {
+    padding-right: 0;
+    padding-left: 0.3em;
+}
 </style>
