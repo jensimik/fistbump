@@ -9,9 +9,24 @@ const data = ref({
   section: "S1",
 });
 
+const preview = ref(null);
+const image = ref(null);
+
 async function add(e) {
   await FeedMethodsAPI.store(data.value)
   router.push({ name: 'home' })
+}
+
+function onFileChange(event) {
+  var input = event.target;
+  if (input.files) {
+    var reader = new FileReader();
+    reader.onload = (e) => {
+      preview.value = e.target.result;
+    }
+    image.value = input.files[0];
+    reader.readAsDataURL(input.files[0]);
+  }
 }
 </script>
 
@@ -60,7 +75,26 @@ async function add(e) {
         <option value="S4">Section4</option>
         <option value="S5">Section5</option>
       </select>
+      <div class="imageupload">
+        <label for="image" class="dropimage">
+          <input name="image" title="Drop image or click me" @change="onFileChange" type="file" accept="image/*"
+            capture>
+        </label>
+      </div>
+      <img class="preview" v-if="image" :src="preview" />
       <button class="button" @click="add">add</button>
     </div>
   </div>
 </template>
+
+
+<style scoped>
+.imageupload {
+  width: 8em;
+  ;
+}
+
+img.preview {
+  width: 100%;
+}
+</style>
