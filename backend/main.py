@@ -154,6 +154,7 @@ async def read_root():
 @app.on_event("startup")
 @repeat_every(seconds=60 * 60)  # every hour?
 async def _refresh_stokt():
+    print("going to fetch stokt")
     problems = []
     headers = {
         "Accept": "application/json, text/plain, */*",
@@ -194,7 +195,8 @@ async def _refresh_stokt():
     async with AIOTinyDB(FEED_DB) as db:
         for problem in problems:
             db.upsert(problem, where("stokt_id") == problem["stokt_id"])
-    return problems
+
+    print("finished fetching from stokt")
 
 
 @app.get("/feed")
