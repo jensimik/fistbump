@@ -13,7 +13,6 @@ async function add(e) {
   await FeedMethodsAPI.store(data.value)
   router.push({ name: 'home' })
 }
-
 </script>
 
 <template>
