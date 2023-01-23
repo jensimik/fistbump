@@ -233,7 +233,6 @@ async def feed_get_item(item_id: int):
         if item["section"] == "Ö":
             for hold in item["holds"].split(" "):
                 hit = int(hold[1:])
-                his = int(hold)
                 if hold.startswith("S"):
                     paths.append(HOLDS_PATH[hit]["pathStr"], "white")
                     paths.append("M" + HOLDS_PATH[hit]["rightTapeStr"], "white")
@@ -243,6 +242,6 @@ async def feed_get_item(item_id: int):
                     paths.append(HOLDS_PATH[hit]["pathStr"], "white")
                     paths.append("M" + HOLDS_PATH[hit]["topPolygonStr"], "white")
                 else:
-                    paths.append(HOLDS_PATH[his]["pathStr"], "white")
+                    paths.append(HOLDS_PATH[int(hold)]["pathStr"], "white")
 
         return {"id": item.doc_id, "paths": paths, **item}
