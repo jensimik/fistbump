@@ -10,7 +10,7 @@ const data = ref({
 });
 
 async function add(e) {
-  // await FeedMethodsAPI.store(data.value)
+  await FeedMethodsAPI.store(data.value)
   router.push({ name: 'home' })
 }
 

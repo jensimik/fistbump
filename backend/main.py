@@ -168,7 +168,7 @@ async def _refresh_stokt():
         problems = [
             {
                 "stokt_id": p["id"], 
-                "section": "S", 
+                "section": "Ö", 
                 "name": p["name"], 
                 "grade": p["crowdGrade"]["font"], 
                 "created": p["dateCreated"][:10]
@@ -198,5 +198,5 @@ class Problem(BaseModel):
 async def feed_post(problem: Problem):
     today = datetime.now(tz=TZ).date()
     async with AIOTinyDB(FEED_DB) as db:
-        db.insert({**problem, "created": f"{today:%Y-%m-%d}"})
+        db.insert({**problem.dict(), "created": f"{today:%Y-%m-%d}"})
     return problem
