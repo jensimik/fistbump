@@ -1,8 +1,11 @@
 import json
+import aiofiles
 from pprint import pprint
+from uuid import uuid4
 from datetime import date, datetime, timedelta
 from dateutil import tz
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, Form
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from requests_html import AsyncHTMLSession
 from fastapi_mqtt.fastmqtt import FastMQTT
@@ -31,6 +34,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 FEED_DB = "/data/feed.json"
 STOKT_TOKEN = "3ea0c2f73089ed54ea0b13325204f3be45bd7788"
@@ -162,21 +166,8 @@ async def _refresh_stokt():
         "Accept-Language": "en-GB,en;q=0.9",
         "Authorization": f"Token {STOKT_TOKEN}",
     }
-    # params = {
-    #     "grade_from": "4",
-    #     "grade_to": "?",
-    #     "ordering": "most_recent",
-    #     "tags": "",
-    #     "search": "",
-    #     "exclude_mine": "false",
-    #     "show_circuit_only": "false",
-    #     "cursor": "",
-    #     "tags": "",
-    # }
     r = await session.get(
         "https://www.sostokt.com/api/gyms/1ada530f-887b-44b2-b817-976f058e6696/new-climbs",
-        # "https://www.sostokt.com/api/faces/54c4b9f2-2e12-4f60-8243-6f520bc81d13/latest-climbs/paginated",
-        # params=params,
         headers=headers,
     )
     if r.ok:
@@ -191,7 +182,7 @@ async def _refresh_stokt():
                 "setter": p["climbSetters"]["fullName"],
                 "created": p["dateCreated"][:10],
             }
-            for p in data  # ["results"]
+            for p in data
         ]
     async with AIOTinyDB(FEED_DB) as db:
         for problem in problems:
@@ -211,17 +202,28 @@ async def feed():
         return data
 
 
-class Problem(BaseModel):
-    name: str
-    grade: str
-    section: Literal["S1", "S2", "S3", "S4", "S5"]
-
-
 @app.post("/feed")
-async def feed_post(problem: Problem):
+async def feed_post(
+    upload_file: UploadFile,
+    name: str = Form(),
+    grade: str = Form(),
+    section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
+):
     today = datetime.now(tz=TZ).date()
+    save_filename = f"{uuid4().hex}.jpg"
+    problem = {
+        "name": name,
+        "grade": grade,
+        "section": section,
+        "image": f"https://fistbump.gnerd.dk/static/{save_filename}",
+        "created": f"{today:%Y-%m-%d}",
+    }
+    async with aiofiles.open(f"static/{save_filename}", "wb") as out_file:
+        while content := await upload_file.read(1024):  # async read chunk
+            await out_file.write(content)  # async write chunk
+
     async with AIOTinyDB(FEED_DB) as db:
-        db.insert({**problem.dict(), "created": f"{today:%Y-%m-%d}"})
+        db.insert(problem)
     return problem
 
 

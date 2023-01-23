@@ -13,7 +13,12 @@ const preview = ref(null);
 const image = ref(null);
 
 async function add(e) {
-  await FeedMethodsAPI.store(data.value)
+  let formData = new FormData()
+  formData.set('name', data.value.name);
+  formData.set('grade', data.value.grade);
+  formData.set('section', data.value.section);
+  formData.set('image', image.value);
+  await FeedMethodsAPI.store(formData)
   router.push({ name: 'home' })
 }
 
@@ -77,7 +82,7 @@ function onFileChange(event) {
       </select>
       <div class="imageupload">
         <label for="image" class="dropimage">
-          <input name="image" title="Drop image or click me" @change="onFileChange" type="file" accept="image/*"
+          <input name="image" title="Drop image or click me" @change="onFileChange" type="file" accept="image/jpeg"
             capture>
         </label>
       </div>

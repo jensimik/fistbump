@@ -3,6 +3,7 @@ fastapi
 requests-html
 python-dateutil
 python-multipart
+aiofiles
 async-lru
 fastapi-mqtt
 LivePopularTimes

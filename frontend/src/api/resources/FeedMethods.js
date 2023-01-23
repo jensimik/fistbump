@@ -31,8 +31,8 @@ export default {
     async store(data) {
         return fetch(APISettings.baseURL + '/feed', {
             method: 'POST',
-            headers: { ...APISettings, ...{ 'Content-Type': 'application/json' } },
-            body: JSON.stringify(data)
+            headers: { ...APISettings, ...{ 'Content-Type': 'multipart/form-data' } },
+            body: data
         })
             .then(function (response) {
                 if (response.status != 201) {
