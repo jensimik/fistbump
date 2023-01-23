@@ -241,6 +241,6 @@ async def feed_get_item(item_id: int):
                     paths.append(HOLDS_PATH[hold[1:]]["pathStr"], "white")
                     paths.append("M" + HOLDS_PATH[hold[1:]]["topPolygonStr"], "white")
                 else:
-                    paths.append(HOLDS_PATH[hold[1:]]["pathStr"], "white")
+                    paths.append(HOLDS_PATH[hold]["pathStr"], "white")
 
         return {"id": item.doc_id, "paths": paths, **item}
