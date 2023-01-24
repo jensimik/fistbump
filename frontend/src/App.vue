@@ -9,27 +9,30 @@ const forceRerender = () => {
 </script>
 
 <template>
-  <nav class="imponent">
-    <router-link :to="{ name: 'home' }" class="brand">
-      <img class="logo" src="@/assets/fist.png" />
-    </router-link>
+  <div class="main">
 
-    <div class="menu">
-      <button class="button" @click="forceRerender">refresh</button>
-      <router-link :to="{ name: 'addproblem' }" class="button">+problem</router-link>
-    </div>
-  </nav>
+    <nav class="imponent">
+      <router-link :to="{ name: 'home' }" class="brand">
+        <img class="logo" src="@/assets/fist.png" />
+      </router-link>
 
-  <div class="flex main one" :key="componentKey">
-    <div class="full paddypower"></div>
-    <Suspense>
-      <div>
-        <RouterView />
+      <div class="menu">
+        <button class="button" @click="forceRerender">refresh</button>
+        <router-link :to="{ name: 'addproblem' }" class="button">+problem</router-link>
       </div>
-      <template #fallback>
-        <div>Loading...</div>
-      </template>
-    </Suspense>
+    </nav>
+
+    <div class="flex one" :key="componentKey">
+      <div class="full paddypower"></div>
+      <Suspense>
+        <div>
+          <RouterView />
+        </div>
+        <template #fallback>
+          <div>Loading...</div>
+        </template>
+      </Suspense>
+    </div>
   </div>
 </template>
 
@@ -41,9 +44,9 @@ div.main {
 }
 
 nav.imponent {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  /* max-width: 800px; */
+  /* margin-left: auto; */
+  /* margin-right: auto; */
   box-shadow: none;
   border-bottom: 4px dotted #dfdfdf;
 }
