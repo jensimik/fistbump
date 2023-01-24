@@ -54,7 +54,6 @@ function gradeToColor(grade) {
 }
 const item = ref({});
 item.value = await FeedMethodsAPI.get(props.id);
-console.log(item.value);
 </script>
 
 <template>

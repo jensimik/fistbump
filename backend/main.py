@@ -247,7 +247,7 @@ async def feed_get_item(item_id: int):
         item = db.get(doc_id=item_id)
         # parse hold paths if stökt
         paths = []
-        if item["section"] == "Ö":
+        if item["section"] == "Ö1":
             for hold in item["holds"].split(" "):
                 hit = int(hold[1:])
                 if hold.startswith("S"):
