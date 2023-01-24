@@ -287,7 +287,7 @@ async def feed_get_item(item_id: int):
             for hold in item["holds"].split(" "):
                 hit = int(hold[1:])
                 if hold.startswith("S"):
-                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "color": "white"})
+                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "hand"})
                     if starting_hold_count == 2:
                         paths.append(
                             {
