@@ -47,6 +47,30 @@ TZ = tz.gettz("Europe/Copenhagen")
 with open("setup.json", "r") as f:
     HOLDS_PATH = {h["id"]: h for h in json.load(f)["holds"]}
 
+GRADE_TO_COLOR = {
+    "?": "turquoise",
+    "4": "green",
+    "5+": "orange",
+    "5B": "orange",
+    "5B+": "orange",
+    "5B-5B+": "orange",
+    "5C": "blue",
+    "5C+": "blue",
+    "6A": "blue",
+    "6A+": "blue",
+    "6B": "purple",
+    "6B+": "purple",
+    "6C": "red",
+    "6C+": "red",
+    "7A": "brown",
+    "7A+": "brown",
+    "7B": "black",
+    "7B+": "black",
+    "7C": "black",
+    "7C+": "pink",
+    "8A": "pink",
+}
+
 WEEKDAYS = {
     "Monday": 0,
     "Tuesday": 1,
@@ -302,4 +326,4 @@ async def feed_get_item(item_id: int):
 @app.get("/grade-stats")
 async def grade_stats():
     async with AIOTinyDB(FEED_DB) as db:
-        return Counter([d["grade"] for d in db]).most_common()
+        return Counter([GRADE_TO_COLOR.get(d["grade"], "?") for d in db]).most_common()
