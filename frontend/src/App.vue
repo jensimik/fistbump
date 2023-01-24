@@ -4,14 +4,13 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <nav class="imponent">
-    <a href="#" class="brand">
+    <router-link :to="{ name: 'home' }" class="brand">
       <img class="logo" src="@/assets/fist.png" />
-      <span></span>
-    </a>
+    </router-link>
 
     <!-- responsive-->
-    <input id="bmenub" type="checkbox" class="show">
-    <label for="bmenub" class="burger pseudo button">&#8801;</label>
+    <!-- <input id="bmenub" type="checkbox" class="show">
+    <label for="bmenub" class="burger pseudo button">&#8801;</label> -->
 
     <div class="menu">
       <router-link :to="{ name: 'home' }" class="pseudo button icon-picture">Home</router-link>
