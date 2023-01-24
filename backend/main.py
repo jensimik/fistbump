@@ -188,7 +188,7 @@ async def _refresh_stokt():
         problems = [
             {
                 "stokt_id": p["id"],
-                "section": "Ö",
+                "section": "Ö1",
                 "name": p["name"],
                 "grade": p["crowdGrade"]["font"],
                 "holds": p["holdsList"],
