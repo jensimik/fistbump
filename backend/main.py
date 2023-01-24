@@ -341,7 +341,7 @@ async def strip():
     return {
         "date": f"{next_strip:%d %b}",
         "until": (next_strip - today).days,
-        "section": "section4",
+        "section": "Section4",
     }
 
 
