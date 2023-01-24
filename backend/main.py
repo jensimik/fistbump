@@ -165,6 +165,10 @@ async def read_root():
 @repeat_every(seconds=60 * 60)  # every hour?
 async def _refresh_stokt():
     print("going to fetch stokt")
+    hour = datetime.now(tz=TZ).hour
+    if hour not in [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0]:
+        print("skipping")
+        return
     problems = []
     headers = {
         "Accept": "application/json, text/plain, */*",
@@ -178,6 +182,7 @@ async def _refresh_stokt():
     )
     if r.ok:
         data = r.json()
+        pprint(data)
         problems = [
             {
                 "stokt_id": p["id"],
