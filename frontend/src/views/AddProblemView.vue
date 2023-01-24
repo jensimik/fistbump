@@ -8,6 +8,7 @@ const data = ref({
   grade: "6A",
   section: "S1",
   setter: "",
+  text: "",
 });
 
 const preview = ref(null);
@@ -19,6 +20,7 @@ async function add(e) {
   formData.set('grade', data.value.grade);
   formData.set('section', data.value.section);
   formData.set('setter', data.value.setter);
+  formData.set('text', data.value.text);
   formData.set('file', image.value);
   await FeedMethodsAPI.store(formData)
   router.push({ name: 'home' })
@@ -85,6 +87,8 @@ function onFileChange(event) {
       <label for="setter">Setter</label>
       <input v-model="data.setter" type="text" name="setter"
         placeholder="setter name - or if do not know then write 'unknown'" />
+      <label for="text">Notes</label>
+      <input v-model="data.text" type="text" name="text" />
       <div class="imageupload">
         <label>Image</label>
         <label for="image" class="dropimage">

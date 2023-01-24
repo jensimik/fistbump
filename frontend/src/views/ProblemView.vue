@@ -70,6 +70,7 @@ item.value = await FeedMethodsAPI.get(props.id);
         </svg>
     </div>
     <div v-else>
+        <p v-if="item.text">{{ item.text }}</p>
         <img :src="item.image" class="problem" />
     </div>
 </template>

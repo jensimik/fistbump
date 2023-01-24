@@ -220,6 +220,7 @@ async def feed_post(
     name: str = Form(),
     grade: str = Form(),
     setter: str = Form(),
+    text: str = Form(),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
 ):
     today = datetime.now(tz=TZ).date()
@@ -229,6 +230,7 @@ async def feed_post(
         "grade": grade,
         "section": section,
         "setter": setter,
+        "text": text,
         "image": f"https://fbs.gnerd.dk/static/{save_filename}",
         "created": f"{today:%Y-%m-%dT%H:%M:%S}",
     }
