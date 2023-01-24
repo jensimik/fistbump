@@ -292,39 +292,37 @@ async def feed_get_item(item_id: int):
                         paths.append(
                             {
                                 "path": "M" + HOLDS_PATH[hit]["rightTapeStr"],
-                                "color": "white",
+                                "type": "hand",
                             }
                         )
                     else:
                         paths.append(
                             {
                                 "path": "M" + HOLDS_PATH[hit]["rightTapeStr"],
-                                "color": "white",
+                                "type": "hand",
                             }
                         )
                         paths.append(
                             {
                                 "path": "M" + HOLDS_PATH[hit]["leftTapeStr"],
-                                "color": "white",
+                                "type": "hand",
                             }
                         )
                 elif hold.startswith("F"):
-                    paths.append(
-                        {"path": HOLDS_PATH[hit]["pathStr"], "color": "turquoise"}
-                    )
+                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "foot"})
                 elif hold.startswith("T"):
-                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "color": "white"})
+                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "hand"})
                     paths.append(
                         {
                             "path": "M" + HOLDS_PATH[hit]["topPolygonStr"],
-                            "color": "white",
+                            "type": "hand",
                         }
                     )
                 elif hold.startswith("O"):
-                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "color": "white"})
+                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "hand"})
                 else:
                     paths.append(
-                        {"path": HOLDS_PATH[int(hold)]["pathStr"], "color": "white"}
+                        {"path": HOLDS_PATH[int(hold)]["pathStr"], "type": "hand"}
                     )
 
         return {

@@ -66,7 +66,7 @@ item.value = await FeedMethodsAPI.get(props.id);
     <div v-if="item.section == 'Ö1'">
         <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
             <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
-            <path class="hold" :class="item.grade_class" :d="d.path" v-for="d in item.paths" />
+            <path class="hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
         </svg>
     </div>
     <div v-else>
@@ -80,9 +80,17 @@ span.label {
     width: 5em;
 }
 
-.hold {
+path.hold {
     stroke-width: 15px;
     fill: none;
+}
+
+path.foot {
+    stroke: #39CCCC;
+}
+
+path.hand {
+    stroke: #fff;
 }
 
 img.problem {
