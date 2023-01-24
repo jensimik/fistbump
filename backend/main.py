@@ -2,6 +2,7 @@ import json
 import aiofiles
 from pprint import pprint
 from uuid import uuid4
+from collections import Counter
 from datetime import date, datetime, timedelta
 from dateutil import tz
 from fastapi import FastAPI, UploadFile, Form
@@ -156,7 +157,7 @@ async def read_root():
 
 
 @app.on_event("startup")
-# @repeat_every(seconds=60 * 60)  # every hour?
+@repeat_every(seconds=60 * 60)  # every hour?
 async def _refresh_stokt():
     print("going to fetch stokt")
     problems = []
@@ -267,3 +268,9 @@ async def feed_get_item(item_id: int):
                     )
 
         return {"id": item.doc_id, "paths": paths, **item}
+
+
+@app.get("/grade-stats")
+async def grade_stats():
+    async with AIOTinyDB(FEED_DB) as db:
+        return Counter([d["grade"] for d in db]).most_common()
