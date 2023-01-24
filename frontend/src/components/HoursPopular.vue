@@ -47,6 +47,6 @@ hours.value = [["Hour", "People"]].concat(await HoursPopularMethodsAPI.index());
 
 <style scoped>
 #ccc {
-    height: 5em;
+    height: 6em;
 }
 </style>
