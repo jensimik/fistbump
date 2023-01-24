@@ -77,7 +77,7 @@ item.value = await FeedMethodsAPI.get(props.id);
 
 <style scoped>
 span.label {
-    width: 3.5em;
+    width: 5em;
 }
 
 
