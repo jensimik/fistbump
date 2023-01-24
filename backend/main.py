@@ -333,6 +333,18 @@ async def feed_get_item(item_id: int):
         }
 
 
+@app.get("/strip")
+async def strip():
+    today = datetime.now(tz=TZ).date()
+    next_strip = date(2023, 1, 26)
+
+    return {
+        "date": f"{next_strip:%d %b}",
+        "until": (next_strip - today).days,
+        "section": "section4",
+    }
+
+
 @app.get("/grade-stats")
 async def grade_stats():
     async with AIOTinyDB(FEED_DB) as db:
