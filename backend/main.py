@@ -182,9 +182,6 @@ async def _refresh_stokt():
     )
     if r.ok:
         data = r.json()
-        for p in data:
-            if "Jens" in p["name"]:
-                pprint(p)
         problems = [
             {
                 "stokt_id": p["id"],
