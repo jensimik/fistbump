@@ -5,8 +5,9 @@ import { ref } from 'vue';
 
 const data = ref({
   name: "",
-  grade: "6a",
+  grade: "6A",
   section: "S1",
+  setter: "",
 });
 
 const preview = ref(null);
@@ -17,6 +18,7 @@ async function add(e) {
   formData.set('name', data.value.name);
   formData.set('grade', data.value.grade);
   formData.set('section', data.value.section);
+  formData.set('setter', data.value.setter);
   formData.set('file', image.value);
   await FeedMethodsAPI.store(formData)
   router.push({ name: 'home' })
@@ -80,6 +82,9 @@ function onFileChange(event) {
         <option value="S4">Section4</option>
         <option value="S5">Section5</option>
       </select>
+      <label for="setter">Setter</label>
+      <input v-model="data.setter" type="text" name="setter"
+        placeholder="setter name - or if do not know then write 'unknown'" />
       <div class="imageupload">
         <label for="image" class="dropimage">
           <input name="image" title="Drop image or click me" @change="onFileChange" type="file" accept="image/jpeg"

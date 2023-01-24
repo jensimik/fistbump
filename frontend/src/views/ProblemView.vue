@@ -71,7 +71,8 @@ console.log(item.value);
         </svg>
     </div>
     <div v-else>
-        BOULDER
+        <p>{{ item.setter }}</p>
+        <img :src="item.image" class="problem" />
     </div>
 </template>
 
@@ -84,5 +85,9 @@ span.label {
 .hold {
     stroke-width: 15px;
     fill: none;
+}
+
+img.problem {
+    width: 100%;
 }
 </style>

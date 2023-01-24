@@ -29,10 +29,9 @@ export default {
             });
     },
     async store(data) {
-        console.log(data)
         return fetch(APISettings.baseURL + '/feed', {
             method: 'POST',
-            headers: { ...APISettings, ...{ 'Content-Type': 'multipart/form-data' } },
+            headers: APISettings,
             body: data
         })
             .then(function (response) {

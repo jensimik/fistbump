@@ -207,6 +207,7 @@ async def feed_post(
     file: UploadFile,
     name: str = Form(),
     grade: str = Form(),
+    setter: str = Form(),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
 ):
     today = datetime.now(tz=TZ).date()
@@ -215,7 +216,8 @@ async def feed_post(
         "name": name,
         "grade": grade,
         "section": section,
-        "image": f"https://fistbump.gnerd.dk/static/{save_filename}",
+        "setter": setter,
+        "image": f"https://fistbump-api.gnerd.dk/static/{save_filename}",
         "created": f"{today:%Y-%m-%d}",
     }
     async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
