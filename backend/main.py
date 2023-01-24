@@ -103,7 +103,12 @@ async def _get_opening_hours(today):
 async def get_opening_hours():
     today = datetime.now(tz=TZ).date()
     data, today, tomorrow = await _get_opening_hours(today)
-    return {"hours_today": today, "hours_tomorrow": tomorrow, "data": data}
+    return {
+        "today": f"{today:%Y-%m-%d}",
+        "hours_today": today,
+        "hours_tomorrow": tomorrow,
+        "data": data,
+    }
 
 
 @alru_cache(maxsize=2)

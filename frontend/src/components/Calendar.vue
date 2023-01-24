@@ -16,7 +16,7 @@ hours.value = await HourMethodsAPI.index();
 
     <div class="flex two">
         <div class="third">{{ hours.hours_today }}</div>
-        <div class="two-third">hours today (2023-01-24)</div>
+        <div class="two-third">hours today ({{ hours.today }})</div>
     </div>
 
     <div class="flex two" v-for="item in items" v-if="items.length">
