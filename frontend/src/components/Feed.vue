@@ -107,43 +107,4 @@ tr td:last-child {
 span.label {
     width: 5em;
 }
-
-span.turquoise {
-    background-color: #39CCCC;
-    color: #111111;
-}
-
-span.yellow {
-    background-color: #FFDC00;
-    color: #111111;
-}
-
-span.green {
-    background-color: #2ECC40;
-}
-
-span.blue {
-    background-color: #0074d9;
-}
-
-span.purple {
-    background-color: #B10DC9;
-}
-
-span.red {
-    background-color: #FF4136;
-}
-
-span.brown {
-    background-color: #85144b;
-}
-
-span.black {
-    background-color: #111111;
-}
-
-span.white {
-    background-color: #DDDDDD;
-    color: #111111;
-}
 </style>
