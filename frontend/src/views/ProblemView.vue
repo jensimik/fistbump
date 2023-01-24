@@ -64,7 +64,7 @@ console.log(item.value);
             }}</span></h2>
     <p>{{ item.setter }}</p>
 
-    <div v-if="item.section == 'Ö'">
+    <div v-if="item.section == 'Ö1'">
         <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
             <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
             <path class="hold" :style="{ stroke: d.color }" :d="d.path" v-for="d in item.paths" />
