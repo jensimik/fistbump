@@ -334,7 +334,7 @@ async def grade_stats():
             ]
         ).most_common()
         stats_stokt = Counter(
-            [GRADE_TO_COLOR.get(d["grade"], "?") for d in db if d == "Ö1"]
+            [GRADE_TO_COLOR.get(d["grade"], "?") for d in db if d["section"] == "Ö1"]
         ).most_common()
 
         return {"stokt": stats_stokt, "boulder": stats_boulder}
