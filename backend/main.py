@@ -336,26 +336,27 @@ async def feed_get_item(item_id: int):
 @app.get("/strip")
 async def strip():
     today = datetime.now(tz=TZ).date()
-    next_strip = date(2023, 2, 3)
-
-    # 2023.01.26 probyg section4
-    # 2023.02.03 workshop section5
-    # 2023.02.09 probyg section1
-    # 2023.02.17 fribyg section2
-    # 2023.02.23 probyg section3
-    # 2023.03.03 forbund section4+5
-    # 2023.03.09 probyg section1
-    # 2023.03.17 fribyg section2
-    # 2023.03.23 probyg section3
-    # 2023.03.31 workshop section4
-    # 2023.04.18 juniorbattle section1-5
-
-    return {
-        "date": f"{next_strip:%d %b}",
-        "until": (next_strip - today).days - 1,
-        "section": "Section 5",
-        "setters": "workshop",
-    }
+    STRIPDATA = [
+        (date(2023, 1, 26), "probyg", "Section 4"),
+        (date(2023, 2, 3), "workshop", "Section 5"),
+        (date(2023, 2, 9), "probyg", "Section 1"),
+        (date(2023, 2, 17), "fribyg", "Section 2"),
+        (date(2023, 2, 23), "probyg", "Section 3"),
+        (date(2023, 3, 3), "forbund", "Section 4+5"),
+        (date(2023, 3, 9), "probyg", "Section 1"),
+        (date(2023, 3, 17), "fribyg", "Section 2"),
+        (date(2023, 3, 23), "probyg", "Section 3"),
+        (date(2023, 3, 31), "workshop", "Section 4"),
+        (date(2023, 4, 18), "juniorbattle", "Section 1+2+3+4+5"),
+    ]
+    for next_strip, setters, section in STRIPDATA:
+        if next_strip >= today:
+            return {
+                "date": f"{next_strip:%d %b}",
+                "until": (next_strip - today).days - 1,
+                "section": "Section 5",
+                "setters": "workshop",
+            }
 
 
 @app.get("/grade-stats")
