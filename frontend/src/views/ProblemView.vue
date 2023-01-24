@@ -57,10 +57,9 @@ item.value = await FeedMethodsAPI.get(props.id);
 </script>
 
 <template>
-    <h2>{{ item.name }} ({{ item.section }}) <span class="label"
-            :style="{ backgroundColor: gradeToColor(item.grade) }">{{
-                item.grade
-            }}</span></h2>
+    <h2>{{ item.name }} ({{ item.section }}) <span class="label" :class="item.grade_class">{{
+        item.grade
+    }}</span></h2>
     <p>{{ item.setter }}</p>
 
     <div v-if="item.section == 'Ö1'">
