@@ -13,7 +13,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <label for="bmenub" class="burger pseudo button">&#8801;</label> -->
 
     <div class="menu">
-      <router-link :to="{ name: 'home' }" class="pseudo button icon-picture">Home</router-link>
+      <!-- <router-link :to="{ name: 'home' }" class="pseudo button icon-picture">Home</router-link> -->
       <router-link :to="{ name: 'addproblem' }" class="button icon-puzzle">+problem</router-link>
     </div>
   </nav>

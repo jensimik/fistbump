@@ -218,7 +218,7 @@ async def feed_post(
         "grade": grade,
         "section": section,
         "setter": setter,
-        "image": f"https://fistbump-api.gnerd.dk/static/{save_filename}",
+        "image": f"https://fbs.gnerd.dk/static/{save_filename}",
         "created": f"{today:%Y-%m-%d}",
     }
     async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
