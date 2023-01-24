@@ -1,5 +1,11 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue';
+const componentKey = ref(0);
+
+const forceRerender = () => {
+  componentKey.value += 1;
+};
 </script>
 
 <template>
@@ -8,17 +14,13 @@ import { RouterLink, RouterView } from 'vue-router'
       <img class="logo" src="@/assets/fist.png" />
     </router-link>
 
-    <!-- responsive-->
-    <!-- <input id="bmenub" type="checkbox" class="show">
-    <label for="bmenub" class="burger pseudo button">&#8801;</label> -->
-
     <div class="menu">
-      <!-- <router-link :to="{ name: 'home' }" class="pseudo button icon-picture">Home</router-link> -->
-      <router-link :to="{ name: 'addproblem' }" class="button icon-puzzle">+problem</router-link>
+      <button class="button" @click="forceRerender">refresh</button>
+      <router-link :to="{ name: 'addproblem' }" class="button">+problem</router-link>
     </div>
   </nav>
 
-  <div class="flex main one">
+  <div class="flex main one" :key="componentKey">
     <div class="full paddypower"></div>
     <Suspense>
       <div>
