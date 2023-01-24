@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button v-if="deferredPrompt" ref="addBtn" class="add-button" @click="clickCallback">
+        <button v-if="deferredPrompt" ref="addBtn" class="button" @click="clickCallback">
             Install
         </button>
     </div>
