@@ -24,6 +24,6 @@ hours.value = await HourMethodsAPI.index();
         <div>{{ item.title }}</div>
     </div>
     <div v-else>
-        empty calendar for today
+        empty klubmodul calendar for today
     </div>
 </template>
