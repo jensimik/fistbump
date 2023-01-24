@@ -336,12 +336,13 @@ async def feed_get_item(item_id: int):
 @app.get("/strip")
 async def strip():
     today = datetime.now(tz=TZ).date()
-    next_strip = date(2023, 1, 26)
+    next_strip = date(2023, 2, 3)
 
     return {
         "date": f"{next_strip:%d %b}",
         "until": (next_strip - today).days,
-        "section": "Section4",
+        "section": "Section 5",
+        "setters": "workshop",
     }
 
 
