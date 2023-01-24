@@ -87,8 +87,8 @@ function onFileChange(event) {
         placeholder="setter name - or if do not know then write 'unknown'" />
       <div class="imageupload">
         <label for="image" class="dropimage">
-          <input name="image" title="Drop image or click me" @change="onFileChange" type="file" accept="image/jpeg"
-            capture>
+          <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
+            accept="image/jpeg;capture=camera">
         </label>
       </div>
       <img class="preview" v-if="image" :src="preview" />
