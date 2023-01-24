@@ -26,17 +26,25 @@ function gradeToColor(grade) {
             return "blue";
         case "6A+":
             return "blue";
+        case "5C-6A+":
+            return "blue";
         case "6B":
             return "purple";
         case "6B+":
+            return "purple";
+        case "6B-6B+":
             return "purple";
         case "6C":
             return "red";
         case "6C+":
             return "red";
+        case "6C-6C+":
+            return "red";
         case "7A":
             return "brown";
         case "7A+":
+            return "brown";
+        case "7A-7A+":
             return "brown";
         case "7B":
             return "black";
@@ -44,9 +52,13 @@ function gradeToColor(grade) {
             return "black";
         case "7C":
             return "black";
+        case "7B-7C":
+            return "black";
         case "7C+":
             return "pink";
         case "8A":
+            return "pink";
+        case "7C+-8C":
             return "pink";
     }
 }
@@ -92,11 +104,7 @@ tr td:last-child {
     padding-right: 0.3em;
 }
 
-/* td.section {
-    padding-right: 0.15em;
-} */
-
 span.label {
-    width: 3.5em;
+    width: 5em;
 }
 </style>
