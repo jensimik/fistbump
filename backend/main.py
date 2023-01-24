@@ -265,6 +265,12 @@ async def feed_get_item(item_id: int):
                     else:
                         paths.append(
                             {
+                                "path": "M" + HOLDS_PATH[hit]["rightTapeStr"],
+                                "color": "white",
+                            }
+                        )
+                        paths.append(
+                            {
                                 "path": "M" + HOLDS_PATH[hit]["leftTapeStr"],
                                 "color": "white",
                             }
