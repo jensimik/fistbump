@@ -44,9 +44,9 @@ div.main {
 }
 
 nav.imponent {
-  /* max-width: 800px; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
   box-shadow: none;
   border-bottom: 4px dotted #dfdfdf;
 }

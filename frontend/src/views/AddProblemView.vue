@@ -86,13 +86,14 @@ function onFileChange(event) {
       <input v-model="data.setter" type="text" name="setter"
         placeholder="setter name - or if do not know then write 'unknown'" />
       <div class="imageupload">
+        <label>Image</label>
         <label for="image" class="dropimage">
           <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
             accept="image/jpeg;capture=camera">
         </label>
       </div>
       <img class="preview" v-if="image" :src="preview" />
-      <button class="button" @click="add">add</button>
+      <button class="button addbutton" @click="add">add</button>
     </div>
   </div>
 </template>
@@ -100,11 +101,15 @@ function onFileChange(event) {
 
 <style scoped>
 .imageupload {
-  width: 8em;
+  width: 100%;
   ;
 }
 
 img.preview {
+  width: 100%;
+}
+
+button.addbutton {
   width: 100%;
 }
 </style>
