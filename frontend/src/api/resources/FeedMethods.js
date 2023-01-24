@@ -29,13 +29,14 @@ export default {
             });
     },
     async store(data) {
+        console.log(data)
         return fetch(APISettings.baseURL + '/feed', {
             method: 'POST',
             headers: { ...APISettings, ...{ 'Content-Type': 'multipart/form-data' } },
             body: data
         })
             .then(function (response) {
-                if (response.status != 201) {
+                if (response.status != 200) {
                     throw response.status;
                 } else {
                     return response.json();

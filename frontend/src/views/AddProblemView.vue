@@ -17,7 +17,7 @@ async function add(e) {
   formData.set('name', data.value.name);
   formData.set('grade', data.value.grade);
   formData.set('section', data.value.section);
-  formData.set('image', image.value);
+  formData.set('file', image.value);
   await FeedMethodsAPI.store(formData)
   router.push({ name: 'home' })
 }

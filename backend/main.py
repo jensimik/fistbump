@@ -204,7 +204,7 @@ async def feed():
 
 @app.post("/feed")
 async def feed_post(
-    upload_file: UploadFile,
+    file: UploadFile,
     name: str = Form(),
     grade: str = Form(),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
@@ -219,7 +219,7 @@ async def feed_post(
         "created": f"{today:%Y-%m-%d}",
     }
     async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
-        while content := await upload_file.read(1024):  # async read chunk
+        while content := await file.read(1024):  # async read chunk
             await out_file.write(content)  # async write chunk
 
     async with AIOTinyDB(FEED_DB) as db:
