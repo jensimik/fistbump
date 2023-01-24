@@ -1,6 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue';
+import addToHomeButton from './components/addToHomeScreen.vue';
+
 const componentKey = ref(0);
 
 const forceRerender = () => {
@@ -17,6 +19,7 @@ const forceRerender = () => {
       </router-link>
 
       <div class="menu">
+        <addToHomeButton></addToHomeButton>
         <button class="button" @click="forceRerender">refresh</button>
         <router-link :to="{ name: 'addproblem' }" class="button">+problem</router-link>
       </div>
