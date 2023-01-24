@@ -109,41 +109,41 @@ span.label {
 }
 
 span.turquoise {
-    background-color: turquoise;
-    color: #000;
+    background-color: #39CCCC;
+    color: #111111;
 }
 
 span.yellow {
-    background-color: yellow;
-    color: #000;
+    background-color: #FFDC00;
+    color: #111111;
 }
 
 span.green {
-    background-color: green;
+    background-color: #2ECC40;
 }
 
 span.blue {
-    background-color: blue;
+    background-color: #0074d9;
 }
 
 span.purple {
-    background-color: purple;
+    background-color: #B10DC9;
 }
 
 span.red {
-    background-color: red;
+    background-color: #FF4136;
 }
 
 span.brown {
-    background-color: brown;
+    background-color: #85144b;
 }
 
 span.black {
-    background-color: black;
+    background-color: #111111;
 }
 
 span.white {
-    background-color: beige;
-    color: #000;
+    background-color: #DDDDDD;
+    color: #111111;
 }
 </style>

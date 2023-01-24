@@ -58,17 +58,23 @@ GRADE_TO_COLOR = {
     "5C+": "blue",
     "6A": "blue",
     "6A+": "blue",
+    "5C-6A+": "blue",
     "6B": "purple",
     "6B+": "purple",
+    "6B-6B+": "purple",
     "6C": "red",
     "6C+": "red",
+    "6C-6C+": "red",
     "7A": "brown",
     "7A+": "brown",
+    "7A-7A+": "brown",
     "7B": "black",
     "7B+": "black",
     "7C": "black",
+    "7B-7C": "black",
     "7C+": "white",
     "8A": "white",
+    "7C+-8C": "white",
 }
 
 WEEKDAYS = {
