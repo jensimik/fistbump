@@ -51,6 +51,7 @@ nav.imponent {
   margin-left: auto;
   margin-right: auto;
   box-shadow: none;
+  background-color: #efefef;
   border-bottom: 4px dotted #dfdfdf;
 }
 
@@ -80,6 +81,10 @@ h2 {
 }
 </style>
 <style>
+body {
+  background-color: #efefef;
+}
+
 span.turquoise {
   background-color: #39CCCC;
   color: #111111;
@@ -115,7 +120,7 @@ span.black {
 }
 
 span.white {
-  background-color: #DDDDDD;
+  background-color: #fff;
   color: #111111;
 }
 </style>
