@@ -326,4 +326,15 @@ async def feed_get_item(item_id: int):
 @app.get("/grade-stats")
 async def grade_stats():
     async with AIOTinyDB(FEED_DB) as db:
-        return Counter([GRADE_TO_COLOR.get(d["grade"], "?") for d in db]).most_common()
+        stats_boulder = Counter(
+            [
+                GRADE_TO_COLOR.get(d["grade"], "?")
+                for d in db
+                if d["section"] in ["S1", "S2", "S3", "S4", "S5"]
+            ]
+        ).most_common()
+        stats_stokt = Counter(
+            [GRADE_TO_COLOR.get(d["grade"], "?") for d in db if d == "Ö1"]
+        ).most_common()
+
+        return {"stokt": stats_stokt, "boulder": stats_boulder}
