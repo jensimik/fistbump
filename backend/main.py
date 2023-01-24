@@ -48,12 +48,12 @@ with open("setup.json", "r") as f:
     HOLDS_PATH = {h["id"]: h for h in json.load(f)["holds"]}
 
 GRADE_TO_COLOR = {
-    "?": "turquoise",
+    "?": "?",
     "4": "green",
-    "5+": "orange",
-    "5B": "orange",
-    "5B+": "orange",
-    "5B-5B+": "orange",
+    "5+": "yellow",
+    "5B": "yellow",
+    "5B+": "yellow",
+    "5B-5B+": "yellow",
     "5C": "blue",
     "5C+": "blue",
     "6A": "blue",
@@ -67,8 +67,8 @@ GRADE_TO_COLOR = {
     "7B": "black",
     "7B+": "black",
     "7C": "black",
-    "7C+": "pink",
-    "8A": "pink",
+    "7C+": "white",
+    "8A": "white",
 }
 
 WEEKDAYS = {
