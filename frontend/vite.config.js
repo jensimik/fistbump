@@ -11,7 +11,7 @@ export default defineConfig({
     includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
     manifest: {
       name: 'Fistbump',
-      short_name: 'F',
+      short_name: 'Fistbump',
       description: 'Fistbump - all the data you need',
       theme_color: '#ffffff',
       start_url: '/',
