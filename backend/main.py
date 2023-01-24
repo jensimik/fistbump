@@ -338,6 +338,17 @@ async def strip():
     today = datetime.now(tz=TZ).date()
     next_strip = date(2023, 2, 3)
 
+    # 2023.02.03 workshop section5
+    # 2023.02.09 probyg section1
+    # 2023.02.17 fribyg section2
+    # 2023.02.23 probyg section3
+    # 2023.03.03 forbund section4+5
+    # 2023.03.09 probyg section1
+    # 2023.03.17 fribyg section2
+    # 2023.03.23 probyg section3
+    # 2023.03.31 workshop section4
+    # 2023.04.18 juniorbattle section1-5
+
     return {
         "date": f"{next_strip:%d %b}",
         "until": (next_strip - today).days,
