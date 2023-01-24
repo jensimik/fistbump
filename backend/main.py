@@ -248,16 +248,27 @@ async def feed_get_item(item_id: int):
         # parse hold paths if stökt
         paths = []
         if item["section"] == "Ö1":
+            starting_hold_count = sum(
+                [1 if hold.startswith("S") else 0 for hold in item["holds"].split(" ")]
+            )
             for hold in item["holds"].split(" "):
                 hit = int(hold[1:])
                 if hold.startswith("S"):
                     paths.append({"path": HOLDS_PATH[hit]["pathStr"], "color": "white"})
-                    paths.append(
-                        {
-                            "path": "M" + HOLDS_PATH[hit]["rightTapeStr"],
-                            "color": "white",
-                        }
-                    )
+                    if starting_hold_count == 2:
+                        paths.append(
+                            {
+                                "path": "M" + HOLDS_PATH[hit]["rightTapeStr"],
+                                "color": "white",
+                            }
+                        )
+                    else:
+                        paths.append(
+                            {
+                                "path": "M" + HOLDS_PATH[hit]["leftTapeStr"],
+                                "color": "white",
+                            }
+                        )
                 elif hold.startswith("F"):
                     paths.append(
                         {"path": HOLDS_PATH[hit]["pathStr"], "color": "turquoise"}
@@ -272,7 +283,6 @@ async def feed_get_item(item_id: int):
                     )
                 elif hold.startswith("O"):
                     paths.append({"path": HOLDS_PATH[hit]["pathStr"], "color": "white"})
-                    # paths.append(("M" + HOLDS_PATH[hit]["topPolygonStr"], "white"))
                 else:
                     paths.append(
                         {"path": HOLDS_PATH[int(hold)]["pathStr"], "color": "white"}
