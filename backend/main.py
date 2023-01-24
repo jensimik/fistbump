@@ -48,7 +48,7 @@ with open("setup.json", "r") as f:
     HOLDS_PATH = {h["id"]: h for h in json.load(f)["holds"]}
 
 GRADE_TO_COLOR = {
-    "?": "?",
+    "?": "turquoise",
     "4": "green",
     "5+": "yellow",
     "5B": "yellow",
@@ -234,6 +234,7 @@ async def feed():
         today = datetime.now(tz=TZ).replace(tzinfo=None)
         for d in data:
             d["id"] = d.doc_id
+            d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
             d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
         return data
 
@@ -320,7 +321,12 @@ async def feed_get_item(item_id: int):
                         {"path": HOLDS_PATH[int(hold)]["pathStr"], "color": "white"}
                     )
 
-        return {"id": item.doc_id, "paths": paths, **item}
+        return {
+            "id": item.doc_id,
+            "paths": paths,
+            "grade_class": GRADE_TO_COLOR.get(item["grade"]),
+            **item,
+        }
 
 
 @app.get("/grade-stats")

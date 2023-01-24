@@ -78,7 +78,7 @@ items.value = await FeedMethodsAPI.index();
                 <td class="name"><router-link :to="{ name: 'problem', params: { id: item.id } }">{{
                     item.name
                 }}</router-link></td>
-                <td><span class="label" :style="{ backgroundColor: gradeToColor(item.grade) }">{{
+                <td><span class="label" :class="item.grade_class">{{
                     item.grade
                 }}</span></td>
             </tr>
@@ -106,5 +106,44 @@ tr td:last-child {
 
 span.label {
     width: 5em;
+}
+
+span.turquoise {
+    background-color: turquoise;
+    color: #000;
+}
+
+span.yellow {
+    background-color: yellow;
+    color: #000;
+}
+
+span.green {
+    background-color: green;
+}
+
+span.blue {
+    background-color: blue;
+}
+
+span.purple {
+    background-color: purple;
+}
+
+span.red {
+    background-color: red;
+}
+
+span.brown {
+    background-color: brown;
+}
+
+span.black {
+    background-color: black;
+}
+
+span.white {
+    background-color: beige;
+    color: #000;
 }
 </style>

@@ -80,7 +80,6 @@ span.label {
     width: 5em;
 }
 
-
 .hold {
     stroke-width: 15px;
     fill: none;
