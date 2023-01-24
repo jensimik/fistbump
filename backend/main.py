@@ -191,7 +191,9 @@ async def _refresh_stokt():
                 "grade": p["crowdGrade"]["font"],
                 "holds": p["holdsList"],
                 "setter": p["climbSetters"]["fullName"],
-                "created": p["dateCreated"][:10],
+                "created": "{0:%Y-%m-%dT%H:%M:%S}".format(
+                    datetime.fromisoformat(p["dateCreated"])
+                ),
             }
             for p in data
         ]
@@ -206,10 +208,10 @@ async def _refresh_stokt():
 async def feed():
     async with AIOTinyDB(FEED_DB) as db:
         data = sorted(db, key=lambda d: d["created"], reverse=True)[:50]
-        today = datetime.now(tz=TZ).date()
+        today = datetime.now(tz=TZ)
         for d in data:
             d["id"] = d.doc_id
-            d["days_back"] = (today - date.fromisoformat(d["created"])).days
+            d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
         return data
 
 
@@ -229,7 +231,7 @@ async def feed_post(
         "section": section,
         "setter": setter,
         "image": f"https://fbs.gnerd.dk/static/{save_filename}",
-        "created": f"{today:%Y-%m-%d}",
+        "created": f"{today:%Y-%m-%dT%H:%M:%S}",
     }
     async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
         while content := await file.read(1024):  # async read chunk
