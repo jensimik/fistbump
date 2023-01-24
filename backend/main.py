@@ -102,11 +102,11 @@ async def _get_opening_hours(today):
 @app.get("/hours")
 async def get_opening_hours():
     today = datetime.now(tz=TZ).date()
-    data, today, tomorrow = await _get_opening_hours(today)
+    data, hours_today, hours_tomorrow = await _get_opening_hours(today)
     return {
         "today": f"{today:%Y-%m-%d}",
-        "hours_today": today,
-        "hours_tomorrow": tomorrow,
+        "hours_today": hours_today,
+        "hours_tomorrow": hours_tomorrow,
         "data": data,
     }
 
