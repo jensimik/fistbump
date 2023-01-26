@@ -223,6 +223,7 @@ async def _refresh_stokt():
                 "grade": p["crowdGrade"]["font"],
                 "holds": p["holdsList"],
                 "setter": p["climbSetters"]["fullName"],
+                "hidden": p["isPrivate"],
                 "created": "{0:%Y-%m-%dT%H:%M:%S}".format(
                     datetime.fromisoformat(p["dateCreated"])
                 ),
@@ -231,7 +232,10 @@ async def _refresh_stokt():
         ]
     async with AIOTinyDB(FEED_DB) as db:
         for problem in problems:
-            db.upsert(problem, where("stokt_id") == problem["stokt_id"])
+            if problem["hidden"]:
+                db.remove(where("stokt_id") == problem["stokt_id"])
+            else:
+                db.upsert(problem, where("stokt_id") == problem["stokt_id"])
 
     print("finished fetching from stokt")
 
