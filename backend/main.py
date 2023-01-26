@@ -212,9 +212,9 @@ async def _refresh_stokt():
     )
     if r.ok:
         data = r.json()
-        for p in data:
-            if p["name"].startswith("crimp"):
-                pprint(p)
+        # for p in data:
+        #     if p["name"].startswith("crimp"):
+        #         pprint(p)
         problems = [
             {
                 "stokt_id": p["id"],
