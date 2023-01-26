@@ -9,8 +9,6 @@ from fastapi import FastAPI, UploadFile, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from requests_html import AsyncHTMLSession
-from fastapi_mqtt.fastmqtt import FastMQTT
-from fastapi_mqtt.config import MQTTConfig
 from async_lru import alru_cache
 from functools import lru_cache
 from livepopulartimes import get_populartimes_by_place_id
@@ -23,6 +21,8 @@ from pydantic.typing import Literal
 app = FastAPI()
 session = AsyncHTMLSession()
 # mqtt setup
+# from fastapi_mqtt.fastmqtt import FastMQTT
+# from fastapi_mqtt.config import MQTTConfig
 # mqtt_config = MQTTConfig()
 # fast_mqtt = FastMQTT(config=mqtt_config)
 # fast_mqtt.init_app(app)
