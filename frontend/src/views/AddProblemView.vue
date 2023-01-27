@@ -90,25 +90,41 @@ function onFileChange(event) {
       <label for="text">Notes</label>
       <input v-model="data.text" type="text" name="text" />
       <label>Image</label>
-      <div class="imageupload" :style="{ backgroundImage: preview ? 'url(' + preview + ')' : 'none' }">
-        <label for="image" class="dropimage" :style="{
-          backgroundSize: preview ? '10%' : '100%'
-        }">
-          <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
-            accept="image/*;capture=camera">
-        </label>
+      <div class="flex one">
+        <div class="imagecontainer">
+          <img class="preview" :src="preview ? preview : 'https://via.placeholder.com/900x1200'" />
+          <label for="image" class="dropimage" :style="{
+            backgroundSize: preview ? '50%' : '100%'
+          }">
+            <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
+              accept="image/*;capture=camera">
+          </label>
+        </div>
       </div>
-      <!-- <img class="preview" v-if="image" :src="preview" /> -->
-      <button class="button addbutton" @click="add">add</button>
+      <div class="flex one">
+        <div>
+          <button class="button addbutton" @click="add">add</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 
 <style scoped>
+.imagecontainer {
+  position: relative;
+}
+
 .dropimage {
   background-color: transparent;
   background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
 }
 
 .imageupload {
@@ -121,7 +137,7 @@ img.preview {
   width: 100%;
 }
 
-button.addbutton {
+button {
   width: 100%;
 }
 </style>

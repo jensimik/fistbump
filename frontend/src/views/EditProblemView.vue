@@ -23,7 +23,9 @@ async function update(e) {
     formData.set('section', data.value.section);
     formData.set('setter', data.value.setter);
     formData.set('text', data.value.text);
-    formData.set('file', image.value);
+    if (image.value) {
+        formData.set('file', image.value);
+    }
     await FeedMethodsAPI.update(props.id, formData)
     router.push({ name: 'problem', params: { id: props.id } })
 }
@@ -96,15 +98,15 @@ preview.value = data.value.image;
             <label for="text">Notes</label>
             <input v-model="data.text" type="text" name="text" />
             <label>Image</label>
-            <div class="imageupload" :style="{ backgroundImage: preview ? 'url(' + preview + ')' : 'none' }">
+            <div class="imagecontainer">
+                <img class="preview" v-if="preview" :src="preview" />
                 <label for="image" class="dropimage" :style="{
-                    backgroundSize: preview ? '10%' : '100%'
+                    backgroundSize: preview ? '50%' : '100%'
                 }">
                     <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
                         accept="image/*;capture=camera">
                 </label>
             </div>
-            <!-- <img class="preview" v-if="image" :src="preview" /> -->
             <button class="button warning" @click="remove">remove</button>
             <button class="button success" @click="update">update</button>
         </div>
@@ -113,9 +115,19 @@ preview.value = data.value.image;
 
 
 <style scoped>
+.imagecontainer {
+    position: relative;
+}
+
 .dropimage {
     background-color: transparent;
     background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
 }
 
 .imageupload {
