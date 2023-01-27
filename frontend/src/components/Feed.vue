@@ -95,7 +95,7 @@ td.name {
 }
 
 td {
-    padding-right: 0;
+    padding-right: 0.1em;
     padding-left: 0;
 }
 
