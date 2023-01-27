@@ -283,6 +283,42 @@ async def feed_post(
     return problem
 
 
+@app.delete("/feed/{item_id}")
+async def feed_delete_item(item_id: int):
+    async with AIOTinyDB(FEED_DB) as db:
+        item = db.remove(doc_ids=[item_id])
+
+
+@app.put("/feed/{item_id}")
+async def feed_update_item(
+    item_id: int,
+    file: UploadFile,
+    name: str = Form(),
+    grade: str = Form(),
+    setter: str = Form(),
+    text: str = Form(),
+    section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
+):
+    today = datetime.now(tz=TZ).date()
+    save_filename = f"{uuid4().hex}.jpg"
+    problem = {
+        "name": name,
+        "grade": grade,
+        "section": section,
+        "setter": setter,
+        "text": text,
+        "image": f"https://fbs.gnerd.dk/static/{save_filename}",
+        "created": f"{today:%Y-%m-%dT%H:%M:%S}",
+    }
+    async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
+        while content := await file.read(1024):  # async read chunk
+            await out_file.write(content)  # async write chunk
+
+    async with AIOTinyDB(FEED_DB) as db:
+        db.update(problem, doc_ids=[item_id])
+    return problem
+
+
 @app.get("/feed/{item_id}")
 async def feed_get_item(item_id: int):
     async with AIOTinyDB(FEED_DB) as db:
@@ -391,10 +427,6 @@ async def grade_stats():
                 ]
             ).most_common()
         }
-
-        pprint(stats_stokt)
-        pprint(stats_boulder)
-
         return {
             "boulder": {
                 "green": stats_boulder.get("green", 0),

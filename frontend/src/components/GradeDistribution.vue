@@ -69,21 +69,21 @@ const data_stokt = [
 </script>
 
 <template>
-    <h2>Grade distribution <span class="small">()</span>
-    </h2>
-    <h3>Boulder</h3>
-    <GChart class="cc" :data="data_boulder" :options="options" :type="type"></GChart>
-    <h3>Stökt</h3>
-    <GChart class="cc" :data="data_stokt" :options="options" :type="type"></GChart>
+    <h2>Grade distribution</h2>
+    <div class="flex two">
+        <div class="distgrid fifth">Boulder</div>
+        <GChart class="distgrid four-fifth" :data="data_boulder" :options="options" :type="type"></GChart>
+    </div>
+    <div class="flex two">
+        <div class="distgrid fifth">Stökt</div>
+        <GChart class="distgrid four-fifth" :data="data_stokt" :options="options" :type="type"></GChart>
+    </div>
 </template>
 
 <style scoped>
-.cc {
+.distgrid {
     height: 4em;
-}
-
-h3 {
-    margin: 0;
-    padding: 0;
+    display: flex;
+    align-items: center;
 }
 </style>
