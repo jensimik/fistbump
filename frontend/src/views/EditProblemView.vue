@@ -7,6 +7,7 @@ const props = defineProps(['id'])
 
 const data = ref({
     name: "",
+    color: "",
     grade: "6A",
     section: "S1",
     setter: "",
@@ -19,6 +20,7 @@ const image = ref(null);
 async function update(e) {
     let formData = new FormData()
     formData.set('name', data.value.name);
+    formData.set('color', data.value.color);
     formData.set('grade', data.value.grade);
     formData.set('section', data.value.section);
     formData.set('setter', data.value.setter);
@@ -59,6 +61,17 @@ preview.value = data.value.image;
             <label for="name">Name</label>
             <input v-model="data.name" type="text" required name="name"
                 placeholder="give it a good name and tag the tape too" />
+            <label for="holdcolor">Holds color</label>
+            <select v-model="data.color" name="color">
+                <option value="yellow">yellow</option>
+                <option value="red">red</option>
+                <option value="blue">blue</option>
+                <option value="green">green</option>
+                <option value="black">black</option>
+                <option value="white">white</option>
+                <option value="purple">purple</option>
+                <option value="brown">brown</option>
+            </select>
             <label for="grade">Grade</label>
             <select v-model="data.grade" name="grade">
                 <option value="4-5A">Green range (4-5A)</option>

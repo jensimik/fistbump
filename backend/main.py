@@ -261,6 +261,7 @@ async def feed():
 async def feed_post(
     file: UploadFile,
     name: str = Form(),
+    color: str = Form(),
     grade: str = Form(),
     setter: str = Form(),
     text: str = Form(),
@@ -271,6 +272,7 @@ async def feed_post(
     problem = {
         "name": name,
         "grade": grade,
+        "color": color,
         "section": section,
         "setter": setter,
         "text": text,
@@ -296,6 +298,7 @@ async def feed_delete_item(item_id: int):
 async def feed_update_item(
     item_id: int,
     name: str = Form(),
+    color: str = Form(),
     grade: str = Form(),
     setter: str = Form(),
     text: str = Form(),
@@ -319,6 +322,7 @@ async def feed_update_item(
         problem = {
             "name": name,
             "grade": grade,
+            "color": color,
             "section": section,
             "setter": setter,
             "text": text,
