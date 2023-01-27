@@ -59,12 +59,12 @@ const options = {
 const distribution = ref({});
 distribution.value = await GradeDistributionMethodsAPI.index();
 const data_boulder = [
-    ['Type', 'green', 'yellow', 'blue', 'purple', 'red', 'brown', 'black', 'white', { role: 'annotation' }],
-    ['Boulder', distribution.value.boulder.green, distribution.value.boulder.yellow, distribution.value.boulder.blue, distribution.value.boulder.purple, distribution.value.boulder.red, distribution.value.boulder.brown, distribution.value.boulder.black, distribution.value.boulder.white, ''],
+    ['Type', 'green', { role: 'annotation' }, 'yellow', { role: 'annotation' }, 'blue', { role: 'annotation' }, 'purple', { role: 'annotation' }, 'red', { role: 'annotation' }, 'brown', { role: 'annotation' }, 'black', { role: 'annotation' }, 'white', { role: 'annotation' }],
+    ['Boulder', distribution.value.boulder.green, distribution.value.boulder.green, distribution.value.boulder.yellow, distribution.value.boulder.yellow, distribution.value.boulder.blue, distribution.value.boulder.blue, distribution.value.boulder.purple, distribution.value.boulder.purple, distribution.value.boulder.red, distribution.value.boulder.red, distribution.value.boulder.brown, distribution.value.boulder.brown, distribution.value.boulder.black, distribution.value.boulder.black, distribution.value.boulder.white, distribution.value.boulder.white],
 ];
 const data_stokt = [
-    ['Type', 'green', 'yellow', 'blue', 'purple', 'red', 'brown', 'black', 'white', { role: 'annotation' }],
-    ['Stökt', distribution.value.stokt.green, distribution.value.stokt.yellow, distribution.value.stokt.blue, distribution.value.stokt.purple, distribution.value.stokt.red, distribution.value.stokt.brown, distribution.value.stokt.black, distribution.value.stokt.white, ''],
+    ['Type', 'green', { role: 'annotation' }, 'yellow', { role: 'annotation' }, 'blue', { role: 'annotation' }, 'purple', { role: 'annotation' }, 'red', { role: 'annotation' }, 'brown', { role: 'annotation' }, 'black', { role: 'annotation' }, 'white', { role: 'annotation' }],
+    ['Stökt', distribution.value.stokt.green, distribution.value.stokt.green, distribution.value.stokt.yellow, distribution.value.stokt.yellow, distribution.value.stokt.blue, distribution.value.stokt.blue, distribution.value.stokt.purple, distribution.value.stokt.purple, distribution.value.stokt.red, distribution.value.stokt.red, distribution.value.stokt.brown, distribution.value.stokt.brown, distribution.value.stokt.black, distribution.value.stokt.black, distribution.value.stokt.white, distribution.value.stokt.white],
 ];
 </script>
 
