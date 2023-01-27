@@ -53,28 +53,28 @@ function onFileChange(event) {
         placeholder="give it a good name and tag the tape too" />
       <label for="grade">Grade</label>
       <select v-model="data.grade" name="grade">
-        <option value="let">Green (let)</option>
-        <option value="5B">Yellow soft (5b)</option>
-        <option value="5B+">Yellow hard (5b+)</option>
-        <option value="5B-5B+">Yellow range (5b-5b+)</option>
-        <option value="5C">Blue soft (5c)</option>
-        <option value="6A">Blue medium (6a)</option>
-        <option value="6A+">Blue hard (6a+)</option>
-        <option value="5C-6A+">Blue range (5c-6a+)</option>
-        <option value="6B">Purple soft (6b)</option>
-        <option value="6B+">Purple hard (6b+)</option>
-        <option value="6B-6B+">Purple range (6b-6b+)</option>
-        <option value="6C">Red soft (6c)</option>
-        <option value="6C+">Red hard (6c+)</option>
-        <option value="6C-6C+">Red range (6c-6c+)</option>
-        <option value="7A">Brown soft (7a)</option>
-        <option value="7A+">Brown hard (7a+)</option>
-        <option value="7A-7A+">Brown range (7a-7a+)</option>
-        <option value="7B">Black soft (7b)</option>
-        <option value="7B+">Black medium (7b+)</option>
-        <option value="7C">Black hard (7c)</option>
-        <option value="7B-7C">Black range (7b-7c)</option>
-        <option value="7C+-8C">Mytical white (7c+-8c)</option>
+        <option value="4-5A">Green range (4-5A)</option>
+        <option value="5B">Yellow soft (5B)</option>
+        <option value="5B+">Yellow hard (5B+)</option>
+        <option value="5B-5B+">Yellow range (5B-5B+)</option>
+        <option value="5C">Blue soft (5C)</option>
+        <option value="6A">Blue medium (6A)</option>
+        <option value="6A+">Blue hard (6A+)</option>
+        <option value="5C-6A+">Blue range (5C-6A+)</option>
+        <option value="6B">Purple soft (6B)</option>
+        <option value="6B+">Purple hard (6B+)</option>
+        <option value="6B-6B+">Purple range (6B-6B+)</option>
+        <option value="6C">Red soft (6C)</option>
+        <option value="6C+">Red hard (6C+)</option>
+        <option value="6C-6C+">Red range (6C-6C+)</option>
+        <option value="7A">Brown soft (7A)</option>
+        <option value="7A+">Brown hard (7A+)</option>
+        <option value="7A-7A+">Brown range (7A-7A+)</option>
+        <option value="7B">Black soft (7B)</option>
+        <option value="7B+">Black medium (7B+)</option>
+        <option value="7C">Black hard (7C)</option>
+        <option value="7B-7C">Black range (7B-7C)</option>
+        <option value="7C+-8C">Mytical white (7C+-8C)</option>
       </select>
       <label for="section">Section</label>
       <select v-model="data.section" name="section">
@@ -89,14 +89,16 @@ function onFileChange(event) {
         placeholder="setter name - or if do not know then write 'unknown'" />
       <label for="text">Notes</label>
       <input v-model="data.text" type="text" name="text" />
-      <div class="imageupload">
-        <label>Image</label>
-        <label for="image" class="dropimage">
+      <label>Image</label>
+      <div class="imageupload" :style="{ backgroundImage: preview ? 'url(' + preview + ')' : 'none' }">
+        <label for="image" class="dropimage" :style="{
+          backgroundSize: preview ? '10%' : '100%'
+        }">
           <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
-            accept="image/jpeg;capture=camera">
+            accept="image/*;capture=camera">
         </label>
       </div>
-      <img class="preview" v-if="image" :src="preview" />
+      <!-- <img class="preview" v-if="image" :src="preview" /> -->
       <button class="button addbutton" @click="add">add</button>
     </div>
   </div>
@@ -104,9 +106,15 @@ function onFileChange(event) {
 
 
 <style scoped>
+.dropimage {
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+
 .imageupload {
   width: 100%;
-  ;
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 img.preview {

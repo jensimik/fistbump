@@ -369,15 +369,46 @@ async def strip():
 @app.get("/grade-stats")
 async def grade_stats():
     async with AIOTinyDB(FEED_DB) as db:
-        stats_boulder = Counter(
-            [
-                GRADE_TO_COLOR.get(d["grade"], "?")
-                for d in db
-                if d["section"] in ["S1", "S2", "S3", "S4", "S5"]
-            ]
-        ).most_common()
-        stats_stokt = Counter(
-            [GRADE_TO_COLOR.get(d["grade"], "?") for d in db if d["section"] == "Ö1"]
-        ).most_common()
+        stats_boulder = {
+            key: val
+            for key, val in Counter(
+                [
+                    GRADE_TO_COLOR.get(d["grade"], "?")
+                    for d in db
+                    if d["section"] in ["S1", "S2", "S3", "S4", "S5"]
+                ]
+            ).most_common()
+        }
+        stats_stokt = {
+            key: val
+            for key, val in Counter(
+                [
+                    GRADE_TO_COLOR.get(d["grade"], "?")
+                    for d in db
+                    if d["section"] == "Ö1"
+                ]
+            ).most_common()
+        }
 
-        return {"stokt": stats_stokt, "boulder": stats_boulder}
+        return {
+            "boulder": {
+                "green": stats_boulder.get("green", 0),
+                "yellow": stats_boulder.get("yellow", 0),
+                "blue": stats_boulder.get("blue", 0),
+                "purple": stats_boulder.get("purple", 0),
+                "red": stats_boulder.get("red", 0),
+                "brown": stats_boulder.get("brown", 0),
+                "black": stats_boulder.get("black", 0),
+                "white": stats_boulder.get("white", 0),
+            },
+            "stoke": {
+                "green": stats_stokt.get("green", 0),
+                "yellow": stats_stokt.get("yellow", 0),
+                "blue": stats_stokt.get("blue", 0),
+                "purple": stats_stokt.get("purple", 0),
+                "red": stats_stokt.get("red", 0),
+                "brown": stats_stokt.get("brown", 0),
+                "black": stats_stokt.get("black", 0),
+                "white": stats_stokt.get("white", 0),
+            },
+        }
