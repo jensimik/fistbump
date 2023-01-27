@@ -82,7 +82,7 @@ const data_stokt = [
 
 <style scoped>
 .distgrid {
-    height: 4em;
+    height: 3em;
     display: flex;
     align-items: center;
 }
