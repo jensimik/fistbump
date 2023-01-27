@@ -1,22 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { ref } from 'vue';
 import addToHomeButton from './components/addToHomeScreen.vue';
-
-const componentKey = ref(0);
-
-const forceRerender = () => {
-  componentKey.value += 1;
-};
-
-// refresh on visibilitychange (switching to the app)
-window.addEventListener('visibilitychange', function () {
-  if (document.visibilityState === 'visible') {
-    componentKey.value += 1;
-  }
-});
-
-
 </script>
 
 <template>
@@ -29,17 +13,14 @@ window.addEventListener('visibilitychange', function () {
 
       <div class="menu">
         <addToHomeButton></addToHomeButton>
-        <!--
-        <button class="button" @click="forceRerender">refresh</button>
--->
         <router-link :to="{ name: 'addproblem' }" class="button">+problem</router-link>
       </div>
     </nav>
 
-    <div class="flex one" :key="componentKey">
+    <div class="flex one">
       <div class="full paddypower"></div>
       <Suspense>
-        <div>
+        <div id="content">
           <RouterView />
         </div>
         <template #fallback>
@@ -51,6 +32,10 @@ window.addEventListener('visibilitychange', function () {
 </template>
 
 <style scoped>
+#content {
+  padding: 0 0.1em;
+}
+
 div.main {
   max-width: 800px;
   margin-left: auto;
