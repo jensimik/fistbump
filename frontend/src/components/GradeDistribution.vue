@@ -9,7 +9,7 @@ const options = {
     width: '100%',
     height: '100%',
     chartArea: { left: '0', top: 0, width: "100%", height: '100%' },
-    bar: { groupWidth: '100%' },
+    bar: { groupWidth: '50%' },
     isStacked: "percent",
     legend: { position: "none" },
     series: {
@@ -79,6 +79,11 @@ const data_stokt = [
 
 <style scoped>
 .cc {
-    height: 2em;
+    height: 4em;
+}
+
+h3 {
+    margin: 0;
+    padding: 0;
 }
 </style>
