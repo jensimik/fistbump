@@ -50,6 +50,8 @@ with open("setup.json", "r") as f:
 GRADE_TO_COLOR = {
     "?": "turquoise",
     "4": "green",
+    "4+": "green",
+    "5": "green",
     "5+": "yellow",
     "5B": "yellow",
     "5B+": "yellow",
