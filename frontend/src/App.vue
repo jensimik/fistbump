@@ -8,6 +8,15 @@ const componentKey = ref(0);
 const forceRerender = () => {
   componentKey.value += 1;
 };
+
+// refresh on visibilitychange (switching to the app)
+window.addEventListener('visibilitychange', function () {
+  if (document.visibilityState === 'visible') {
+    componentKey.value += 1;
+  }
+});
+
+
 </script>
 
 <template>
