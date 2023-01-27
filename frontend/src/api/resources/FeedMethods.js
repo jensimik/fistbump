@@ -28,6 +28,33 @@ export default {
                 }
             });
     },
+    async update(item_id, data) {
+        return fetch(APISettings.baseURL + '/feed/' + item_id, {
+            method: 'PUT',
+            headers: APISettings,
+            body: data
+        })
+            .then(function (response) {
+                if (response.status != 200) {
+                    throw response.status;
+                } else {
+                    return response.json();
+                }
+            });
+    },
+    async remove(item_id) {
+        return fetch(APISettings.baseURL + '/feed/' + item_id, {
+            method: 'DELETE',
+            headers: APISettings,
+        })
+            .then(function (response) {
+                if (response.status != 200) {
+                    throw response.status;
+                } else {
+                    return response.json();
+                }
+            });
+    },
     async store(data) {
         return fetch(APISettings.baseURL + '/feed', {
             method: 'POST',
