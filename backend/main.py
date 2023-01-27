@@ -390,6 +390,9 @@ async def grade_stats():
             ).most_common()
         }
 
+        pprint(stats_stokt)
+        pprint(stats_boulder)
+
         return {
             "boulder": {
                 "green": stats_boulder.get("green", 0),
