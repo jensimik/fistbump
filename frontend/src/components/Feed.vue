@@ -74,11 +74,13 @@ items.value = await FeedMethodsAPI.index();
         <tbody>
             <tr v-for="item in items" :key="item.id">
                 <td>-{{ item.days_back }}d</td>
-                <td class="section">{{ item.section }}</td>
-                <td class="name"><router-link :to="{ name: 'problem', params: { id: item.id } }"><span v-if="item.color"
-                            class="label" :class="item.color" :title="'holds color ' + item.color">H</span> {{
-                                item.name
-                            }}</router-link></td>
+                <td class="section"><span v-if="item.color" class="label" :class="item.color"
+                        :title="'holds color ' + item.color">{{ item.section }}</span><span v-else>{{
+                            item.section
+                        }}</span></td>
+                <td class="name"><router-link :to="{ name: 'problem', params: { id: item.id } }">{{
+                    item.name
+                }}</router-link></td>
                 <td><span class="label grade" :class="item.grade_class">{{
                     item.grade
                 }}</span></td>
@@ -93,7 +95,7 @@ td.name {
 }
 
 td {
-    padding-right: 0.15em;
+    padding-right: 0;
     padding-left: 0;
 }
 
