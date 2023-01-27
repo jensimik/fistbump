@@ -54,6 +54,7 @@ GRADE_TO_COLOR = {
     "4": "green",
     "4+": "green",
     "5": "green",
+    "4-5A": "green",
     "5+": "yellow",
     "5B": "yellow",
     "5B+": "yellow",
