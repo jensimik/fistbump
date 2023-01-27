@@ -401,7 +401,7 @@ async def grade_stats():
                 "black": stats_boulder.get("black", 0),
                 "white": stats_boulder.get("white", 0),
             },
-            "stoke": {
+            "stokt": {
                 "green": stats_stokt.get("green", 0),
                 "yellow": stats_stokt.get("yellow", 0),
                 "blue": stats_stokt.get("blue", 0),
