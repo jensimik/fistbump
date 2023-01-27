@@ -7,8 +7,17 @@ strip.value = await StripMethodsAPI.index();
 </script>
 
 <template>
-    <h2>{{ strip.section }} strip {{ strip.date }} <span class="small">({{ strip.setters }} | {{ strip.until }} days
-            left to close the
-            set)</span></h2>
+    <h2>{{ strip.section }} strip {{ strip.date }}</h2>
+    <p>{{ strip.setters }} | {{ strip.until }} days left to close the set</p>
     <div><img src="@/assets/sections.png" style="width:100%" /></div>
 </template>
+
+<style scoped>
+h2 {
+    padding-bottom:
+}
+
+p {
+    margin-top: 0;
+}
+</style>
