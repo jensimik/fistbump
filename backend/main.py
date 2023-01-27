@@ -14,9 +14,11 @@ from functools import lru_cache
 from livepopulartimes import get_populartimes_by_place_id
 from aiotinydb import AIOTinyDB
 from tinydb import where
+from tinydb.operations import set as tinydb_set
 from tasks import repeat_every
 from pydantic import BaseModel, Field
 from pydantic.typing import Literal
+from typing import Optional
 
 app = FastAPI()
 session = AsyncHTMLSession()
@@ -292,29 +294,37 @@ async def feed_delete_item(item_id: int):
 @app.put("/feed/{item_id}")
 async def feed_update_item(
     item_id: int,
-    file: UploadFile,
     name: str = Form(),
     grade: str = Form(),
     setter: str = Form(),
     text: str = Form(),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
+    file: Optional[UploadFile] = None,
 ):
     today = datetime.now(tz=TZ).date()
-    save_filename = f"{uuid4().hex}.jpg"
-    problem = {
-        "name": name,
-        "grade": grade,
-        "section": section,
-        "setter": setter,
-        "text": text,
-        "image": f"https://fbs.gnerd.dk/static/{save_filename}",
-        "created": f"{today:%Y-%m-%dT%H:%M:%S}",
-    }
-    async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
-        while content := await file.read(1024):  # async read chunk
-            await out_file.write(content)  # async write chunk
 
     async with AIOTinyDB(FEED_DB) as db:
+        item = db.get(doc_id=item_id)
+
+        image_url = item["image"]
+
+        if file:
+            save_filename = f"{uuid4().hex}.jpg"
+            async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
+                while content := await file.read(1024):  # async read chunk
+                    await out_file.write(content)  # async write chunk
+            image_url = f"https://fbs.gnerd.dk/static/{save_filename}"
+
+        problem = {
+            "name": name,
+            "grade": grade,
+            "section": section,
+            "setter": setter,
+            "text": text,
+            "image": image_url,
+            "created": item["created"],
+        }
+
         db.update(problem, doc_ids=[item_id])
     return problem
 
