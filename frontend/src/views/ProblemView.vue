@@ -60,7 +60,7 @@ item.value = await FeedMethodsAPI.get(props.id);
     <h2>{{ item.name }} ({{ item.section }}) <span class="label" :class="item.grade_class">{{
         item.grade
     }}</span></h2>
-    <router-link :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link>
+    <!-- <router-link :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link> -->
     <p>{{ item.setter }}</p>
 
     <div v-if="item.section == 'Ö1'">
