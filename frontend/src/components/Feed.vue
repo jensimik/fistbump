@@ -75,8 +75,8 @@ items.value = await FeedMethodsAPI.index();
             <tr v-for="item in items" :key="item.id">
                 <td>-{{ item.days_back }}d</td>
                 <td class="section">{{ item.section }}</td>
-                <td class="name"><router-link :to="{ name: 'problem', params: { id: item.id } }"><span class="label"
-                            v-if="section == 'Ö'" :class="item.color" title="holds color">H</span>{{
+                <td class="name"><router-link :to="{ name: 'problem', params: { id: item.id } }"><span v-if="item.color"
+                            class="label" :class="item.color" :title="'holds color ' + item.color">H</span> {{
                                 item.name
                             }}</router-link></td>
                 <td><span class="label grade" :class="item.grade_class">{{
@@ -105,7 +105,11 @@ tr td:last-child {
     padding-right: 0.3em;
 }
 
-.span.grade {
+span.grade {
     width: 5em;
+}
+
+span.label {
+    margin-left: 0;
 }
 </style>

@@ -69,6 +69,7 @@ preview.value = data.value.image;
                 <option value="green">green</option>
                 <option value="black">black</option>
                 <option value="white">white</option>
+                <option value="orange">orange</option>
                 <option value="purple">purple</option>
                 <option value="brown">brown</option>
             </select>
