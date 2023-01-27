@@ -29,7 +29,9 @@ window.addEventListener('visibilitychange', function () {
 
       <div class="menu">
         <addToHomeButton></addToHomeButton>
+        <!--
         <button class="button" @click="forceRerender">refresh</button>
+-->
         <router-link :to="{ name: 'addproblem' }" class="button">+problem</router-link>
       </div>
     </nav>
