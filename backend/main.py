@@ -223,7 +223,7 @@ async def _refresh_stokt():
         problems = [
             {
                 "stokt_id": p["id"],
-                "section": "Ö1",
+                "section": "Ö",
                 "name": p["name"],
                 "grade": p["crowdGrade"]["font"],
                 "holds": p["holdsList"],
@@ -340,7 +340,7 @@ async def feed_get_item(item_id: int):
         item = db.get(doc_id=item_id)
         # parse hold paths if stökt
         paths = []
-        if item["section"] == "Ö1":
+        if item["section"] == "Ö":
             starting_hold_count = sum(
                 [1 if hold.startswith("S") else 0 for hold in item["holds"].split(" ")]
             )
@@ -435,11 +435,7 @@ async def grade_stats():
         stats_stokt = {
             key: val
             for key, val in Counter(
-                [
-                    GRADE_TO_COLOR.get(d["grade"], "?")
-                    for d in db
-                    if d["section"] == "Ö1"
-                ]
+                [GRADE_TO_COLOR.get(d["grade"], "?") for d in db if d["section"] == "Ö"]
             ).most_common()
         }
         return {
