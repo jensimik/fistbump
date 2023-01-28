@@ -129,7 +129,7 @@ img.problem {
 .big {
     position: absolute;
     border-radius: 0;
-    font-size: 0.8em;
+    font-size: 1em;
 }
 
 .left {

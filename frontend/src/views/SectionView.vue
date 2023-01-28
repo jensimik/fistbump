@@ -55,4 +55,8 @@ td.section {
 span.label {
     margin-left: 0;
 }
+
+.big {
+    0.8em;
+}
 </style>
