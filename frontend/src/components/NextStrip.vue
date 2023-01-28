@@ -9,7 +9,7 @@ strip.value = await StripMethodsAPI.index();
 <template>
     <h2>{{ strip.section }} strip {{ strip.date }}</h2>
     <p>{{ strip.setters }} | {{ strip.until }} days left to close the set</p>
-    <div><img src="@/assets/sections.png" style="width:100%" /></div>
+    <div><img src="@/assets/nkk-walls.svg" style="width:100%" /></div>
 </template>
 
 <style scoped>
