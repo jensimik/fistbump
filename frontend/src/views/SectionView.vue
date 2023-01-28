@@ -7,12 +7,13 @@ const props = defineProps(['id'])
 
 const data = ref({})
 data.value = await FeedMethodsAPI.index_section(props.id);
-const items = data.value.items;
-console.log(data.value);
+const items = data.value.data;
 </script>
 
 <template>
     <h2>Problems on section {{ props.id }}</h2>
+
+    <p>Hold colors used: <span class="label" :class="color" v-for="(c, color) in data.colors">{{ c }}</span></p>
 
     <div class="flex two">
         <div v-for="item in items" :key="item.id">
