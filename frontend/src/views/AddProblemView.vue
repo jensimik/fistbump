@@ -6,6 +6,7 @@ import { ref } from 'vue';
 
 
 const setter_name = useLocalStorage("name", "")
+const setter_auth = useLocalStorage("setter_auth", "");
 
 const data = ref({
   name: "",
@@ -29,6 +30,7 @@ async function add(e) {
   formData.set('setter', data.value.setter)
   formData.set('text', data.value.text)
   formData.set('file', image.value)
+  formData.set('auth', setter_auth.value)
   e.disabled = true
   try {
     await FeedMethodsAPI.store(formData)
