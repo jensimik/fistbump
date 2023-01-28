@@ -21,7 +21,9 @@ import addToHomeButton from './components/addToHomeScreen.vue';
       <div class="full paddypower"></div>
       <Suspense>
         <div id="content">
-          <RouterView />
+          <div>
+            <RouterView />
+          </div>
         </div>
         <template #fallback>
           <div>Loading...</div>
@@ -32,7 +34,7 @@ import addToHomeButton from './components/addToHomeScreen.vue';
 </template>
 
 <style scoped>
-#content {
+#content div {
   padding: 0 0.1em;
 }
 
