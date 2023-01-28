@@ -150,5 +150,6 @@ img.problem {
 .setter {
     bottom: 0;
     left: 0;
+    font-size: 0.4em !important;
 }
 </style>
