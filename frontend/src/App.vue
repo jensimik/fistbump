@@ -122,4 +122,8 @@ span.white {
   background-color: #fff;
   color: #111111;
 }
+
+span.orange {
+  background-color: #FF851B;
+}
 </style>
