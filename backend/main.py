@@ -1,11 +1,12 @@
 import json
 import aiofiles
+import asyncio
 from pprint import pprint
 from uuid import uuid4
 from collections import Counter
 from datetime import date, datetime, timedelta
 from dateutil import tz
-from fastapi import FastAPI, UploadFile, Form
+from fastapi import FastAPI, UploadFile, Form, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from requests_html import AsyncHTMLSession
@@ -438,6 +439,14 @@ async def strip():
                 "section": section,
                 "setters": setters,
             }
+
+
+@app.get("/setter-code/{setter_code}")
+async def link_setter_code(setter_code: str):
+    await asyncio.sleep(15)
+    if setter_code == "1337":
+        return {"token": "gWvN8wBDQ$7u5T"}
+    raise HTTPException(status_code=403, detail="go away")
 
 
 @app.get("/grade-stats")

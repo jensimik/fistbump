@@ -17,14 +17,16 @@ const image = ref(null);
 
 async function add(e) {
   let formData = new FormData()
-  formData.set('name', data.value.name);
-  formData.set('color', data.value.color);
-  formData.set('grade', data.value.grade);
-  formData.set('section', data.value.section);
-  formData.set('setter', data.value.setter);
-  formData.set('text', data.value.text);
-  formData.set('file', image.value);
+  formData.set('name', data.value.name)
+  formData.set('color', data.value.color)
+  formData.set('grade', data.value.grade)
+  formData.set('section', data.value.section)
+  formData.set('setter', data.value.setter)
+  formData.set('text', data.value.text)
+  formData.set('file', image.value)
+  e.disabled = true
   await FeedMethodsAPI.store(formData)
+  e.disable = false
   router.push({ name: 'home' })
 }
 

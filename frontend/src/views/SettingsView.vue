@@ -1,5 +1,7 @@
 <script setup>
+import { ref } from 'vue';
 import GradeDistribution from '../components/GradeDistribution.vue';
+import SetterMethods from '../api/resources/SetterMethods';
 import router from '../router/index.js';
 import useLocalStorage from '../useLocalStorage';
 
@@ -9,7 +11,15 @@ const data = {
     grade: useLocalStorage("grade", "5C-6A+"),
     sections: useLocalStorage("sections", ["calendar", "hours_popular", "strip", "problems"]),
     setter: useLocalStorage("setter", "no"),
+    setter_auth: useLocalStorage("setter_auth", ""),
 };
+
+async function link_setter_code(e) {
+    e.disabled = true
+    const answer = await SetterMethods.get(data.setter_code.value)
+    data.setter_auth.value = answer.token;
+    e.disabled = false
+}
 </script>
 
 <template>
@@ -56,7 +66,9 @@ const data = {
                 <h2>Setter code</h2>
             </label>
             <input v-model="data.setter_code.value" type="text" name="setter_code"
-                placeholder="leave empty if you are not setting problems" />
+                placeholder="enter current code for 'grebrum'" />
+            <p v-if="data.setter_auth.value">setter code is linked successful</p>
+            <p v-else>not linked</p>
             <button @click="link_setter_code">link your setter code</button>
         </div>
     </div>
