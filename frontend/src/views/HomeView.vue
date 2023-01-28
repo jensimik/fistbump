@@ -23,9 +23,11 @@ window.addEventListener('visibilitychange', function () {
 </script>
 
 <template>
-  <Calendar></Calendar>
-  <HoursPopular></HoursPopular>
-  <Strip></Strip>
-  <Feed></Feed>
-  <GradeDistribution></GradeDistribution>
+  <div :key="componentKey">
+    <Calendar></Calendar>
+    <HoursPopular></HoursPopular>
+    <Strip></Strip>
+    <Feed></Feed>
+    <GradeDistribution></GradeDistribution>
+  </div>
 </template>
