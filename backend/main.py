@@ -257,6 +257,22 @@ async def feed():
         return data
 
 
+@app.get("/section/{section_id}")
+async def feed(section_id: str):
+    async with AIOTinyDB(FEED_DB) as db:
+        data = sorted(
+            db.search(where("section") == section_id),
+            key=lambda d: d["created"],
+            reverse=True,
+        )[:50]
+        today = datetime.now(tz=TZ).replace(tzinfo=None)
+        for d in data:
+            d["id"] = d.doc_id
+            d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
+            d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
+        return data
+
+
 @app.post("/feed")
 async def feed_post(
     file: UploadFile,

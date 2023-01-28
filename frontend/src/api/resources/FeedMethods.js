@@ -15,6 +15,19 @@ export default {
                 }
             });
     },
+    async index_section(section_id) {
+        return fetch(APISettings.baseURL + '/section/' + section_id, {
+            method: 'GET',
+            headers: APISettings.headers
+        })
+            .then(function (response) {
+                if (response.status != 200) {
+                    throw response.status;
+                } else {
+                    return response.json();
+                }
+            });
+    },
     async get(item_id) {
         return fetch(APISettings.baseURL + '/feed/' + item_id, {
             method: 'GET',

@@ -28,6 +28,12 @@ const router = createRouter({
       name: 'problem_edit',
       component: () => import('../views/EditProblemView.vue'),
       props: true,
+    },
+    {
+      path: '/section/:id',
+      name: 'section',
+      component: () => import('../views/SectionView.vue'),
+      props: true,
     }
   ]
 })
