@@ -55,7 +55,7 @@ function gradeToColor(grade) {
 
 <template>
     <div v-if="props.slim">
-        <p><span class="label holds" :class="item.color">{{ item.color }}</span> holds <span class="label grade"
+        <p><span class="label holds" :class="item.color">holds</span> <span class="label grade"
                 :class="item.grade_class">{{
                     item.grade
                 }}</span> {{ item.setter }}</p>
