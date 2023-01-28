@@ -111,6 +111,10 @@ span.grade {
     width: 5em;
 }
 
+td.section {
+    text-align: center;
+}
+
 span.label {
     margin-left: 0;
 }
