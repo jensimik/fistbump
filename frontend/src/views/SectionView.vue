@@ -13,7 +13,12 @@ const items = data.value.data;
 <template>
     <h2>Problems on section {{ props.id }}</h2>
 
-    <p>Hold colors used: <span class="label" :class="color" v-for="(c, color) in data.colors">{{ c }}</span></p>
+    <div class="flex two">
+        <div>Hold colors used</div>
+        <div class="right"><span class="label" :class="color" v-for="(c, color) in data.colors">{{ c }}</span></div>
+        <div>Grades</div>
+        <div class="right"><span class="label" :class="color" v-for="(c, color) in data.grades">{{ c }}</span></div>
+    </div>
 
     <div class="flex two">
         <div v-for="item in items" :key="item.id">
@@ -23,6 +28,10 @@ const items = data.value.data;
 </template>
 
 <style scoped>
+div.right {
+    text-align: right;
+}
+
 h2 {
     padding: 0;
 }
