@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps(['data'])
+const props = defineProps(['data', 'slim'])
 
 const item = props.data;
 
@@ -54,22 +54,31 @@ function gradeToColor(grade) {
 </script>
 
 <template>
-    <h2>{{ item.name }} ({{ item.section }}) <span class="label grade" :class="item.grade_class">{{
-        item.grade
-    }}</span></h2>
-    <!-- <router-link :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link> -->
-
-    <div v-if="item.section == 'Ö'">
-        <p>{{ item.setter }}</p>
-        <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
-            <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
-            <path class="hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
-        </svg>
+    <div v-if="props.slim">
+        <p><span class="label holds" :class="item.color">{{ item.color }}</span> holds <span class="label grade"
+                :class="item.grade_class">{{
+                    item.grade
+                }}</span> {{ item.setter }}</p>
+        <img :src="item.image" class="problem" />
     </div>
     <div v-else>
-        <p>{{ item.setter }} <span class="label holds" :class="item.color">{{ item.color }}</span> holds</p>
-        <p v-if="item.text">{{ item.text }}</p>
-        <img :src="item.image" class="problem" />
+        <h2>{{ item.name }} ({{ item.section }}) <span class="label grade" :class="item.grade_class">{{
+            item.grade
+        }}</span></h2>
+        <!-- <router-link :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link> -->
+
+        <div v-if="item.section == 'Ö'">
+            <p>{{ item.setter }}</p>
+            <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
+                <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
+                <path class="hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
+            </svg>
+        </div>
+        <div v-else>
+            <p>{{ item.setter }} <span class="label holds" :class="item.color">{{ item.color }}</span> holds</p>
+            <p v-if="item.text">{{ item.text }}</p>
+            <img :src="item.image" class="problem" />
+        </div>
     </div>
 </template>
 

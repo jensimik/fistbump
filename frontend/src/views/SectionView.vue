@@ -15,7 +15,7 @@ items.value = await FeedMethodsAPI.index_section(props.id);
 
     <div class="flex two">
         <div v-for="item in items" :key="item.id">
-            <Problem :data="item"></Problem>
+            <Problem :data="item" slim="yes"></Problem>
         </div>
     </div>
 </template>
