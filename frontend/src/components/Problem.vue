@@ -55,39 +55,47 @@ function gradeToColor(grade) {
 
 <template>
     <div v-if="props.slim">
-        <p><span class="label holds" :class="item.color">holds</span> <span class="label grade"
-                :class="item.grade_class">{{
-                    item.grade
-                }}</span></p>
-        <img :src="item.image" class="problem" />
+        <div class="imgw">
+            <img :src="item.image" class="problem" />
+            <span class="label holds big left" :class="item.color">holds</span>
+            <span class="label grade big right" :class="item.grade_class">{{
+                item.grade
+            }}</span>
+            <span class="label big setter white">{{ item.name }} ({{ item.setter }})</span>
+        </div>
     </div>
     <div v-else>
-        <h2>{{ item.name }} ({{ item.section }}) <span class="label grade" :class="item.grade_class">{{
-            item.grade
-        }}</span></h2>
+        <h2>{{ item.name }} ({{ item.section }})</h2>
         <!-- <router-link :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link> -->
 
         <div v-if="item.section == 'Ö'">
-            <p>{{ item.setter }}</p>
-            <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
-                <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
-                <path class="hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
-            </svg>
+            <div class="imgw">
+                <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
+                    <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
+                    <path class="hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
+                </svg>
+                <span class="label grade big right" :class="item.grade_class">{{
+                    item.grade
+                }}</span>
+                <span class="label big left white">{{ item.setter }}</span>
+            </div>
         </div>
         <div v-else>
-            <p>{{ item.setter }} <span class="label holds" :class="item.color">{{ item.color }}</span> holds</p>
             <p v-if="item.text">{{ item.text }}</p>
-            <img :src="item.image" class="problem" />
+            <div class="imgw">
+                <img :src="item.image" class="problem" />
+                <span class="label holds big left" :class="item.color">holds</span>
+                <span class="label grade big right" :class="item.grade_class">{{
+                    item.grade
+                }}</span>
+                <span class="label big setter white">{{ item.setter }}</span>
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-span.grade {
-    width: 5em;
-}
-
-span.holds {
+.label {
     margin-left: 0;
 }
 
@@ -104,7 +112,38 @@ path.hand {
     stroke: #fff;
 }
 
+wrapper {
+    position: relative;
+    display: inline-block;
+}
+
 img.problem {
     width: 100%;
+    display: block;
+}
+
+.imgw {
+    position: relative;
+}
+
+.big {
+    position: absolute;
+    border-radius: 0;
+    font-size: 1.4em;
+}
+
+.left {
+    top: 0;
+    left: 0;
+}
+
+.right {
+    top: 0;
+    right: 0;
+}
+
+.setter {
+    bottom: 0;
+    left: 0;
 }
 </style>

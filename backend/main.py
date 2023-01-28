@@ -270,7 +270,11 @@ async def feed(section_id: str):
             d["id"] = d.doc_id
             d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
             d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
-        return data
+
+        grades = Counter([d["grade_class"] for d in data])
+        colors = Counter([d["color"] for d in data])
+
+        return {"data": data, "colors": colors, "grades": grades}
 
 
 @app.post("/feed")

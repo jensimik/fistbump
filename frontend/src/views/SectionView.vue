@@ -5,9 +5,10 @@ import { ref } from 'vue';
 
 const props = defineProps(['id'])
 
-const items = ref([]);
-items.value = await FeedMethodsAPI.index_section(props.id);
-
+const data = ref({})
+data.value = await FeedMethodsAPI.index_section(props.id);
+const items = data.value.items;
+console.log(data.value);
 </script>
 
 <template>
