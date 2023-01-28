@@ -35,7 +35,7 @@ import addToHomeButton from './components/addToHomeScreen.vue';
 
 <style scoped>
 #content div {
-  padding: 0 0.1em;
+  padding: 0 0.15em;
 }
 
 div.main {
