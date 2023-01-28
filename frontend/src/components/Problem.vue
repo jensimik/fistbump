@@ -130,6 +130,7 @@ img.problem {
     position: absolute;
     border-radius: 0;
     font-size: 1.2em;
+    opacity: 0.8;
 }
 
 .slim .big {
