@@ -78,14 +78,6 @@ const data_stokt = [
         <div>Stökt</div>
         <GChart class="distgrid" :data="data_stokt" :options="options" :type="type"></GChart>
     </div>
-    <!-- <div class="flex two">
-        <div class="distgrid fifth">Boulder</div>
-        <GChart class="distgrid four-fifth" :data="data_boulder" :options="options" :type="type"></GChart>
-    </div>
-    <div class="flex two">
-        <div class="distgrid fifth">Stökt</div>
-        <GChart class="distgrid four-fifth" :data="data_stokt" :options="options" :type="type"></GChart>
-    </div> -->
 </template>
 
 <style scoped>
