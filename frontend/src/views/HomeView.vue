@@ -56,14 +56,11 @@ window.addEventListener('visibilitychange', function () {
               set).
               You can also click the section names to get a view of problems on that section.</dd>
             <dt>Problems</dt>
-            <dd>Keep updated when new problems is set (or set some more problems if you already topped all
-              💪).<br />First column is how old the problem is (-Xd day sold)<br />second column is which section it is
-              on
-              (and
-              color indicate the holds color)<br />third column is the name of the problem<br />fourth column the grade
-              <br />Click on the name to get more information and an image of the problem
-            </dd>
-
+            <dd>List of most recent problems in the gym (both Stökt, boulder and Lumi)</dd>
+            <dd>First column is how old the problem is (-Xd day sold)</dd>
+            <dd>second column is which section it is on (and indicator of which color the holds are)</dd>
+            <dd>third column is the name of the problem</dd>
+            <dd>fourth column the grade (click on the name to get more information and an image of the problem)</dd>
           </dl>
         </dd>
         <dt>📱 Install</dt>
@@ -71,11 +68,11 @@ window.addEventListener('visibilitychange', function () {
         <dd>
           <dl>
             <dt>Iphone</dt>
-            <dd>1) open in safari</dd>
+            <dd>1) open this website in safari</dd>
             <dd>2) press 'share' icon</dd>
             <dd>3) 'add to homescreen'</dd>
             <dt>Android</dt>
-            <dd>1) open in chrome</dd>
+            <dd>1) open this website in chrome</dd>
             <dd>2) tap 'install'</dd>
             <dd>3) follow instructions</dd>
           </dl>
