@@ -9,7 +9,7 @@ const options = {
     width: '100%',
     height: '100%',
     chartArea: { left: '0', top: 0, width: "100%", height: '100%' },
-    bar: { groupWidth: '50%' },
+    bar: { groupWidth: '80%' },
     isStacked: "percent",
     legend: { position: "none" },
     series: {
@@ -70,14 +70,22 @@ const data_stokt = [
 
 <template>
     <h2>Grade distribution</h2>
-    <div class="flex two">
+    <div class="flex one">
+        <div>Boulder</div>
+        <GChart class="distgrid" :data="data_boulder" :options="options" :type="type"></GChart>
+    </div>
+    <div class="flex one">
+        <div>Stökt</div>
+        <GChart class="distgrid" :data="data_stokt" :options="options" :type="type"></GChart>
+    </div>
+    <!-- <div class="flex two">
         <div class="distgrid fifth">Boulder</div>
         <GChart class="distgrid four-fifth" :data="data_boulder" :options="options" :type="type"></GChart>
     </div>
     <div class="flex two">
         <div class="distgrid fifth">Stökt</div>
         <GChart class="distgrid four-fifth" :data="data_stokt" :options="options" :type="type"></GChart>
-    </div>
+    </div> -->
 </template>
 
 <style scoped>
