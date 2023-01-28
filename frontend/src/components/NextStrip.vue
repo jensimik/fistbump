@@ -81,19 +81,13 @@ strip.value = await StripMethodsAPI.index();
 </template>
 
 <style scoped>
-h2 {
-    padding-bottom:
-}
-
 p {
     margin-top: 0;
+    margin-bottom: 0;
 }
 
 svg {
     width: 100%;
-    margin-top: -1em;
-    margin-bottom: -1em;
-    display: block;
 }
 
 svg text {

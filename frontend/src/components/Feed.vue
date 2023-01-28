@@ -90,6 +90,10 @@ items.value = await FeedMethodsAPI.index();
 </template>
 
 <style scoped>
+h2 {
+    padding: 0;
+}
+
 td.name {
     width: 72%;
 }
