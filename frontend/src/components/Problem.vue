@@ -58,7 +58,7 @@ function gradeToColor(grade) {
         <p><span class="label holds" :class="item.color">holds</span> <span class="label grade"
                 :class="item.grade_class">{{
                     item.grade
-                }}</span> {{ item.setter }}</p>
+                }}</span></p>
         <img :src="item.image" class="problem" />
     </div>
     <div v-else>
