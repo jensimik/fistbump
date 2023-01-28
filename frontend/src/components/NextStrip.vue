@@ -31,21 +31,21 @@ strip.value = await StripMethodsAPI.index();
             </defs>
             <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1"
                 transform="translate(-2.5107788,-75.854509)">
-                <path style="fill:#000000;stroke-width:0.224601"
+                <path style="fill:#aaa;stroke-width:0.224601"
                     d="m 278.53838,101.04625 -9.24437,-18.629278 -23.73593,9.9368 -17.28409,0.780111 -7.43808,-3.135283 h -16.49015 l -17.03134,-9.745479 -6.55486,14.234838 -33.64786,1.364454 -10.23475,-15.049059 -10.48886,0.07564 v -4.734546 l 151.64754,0.629309 z"
                     id="path517" sodipodi:nodetypes="cccccccccccccc" />
-                <path style="fill:#000000;stroke-width:0.174517"
+                <path style="fill:#aaa;stroke-width:0.174517"
                     d="M 132.48143,115.02025 H 110.88908 V 98.668924 l 21.50488,-0.22883 0.0875,16.580156"
                     id="path519" />
                 <g id="g554" transform="translate(-108.00552,2.2320417)" style="fill:#000000">
-                    <path style="fill:#000000;stroke-width:0.174517"
+                    <path style="fill:#aaa;stroke-width:0.174517"
                         d="M 132.48143,113.64319 H 110.88908 V 97.291869 l 21.50488,-0.22883 0.0875,16.580151"
                         id="path519-3" />
                 </g>
-                <path style="fill:#000000;stroke-width:0.264583"
+                <path style="fill:#aaa;stroke-width:0.264583"
                     d="m 112.27622,81.528719 h -7.12571 L 99.36654,91.464027 75.114231,91.73305 71.114215,89.727156 54.246552,89.991134 39.477259,86.584645 23.667187,87.35472 V 76.741813 l 89.096643,-0.07735 z"
                     id="path521" sodipodi:nodetypes="ccccccccccc" />
-                <rect style="fill:none;stroke:#000000;stroke-width:0.982157;stroke-dasharray:none;stroke-opacity:1"
+                <rect style="fill:none;stroke:#000;stroke-width:0.982157;stroke-dasharray:none;stroke-opacity:1"
                     id="rect569" width="275.40143" height="39.112911" x="3.0018573" y="76.345589" />
                 <path style="fill:none;stroke:#929292;stroke-width:1.05833;stroke-dasharray:none;stroke-opacity:1"
                     d="M 221.59489,76.622435 V 115.14298" id="path1300" />

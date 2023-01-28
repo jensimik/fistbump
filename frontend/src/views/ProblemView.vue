@@ -57,27 +57,32 @@ item.value = await FeedMethodsAPI.get(props.id);
 </script>
 
 <template>
-    <h2>{{ item.name }} ({{ item.section }}) <span class="label" :class="item.grade_class">{{
+    <h2>{{ item.name }} ({{ item.section }}) <span class="label grade" :class="item.grade_class">{{
         item.grade
     }}</span></h2>
     <!-- <router-link :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link> -->
-    <p>{{ item.setter }}</p>
 
     <div v-if="item.section == 'Ö'">
+        <p>{{ item.setter }}</p>
         <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
             <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
             <path class="hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
         </svg>
     </div>
     <div v-else>
+        <p>{{ item.setter }} <span class="label holds" :class="item.color">{{ item.color }}</span> holds</p>
         <p v-if="item.text">{{ item.text }}</p>
         <img :src="item.image" class="problem" />
     </div>
 </template>
 
 <style scoped>
-span.label {
+span.grade {
     width: 5em;
+}
+
+span.holds {
+    margin-left: 0;
 }
 
 path.hold {
