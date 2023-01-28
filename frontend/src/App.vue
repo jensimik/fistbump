@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import addToHomeButton from './components/addToHomeScreen.vue';
+import useLocalStorage from './useLocalStorage';
+
+const setter_auth = useLocalStorage("setter_auth", "");
 </script>
 
 <template>
@@ -13,6 +16,7 @@ import addToHomeButton from './components/addToHomeScreen.vue';
 
       <div class="menu">
         <addToHomeButton></addToHomeButton>
+        <router-link v-if="setter_auth" :to="{ name: 'add_problem' }" class="button">+problem</router-link>
         <router-link :to="{ name: 'settings' }" class="button">settings</router-link>
       </div>
     </nav>

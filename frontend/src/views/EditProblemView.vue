@@ -42,10 +42,10 @@ async function update(e) {
 }
 async function remove(e) {
     try {
-        await FeedMethodsAPI.remove(props.id)
+        await FeedMethodsAPI.remove(props.id, setter_auth.value)
         router.push({ name: "home" })
     } catch (error) {
-        data.value.error = "error in data - did you fill out all required fields and attach image?"
+        data.value.error = "error in auth"
     }
 }
 

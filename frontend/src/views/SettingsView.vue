@@ -18,7 +18,7 @@ async function link_setter_code(e) {
     e.disabled = true
     const answer = await SetterMethods.get(data.setter_code.value)
     data.setter_auth.value = answer.token;
-    e.disabled = false
+    window.location.reload()
 }
 </script>
 

@@ -45,6 +45,7 @@ STOKT_TOKEN = "3ea0c2f73089ed54ea0b13325204f3be45bd7788"
 GOOGLE_MAPS_API_KEY = "AIzaSyAWEoNtxFZFCNxOi-9il0whTnRr7dP331w"
 GOOGLE_MAPS_PLACE_ID = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
 TZ = tz.gettz("Europe/Copenhagen")
+AUTH_TOKEN = "gWvN8wBDQ$7u5T"
 
 # load holds setup from json file
 with open("setup.json", "r") as f:
@@ -282,13 +283,16 @@ async def feed(section_id: str):
 @app.post("/feed")
 async def feed_post(
     file: UploadFile,
+    auth: str = Form(),
     name: str = Form(),
     color: str = Form(),
     grade: str = Form(),
     setter: str = Form(),
-    text: str = Form(),
+    text: str = Form(""),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
 ):
+    if auth != AUTH_TOKEN:
+        raise HTTPException(status_code=403)
     today = datetime.now(tz=TZ).date()
     save_filename = f"{uuid4().hex}.jpg"
     problem = {
@@ -310,8 +314,10 @@ async def feed_post(
     return problem
 
 
-@app.delete("/feed/{item_id}")
-async def feed_delete_item(item_id: int):
+@app.delete("/feed/{item_id}/{auth}")
+async def feed_delete_item(item_id: int, auth: str):
+    if auth != AUTH_TOKEN:
+        raise HTTPException(status_code=403)
     async with AIOTinyDB(FEED_DB) as db:
         item = db.remove(doc_ids=[item_id])
 
@@ -324,9 +330,12 @@ async def feed_update_item(
     grade: str = Form(),
     setter: str = Form(),
     text: Optional[str] = Form(""),
+    auth: str = Form(),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
     file: Optional[UploadFile] = None,
 ):
+    if auth != AUTH_TOKEN:
+        raise HTTPException(status_code=403)
     today = datetime.now(tz=TZ).date()
 
     async with AIOTinyDB(FEED_DB) as db:
@@ -445,7 +454,7 @@ async def strip():
 async def link_setter_code(setter_code: str):
     await asyncio.sleep(15)
     if setter_code == "1337":
-        return {"token": "gWvN8wBDQ$7u5T"}
+        return {"token": AUTH_TOKEN}
     raise HTTPException(status_code=403, detail="go away")
 
 

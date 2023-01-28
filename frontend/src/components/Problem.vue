@@ -56,7 +56,7 @@ function gradeToColor(grade) {
 <template>
     <div v-if="props.slim" class="slim">
         <div class="imgw">
-            <router-link v-if="props.auth" :to="{ name: 'problem', params: { id: item.id } }">
+            <router-link :to="{ name: 'problem', params: { id: item.id } }">
                 <img :src="item.image" class="problem" />
             </router-link>
             <span class="label holds big left" :class="item.color">holds</span>
@@ -81,7 +81,8 @@ function gradeToColor(grade) {
             </div>
         </div>
         <div v-else>
-            <router-link class="button" :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link>
+            <router-link v-if="props.auth" class="button"
+                :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link>
             <p v-if="item.text">{{ item.text }}</p>
             <div class="imgw">
                 <img :src="item.image" class="problem" />

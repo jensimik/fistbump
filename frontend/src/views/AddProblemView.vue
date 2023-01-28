@@ -1,15 +1,20 @@
 <script setup>
 import FeedMethodsAPI from '../api/resources/FeedMethods.js';
 import router from '../router/index.js';
+import useLocalStorage from '../useLocalStorage';
 import { ref } from 'vue';
+
+
+const setter_name = useLocalStorage("name", "")
 
 const data = ref({
   name: "",
   grade: "6A",
   section: "S1",
   color: "",
-  setter: "",
+  setter: setter_name.value,
   text: "",
+  error: "",
 });
 
 const preview = ref(null);
@@ -25,9 +30,13 @@ async function add(e) {
   formData.set('text', data.value.text)
   formData.set('file', image.value)
   e.disabled = true
-  await FeedMethodsAPI.store(formData)
+  try {
+    await FeedMethodsAPI.store(formData)
+    router.push({ name: 'home' })
+  } catch (error) {
+    data.value.error = "failed to submit - did you fill out all fields and upload image?"
+  }
   e.disable = false
-  router.push({ name: 'home' })
 }
 
 function onFileChange(event) {
@@ -117,6 +126,7 @@ function onFileChange(event) {
           </label>
         </div>
       </div>
+      <p v-if="data.error">{{ data.error }}</p>
       <div class="flex one">
         <div>
           <button class="button addbutton" @click="add">add</button>

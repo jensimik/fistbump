@@ -55,8 +55,8 @@ export default {
                 }
             });
     },
-    async remove(item_id) {
-        return fetch(APISettings.baseURL + '/feed/' + item_id, {
+    async remove(item_id, auth) {
+        return fetch(APISettings.baseURL + '/feed/' + item_id + '/' + auth, {
             method: 'DELETE',
             headers: APISettings,
         })
