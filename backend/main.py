@@ -323,7 +323,7 @@ async def feed_update_item(
     color: str = Form(),
     grade: str = Form(),
     setter: str = Form(),
-    text: str = Form(),
+    text: Optional[str] = Form(),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
     file: Optional[UploadFile] = None,
 ):

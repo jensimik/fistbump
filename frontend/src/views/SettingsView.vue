@@ -67,9 +67,10 @@ async function link_setter_code(e) {
             </label>
             <input v-model="data.setter_code.value" type="text" name="setter_code"
                 placeholder="enter current code for 'grebrum'" />
-            <p v-if="data.setter_auth.value">setter code is linked successful</p>
-            <p v-else>not linked</p>
-            <button @click="link_setter_code">link your setter code</button>
+            <p>status: <span v-if="data.setter_auth.value" class="green">setter code is linked successful</span><span
+                    v-else class="orange">not linked</span></p>
+            <button @click="link_setter_code">link your setter code *</button>
+            <p>* wait up to 15 seconds after clicking - status should be green</p>
         </div>
     </div>
 </template>

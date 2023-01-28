@@ -2,8 +2,11 @@
 import FeedMethodsAPI from '../api/resources/FeedMethods.js';
 import router from '../router/index.js';
 import { ref } from 'vue';
+import useLocalStorage from '../useLocalStorage';
 
 const props = defineProps(['id'])
+
+const setter_auth = useLocalStorage("setter_auth", "");
 
 const data = ref({
     name: "",
@@ -12,6 +15,7 @@ const data = ref({
     section: "S1",
     setter: "",
     text: "",
+    error: "",
 });
 
 const preview = ref(null);
@@ -25,15 +29,24 @@ async function update(e) {
     formData.set('section', data.value.section);
     formData.set('setter', data.value.setter);
     formData.set('text', data.value.text);
+    formData.set('token', setter_auth.value);
     if (image.value) {
         formData.set('file', image.value);
     }
-    await FeedMethodsAPI.update(props.id, formData)
-    router.push({ name: 'problem', params: { id: props.id } })
+    try {
+        await FeedMethodsAPI.update(props.id, formData)
+        router.push({ name: 'problem', params: { id: props.id } })
+    } catch (error) {
+        data.value.error = "error in data - did you fill out all required fields and attach image?"
+    }
 }
 async function remove(e) {
-    await FeedMethodsAPI.remove(props.id)
-    router.push({ name: "home" })
+    try {
+        await FeedMethodsAPI.remove(props.id)
+        router.push({ name: "home" })
+    } catch (error) {
+        data.value.error = "error in data - did you fill out all required fields and attach image?"
+    }
 }
 
 
@@ -121,6 +134,7 @@ preview.value = data.value.image;
                         accept="image/*;capture=camera">
                 </label>
             </div>
+            <p v-if="data.error">{{ data.error }}</p>
             <button class="button warning" @click="remove">remove</button>
             <button class="button success" @click="update">update</button>
         </div>

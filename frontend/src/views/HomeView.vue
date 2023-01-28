@@ -5,7 +5,6 @@ import HoursPopular from '../components/HoursPopular.vue'
 import Calendar from '../components/Calendar.vue'
 import Strip from '../components/NextStrip.vue'
 import useLocalStorage from '../useLocalStorage';
-// import GradeDistribution from '../components/GradeDistribution.vue'
 
 const sections = useLocalStorage("sections", ["welcome", "calendar", "peak_hours", "strip", "problems"]);
 
@@ -84,7 +83,6 @@ window.addEventListener('visibilitychange', function () {
     <HoursPopular v-if="sections.includes('hours_popular')"></HoursPopular>
     <Strip v-if="sections.includes('strip')"></Strip>
     <Feed v-if="sections.includes('problems')"></Feed>
-    <!-- <GradeDistribution></GradeDistribution> -->
   </div>
 </template>
 
