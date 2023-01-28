@@ -81,7 +81,7 @@ h2 {
 <style>
 body {
   background-color: #efefef;
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
 span.turquoise {
