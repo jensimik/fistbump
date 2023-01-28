@@ -54,7 +54,7 @@ function gradeToColor(grade) {
 </script>
 
 <template>
-    <div v-if="props.slim">
+    <div v-if="props.slim" class="slim">
         <div class="imgw">
             <img :src="item.image" class="problem" />
             <span class="label holds big left" :class="item.color">holds</span>
@@ -129,7 +129,11 @@ img.problem {
 .big {
     position: absolute;
     border-radius: 0;
-    font-size: 1em;
+    font-size: 1.2em;
+}
+
+.slim .big {
+    font-size: 0.8em;
 }
 
 .left {
