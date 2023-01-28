@@ -35,7 +35,7 @@ window.addEventListener('visibilitychange', function () {
     <div v-if="sections.includes('welcome')" class="welcome">
       <h1>Nice to see you here 👊💪</h1>
       <p>This app is made to give you all the information for your daily NKK routine - check out what is happening while
-        you are still at the couch/office 🛋️ anything new to climb? or should i set a new problem?</p>
+        you are still at the couch/office 🛋️ anything new to climb? or should i set a new problem? 🪛</p>
       <dl>
         <dt>Navigation help</dt>
         <dd>⬆️ you can always click the 🤜🤛 icon in the top menu to return to the frontpage</dd>
