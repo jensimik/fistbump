@@ -252,6 +252,7 @@ async def feed():
         today = datetime.now(tz=TZ).replace(tzinfo=None)
         for d in data:
             d["id"] = d.doc_id
+            d["name"] = d["name"].lower()
             d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
             d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
         return data

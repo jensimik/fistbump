@@ -63,6 +63,7 @@ function onFileChange(event) {
         <option value="white">white</option>
         <option value="purple">purple</option>
         <option value="brown">brown</option>
+        <option value="orange">orange</option>
       </select>
       <label for="grade">Grade</label>
       <select v-model="data.grade" name="grade">
