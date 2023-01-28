@@ -71,7 +71,7 @@ strip.value = await StripMethodsAPI.index();
                     <tspan x="120.90039" y="389.07427" id="tspan1883">S5</tspan>
                 </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,0.51618546,2.6935802)"
                     id="text1756" style="">
-                    <tspan x="24.720703" y="345.20513" id="tspan1885">L1</tspan>
+                    <tspan x="24.720703" y="345.20513" id="tspan1885">L</tspan>
                 </text><text xml:space="preserve" transform="scale(0.26458333)" id="text1762" style="">
                     <tspan x="442.99023" y="351.49029" id="tspan1887">Ö</tspan>
                 </text>
