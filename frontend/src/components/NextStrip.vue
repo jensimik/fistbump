@@ -14,12 +14,6 @@ strip.value = await StripMethodsAPI.index();
             xml:space="preserve" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
             xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg"
             xmlns:svg="http://www.w3.org/2000/svg">
-            <sodipodi:namedview id="namedview7" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25"
-                inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0"
-                inkscape:deskcolor="#d1d1d1" inkscape:document-units="mm" showgrid="false" inkscape:zoom="0.61468855"
-                inkscape:cx="397.76241" inkscape:cy="465.27628" inkscape:window-width="1599"
-                inkscape:window-height="875" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1"
-                inkscape:current-layer="layer1" />
             <defs id="defs2">
                 <rect x="442.98984" y="323.13748" width="48.506527" height="43.333683" id="rect1764" />
                 <rect x="24.720345" y="316.85254" width="50.724365" height="47.794785" id="rect1758" />
@@ -101,6 +95,6 @@ svg {
 }
 
 svg text {
-    font-size: 1.5em;
+    font-size: 2em;
 }
 </style>

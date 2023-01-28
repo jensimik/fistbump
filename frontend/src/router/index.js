@@ -34,7 +34,7 @@ const router = createRouter({
       name: 'section',
       component: () => import('../views/SectionView.vue'),
       props: true,
-    }
+    },
   ]
 })
 
