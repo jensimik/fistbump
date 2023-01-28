@@ -53,26 +53,36 @@ strip.value = await StripMethodsAPI.index();
                     d="M 186.54761,76.620752 V 114.53937" id="path1464" />
                 <path style="fill:none;stroke:#929292;stroke-width:1.05833;stroke-dasharray:none;stroke-opacity:1"
                     d="M 54.470175,76.203769 V 114.66043" id="path1466" /><text xml:space="preserve"
-                    transform="matrix(0.26458333,0,0,0.26458333,2.4548234,3.6334749)" id="text1520" style="">
+                    transform="matrix(0.26458333,0,0,0.26458333,2.4548234,3.6334749)" id="text1520">
                     <tspan x="909.19336" y="398.75858" id="tspan1875">
-                        <tspan style="" id="tspan1873">S1</tspan>
+                        <router-link :to="{ name: 'section', params: { id: 'S1' } }">
+                            <tspan id="tspan1873">S1</tspan>
+                        </router-link>
                     </tspan>
                 </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,4.2488621,3.9092222)"
-                    id="text1732" style="">
-                    <tspan x="738.49023" y="398.01568" id="tspan1877">S2</tspan>
+                    id="text1732">
+                    <router-link :to="{ name: 'section', params: { id: 'S2' } }">
+                        <tspan x="738.49023" y="398.01568" id="tspan1877">S2</tspan>
+                    </router-link>
                 </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,6.1690048,0)"
-                    id="text1738" style="">
-                    <tspan x="579.53711" y="412.32037" id="tspan1879">S3</tspan>
+                    id="text1738">
+                    <router-link :to="{ name: 'section', params: { id: 'S3' } }">
+                        <tspan x="579.53711" y="412.32037" id="tspan1879">S3</tspan>
+                    </router-link>
                 </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,5.2459239,3.5023268)"
-                    id="text1744" style="">
-                    <tspan x="270.44336" y="397.47466" id="tspan1881">S4</tspan>
+                    id="text1744">
+                    <router-link :to="{ name: 'section', params: { id: 'S4' } }">
+                        <tspan x="270.44336" y="397.47466" id="tspan1881">S4</tspan>
+                    </router-link>
                 </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,2.4699558,6.2715693)"
-                    id="text1750" style="">
-                    <tspan x="120.90039" y="389.07427" id="tspan1883">S5</tspan>
+                    id="text1750">
+                    <router-link :to="{ name: 'section', params: { id: 'S5' } }">
+                        <tspan x="120.90039" y="389.07427" id="tspan1883">S5</tspan>
+                    </router-link>
                 </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,0.51618546,2.6935802)"
-                    id="text1756" style="">
+                    id="text1756">
                     <tspan x="24.720703" y="345.20513" id="tspan1885">L</tspan>
-                </text><text xml:space="preserve" transform="scale(0.26458333)" id="text1762" style="">
+                </text><text xml:space="preserve" transform="scale(0.26458333)" id="text1762">
                     <tspan x="442.99023" y="351.49029" id="tspan1887">Ö</tspan>
                 </text>
             </g>
