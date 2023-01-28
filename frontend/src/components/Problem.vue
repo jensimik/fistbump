@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps(['data', 'slim'])
+const props = defineProps(['data', 'slim', 'auth'])
 
 const item = props.data;
 
@@ -56,7 +56,9 @@ function gradeToColor(grade) {
 <template>
     <div v-if="props.slim" class="slim">
         <div class="imgw">
-            <img :src="item.image" class="problem" />
+            <router-link :to="{ name: 'problem', params: { id: item.id } }">
+                <img :src="item.image" class="problem" />
+            </router-link>
             <span class="label holds big left" :class="item.color">holds</span>
             <span class="label grade big right" :class="item.grade_class">{{
                 item.grade
@@ -150,6 +152,6 @@ img.problem {
 .setter {
     bottom: 0;
     left: 0;
-    font-size: 0.4em !important;
+    font-size: 0.5em !important;
 }
 </style>

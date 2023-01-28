@@ -13,7 +13,7 @@ import addToHomeButton from './components/addToHomeScreen.vue';
 
       <div class="menu">
         <addToHomeButton></addToHomeButton>
-        <router-link :to="{ name: 'addproblem' }" class="button">+problem</router-link>
+        <router-link :to="{ name: 'settings' }" class="button">settings</router-link>
       </div>
     </nav>
 
@@ -81,7 +81,7 @@ h2 {
 <style>
 body {
   background-color: #efefef;
-  line-height: 1.3;
+  line-height: 1.5;
 }
 
 span.turquoise {
