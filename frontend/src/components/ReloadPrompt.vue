@@ -40,6 +40,8 @@ const click_update = async () => {
     position: fixed;
     margin-left: auto;
     margin-right: auto;
+    max-width: 800px;
+    top: 0;
     right: 0;
     left: 0;
     padding: 12px;
