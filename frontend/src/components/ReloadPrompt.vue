@@ -19,7 +19,8 @@ const close = async () => {
     needRefresh.value = false
 }
 const click_update = async () => {
-    updateServiceWorker()
+    await updateServiceWorker()
+    await new Promise(r => setTimeout(r, 1000));
     window.location.reload()
 }
 </script>
