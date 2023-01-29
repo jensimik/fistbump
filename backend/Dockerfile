@@ -11,4 +11,5 @@ COPY ./main.py /code
 COPY ./tasks.py /code
 COPY ./setup.json /code
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["gunicorn", "-w", "4", "--bind=0.0.0.0:80", "-k", "uvicorn.workers.UvicornWorker main:app"]
+#CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
