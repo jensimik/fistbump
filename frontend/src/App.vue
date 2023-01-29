@@ -34,8 +34,8 @@ const setter_auth = useLocalStorage("setter_auth", "");
         </template>
       </Suspense>
     </div>
+    <ReloadPrompt></ReloadPrompt>
   </div>
-  <ReloadPrompt></ReloadPrompt>
 </template>
 
 <style scoped>
