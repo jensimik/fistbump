@@ -4,13 +4,16 @@ import Feed from '../components/Feed.vue'
 import HoursPopular from '../components/HoursPopular.vue'
 import Calendar from '../components/Calendar.vue'
 import Strip from '../components/NextStrip.vue'
+import useLocalStorage from '../useLocalStorage';
 
-async function dismiss(e) {
-  const temp = sections.value;
-  const index = temp.indexOf("welcome");
-  temp.splice(index, 1);
-  sections.value = temp
-}
+const sections = useLocalStorage("sections", ["calendar", "peak_hours", "strip", "problems"]);
+
+// async function dismiss(e) {
+//   const temp = sections.value;
+//   const index = temp.indexOf("welcome");
+//   temp.splice(index, 1);
+//   sections.value = temp
+// }
 
 const componentKey = ref(0);
 
