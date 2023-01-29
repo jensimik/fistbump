@@ -33,7 +33,7 @@ export default defineConfig({
       short_name: 'Fistbump',
       description: 'Fistbump - all the data you need',
       theme_color: '#ffffff',
-      start_url: '/',
+      start_url: '/?version=1',
       icons: [
         {
           src: 'pwa-192x192.png',
