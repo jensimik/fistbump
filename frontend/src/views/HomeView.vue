@@ -33,7 +33,7 @@ window.addEventListener('visibilitychange', function () {
 <template>
   <div :key="componentKey">
     <div v-if="sections.includes('welcome')" class="welcome">
-      <h1>Nice to see you here 👊💪</h1>
+      <h1>Nice to see you here phew 👊💪</h1>
       <p>This app is made to give you all the information for your daily NKK routine - check out what is happening while
         you are still at the couch/office 🛋️ anything new to climb? or should i set a new problem? 🪛</p>
       <dl>
