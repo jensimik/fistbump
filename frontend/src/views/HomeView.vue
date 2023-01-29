@@ -78,7 +78,7 @@ window.addEventListener('visibilitychange', function () {
           </dl>
         </dd>
       </dl>
-      <button @click="dismiss">dismiss welcome message</button>
+      <button @click="dismiss">dismiss welcome message 👊</button>
     </div>
     <Calendar v-if="sections.includes('calendar')"></Calendar>
     <HoursPopular v-if="sections.includes('hours_popular')"></HoursPopular>
