@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import addToHomeButton from './components/addToHomeScreen.vue';
+import ReloadPrompt from './components/ReloadPrompt.vue';
 import useLocalStorage from './useLocalStorage';
 
 const setter_auth = useLocalStorage("setter_auth", "");
@@ -8,7 +9,6 @@ const setter_auth = useLocalStorage("setter_auth", "");
 
 <template>
   <div class="main">
-
     <nav class="imponent">
       <router-link :to="{ name: 'home' }" class="brand">
         <img class="logo" src="@/assets/fist.png" />
@@ -35,6 +35,7 @@ const setter_auth = useLocalStorage("setter_auth", "");
       </Suspense>
     </div>
   </div>
+  <ReloadPrompt></ReloadPrompt>
 </template>
 
 <style scoped>
