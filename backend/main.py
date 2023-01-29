@@ -463,7 +463,7 @@ async def link_setter_code(setter_code: str, request: Request):
     if h in LIMITER:
         raise HTTPException(status_code=403, detail="go away")
     LIMITER.append(h)
-    await asyncio.sleep(13)
+    await asyncio.sleep(10)
     if setter_code == "1337":
         LIMITER.remove(h)
         return {"token": AUTH_TOKEN}

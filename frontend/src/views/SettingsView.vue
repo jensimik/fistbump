@@ -42,8 +42,6 @@ async function link_setter_code(e) {
                 <option value="7C+-8C">Mytical white (7C+-8C)</option>
             </select> -->
             <label>Frontpage modules</label>
-            <label class="labelblock" for="welcome"><input type="checkbox" id="welcome" name="welcome" value="welcome"
-                    v-model="data.sections.value" /><span class="checkable">welcome message</span></label>
             <label class="labelblock" for="calendar"><input type="checkbox" id="calendar" name="calendar"
                     value="calendar" v-model="data.sections.value" /><span class="checkable">calendar</span></label>
             <label class="labelblock" for="hours_popular"><input type="checkbox" id="hours_popular" name="hours_popular"
