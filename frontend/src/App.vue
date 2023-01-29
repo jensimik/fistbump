@@ -30,7 +30,7 @@ const setter_auth = useLocalStorage("setter_auth", "");
           </div>
         </div>
         <template #fallback>
-          <div>Loading...</div>
+          <div>Loading..</div>
         </template>
       </Suspense>
     </div>
