@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <button v-if="deferredPrompt" ref="addBtn" class="button" @click="clickCallback">
-            Install
-        </button>
-    </div>
+    <button v-if="deferredPrompt" ref="addBtn" class="button" @click="clickCallback">
+        Install
+    </button>
 </template>
 
 <script>
