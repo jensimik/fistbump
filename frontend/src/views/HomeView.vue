@@ -6,7 +6,7 @@ import Calendar from '../components/Calendar.vue'
 import Strip from '../components/NextStrip.vue'
 import useLocalStorage from '../useLocalStorage';
 
-const sections = useLocalStorage("sections", ["calendar", "peak_hours", "strip", "problems"]);
+const sections = useLocalStorage("sections", ["calendar", "hours_popular", "strip", "problems"]);
 
 // async function dismiss(e) {
 //   const temp = sections.value;
