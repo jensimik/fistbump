@@ -34,7 +34,6 @@ const close = async () => {
 const click_update = async () => {
     updateServiceWorker()
     window.location.reload()
-
 }
 </script>
 
