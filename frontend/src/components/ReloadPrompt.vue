@@ -9,9 +9,9 @@ const {
     onRegisteredSW(swUrl, r) {
         r && setInterval(async () => {
             // eslint-disable-next-line no-console
-            console.log('Checking for sw update')
+            // console.log('Checking for sw update')
             await r.update()
-        }, 20000 /* 20s for testing purposes */)
+        }, 60000 /* 60s for testing purposes */)
     },
 })
 const close = async () => {

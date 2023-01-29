@@ -8,7 +8,7 @@ import useLocalStorage from '../useLocalStorage';
 const data = {
     name: useLocalStorage("name", ""),
     setter_code: useLocalStorage("setter_code", ""),
-    grade: useLocalStorage("grade", "5C-6A+"),
+    // grade: useLocalStorage("grade", "5C-6A+"),
     sections: useLocalStorage("sections", ["calendar", "hours_popular", "strip", "problems"]),
     setter: useLocalStorage("setter", "no"),
     setter_auth: useLocalStorage("setter_auth", ""),
@@ -30,7 +30,7 @@ async function link_setter_code(e) {
         <div>
             <label for="name">Name</label>
             <input v-model="data.name.value" type="text" required name="name" placeholder="name" />
-            <label for="grade">Grade</label>
+            <!-- <label for="grade">Grade</label>
             <select v-model="data.grade.value" name="grade">
                 <option value="4-5A">Green range (4-5A)</option>
                 <option value="5B-5B+">Yellow range (5B-5B+)</option>
@@ -40,7 +40,7 @@ async function link_setter_code(e) {
                 <option value="7A-7A+">Brown range (7A-7A+)</option>
                 <option value="7B-7C">Black range (7B-7C)</option>
                 <option value="7C+-8C">Mytical white (7C+-8C)</option>
-            </select>
+            </select> -->
             <label>Frontpage modules</label>
             <label class="labelblock" for="welcome"><input type="checkbox" id="welcome" name="welcome" value="welcome"
                     v-model="data.sections.value" /><span class="checkable">welcome message</span></label>
