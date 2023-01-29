@@ -50,6 +50,7 @@ GOOGLE_MAPS_API_KEY = "AIzaSyAWEoNtxFZFCNxOi-9il0whTnRr7dP331w"
 GOOGLE_MAPS_PLACE_ID = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
 TZ = tz.gettz("Europe/Copenhagen")
 AUTH_TOKEN = "gWvN8wBDQ$7u5T"
+DB = AIOTinyDB(FEED_DB)
 
 # load holds setup from json file
 with open("setup.json", "r") as f:
@@ -241,7 +242,7 @@ async def _refresh_stokt():
             }
             for p in data
         ]
-    async with AIOTinyDB(FEED_DB) as db:
+    async with DB as db:
         for problem in problems:
             if problem["hidden"]:
                 db.remove(where("stokt_id") == problem["stokt_id"])
@@ -255,7 +256,7 @@ async def _refresh_stokt():
 async def feed():
     print("feed requested")
     today = datetime.now(tz=TZ).replace(tzinfo=None)
-    async with AIOTinyDB(FEED_DB) as db:
+    async with DB as db:
         data = sorted(db, key=lambda d: d["created"], reverse=True)[:50]
     for d in data:
         d["id"] = d.doc_id
@@ -269,7 +270,7 @@ async def feed():
 @app.get("/section/{section_id}")
 async def feed(section_id: str):
     today = datetime.now(tz=TZ).replace(tzinfo=None)
-    async with AIOTinyDB(FEED_DB) as db:
+    async with DB as db:
         data = sorted(
             db.search(where("section") == section_id),
             key=lambda d: d["created"],
@@ -315,7 +316,7 @@ async def feed_post(
         while content := await file.read(1024):  # async read chunk
             await out_file.write(content)  # async write chunk
 
-    async with AIOTinyDB(FEED_DB) as db:
+    async with DB as db:
         db.insert(problem)
     return problem
 
@@ -324,7 +325,7 @@ async def feed_post(
 async def feed_delete_item(item_id: int, auth: str):
     if auth != AUTH_TOKEN:
         raise HTTPException(status_code=403)
-    async with AIOTinyDB(FEED_DB) as db:
+    async with DB as db:
         item = db.remove(doc_ids=[item_id])
 
 
@@ -344,7 +345,7 @@ async def feed_update_item(
         raise HTTPException(status_code=403)
     today = datetime.now(tz=TZ).date()
 
-    async with AIOTinyDB(FEED_DB) as db:
+    async with DB as db:
         item = db.get(doc_id=item_id)
 
     image_url = item["image"]
@@ -367,14 +368,14 @@ async def feed_update_item(
         "created": item["created"],
     }
 
-    async with AIOTinyDB(FEED_DB) as db:
+    async with DB as db:
         db.update(problem, doc_ids=[item_id])
     return problem
 
 
 @app.get("/feed/{item_id}")
 async def feed_get_item(item_id: int):
-    async with AIOTinyDB(FEED_DB) as db:
+    async with DB as db:
         item = db.get(doc_id=item_id)
     # parse hold paths if stökt
     paths = []
@@ -475,7 +476,7 @@ async def link_setter_code(setter_code: str, request: Request):
 
 @app.get("/grade-stats")
 async def grade_stats():
-    async with AIOTinyDB(FEED_DB) as db:
+    async with DB as db:
         stats_boulder = {
             key: val
             for key, val in Counter(
