@@ -20,6 +20,15 @@ from tasks import repeat_every
 from pydantic import BaseModel, Field
 from pydantic.typing import Literal
 from typing import Optional
+import sentry_sdk
+
+sentry_sdk.init(
+    dsn="https://a3f95536feea4dfda505f19faa059ffa@o4504589908377600.ingest.sentry.io/4504589910736896",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production,
+    traces_sample_rate=1.0,
+)
 
 app = FastAPI()
 session = AsyncHTMLSession()
@@ -515,3 +524,8 @@ async def grade_stats():
             "white": stats_stokt.get("white", 0),
         },
     }
+
+
+@app.get("/sentry-debug")
+async def trigger_error():
+    division_by_zero = 1 / 0
