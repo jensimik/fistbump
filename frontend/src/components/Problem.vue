@@ -51,6 +51,8 @@ function gradeToColor(grade) {
             return "pink";
     }
 }
+
+throw new Error('Sentry Error');
 </script>
 
 <template>

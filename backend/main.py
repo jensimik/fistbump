@@ -524,8 +524,3 @@ async def grade_stats():
             "white": stats_stokt.get("white", 0),
         },
     }
-
-
-@app.get("/sentry-debug")
-async def trigger_error():
-    division_by_zero = 1 / 0
