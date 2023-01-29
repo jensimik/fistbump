@@ -42,3 +42,4 @@ w3lib==2.1.1
 watchfiles==0.18.1
 websockets==10.4
 zipp==3.11.0
+token-throttler==1.2.1

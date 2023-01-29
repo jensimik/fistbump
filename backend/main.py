@@ -6,7 +6,7 @@ from uuid import uuid4
 from collections import Counter
 from datetime import date, datetime, timedelta
 from dateutil import tz
-from fastapi import FastAPI, UploadFile, Form, HTTPException
+from fastapi import FastAPI, UploadFile, Form, Request, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from requests_html import AsyncHTMLSession
@@ -20,6 +20,8 @@ from tasks import repeat_every
 from pydantic import BaseModel, Field
 from pydantic.typing import Literal
 from typing import Optional
+from token_throttler import TokenBucket, TokenThrottler
+from token_throttler.storage import RuntimeStorage
 
 app = FastAPI()
 session = AsyncHTMLSession()
@@ -50,6 +52,11 @@ GOOGLE_MAPS_API_KEY = "AIzaSyAWEoNtxFZFCNxOi-9il0whTnRr7dP331w"
 GOOGLE_MAPS_PLACE_ID = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
 TZ = tz.gettz("Europe/Copenhagen")
 AUTH_TOKEN = "gWvN8wBDQ$7u5T"
+
+throttler: TokenThrottler = TokenThrottler(cost=1, storage=RuntimeStorage())
+throttler.add_bucket(
+    identifier="ip", bucket=TokenBucket(replenish_time=10, max_tokens=5)
+)
 
 # load holds setup from json file
 with open("setup.json", "r") as f:
@@ -455,7 +462,8 @@ async def strip():
 
 
 @app.get("/setter-code/{setter_code}")
-async def link_setter_code(setter_code: str):
+async def link_setter_code(setter_code: str, request: Request):
+    print(request.client.host)
     await asyncio.sleep(15)
     if setter_code == "1337":
         return {"token": AUTH_TOKEN}
