@@ -422,12 +422,12 @@ async def feed_get_item(item_id: int):
             else:
                 paths.append({"path": HOLDS_PATH[int(hold)]["pathStr"], "type": "hand"})
 
-        return {
-            "id": item.doc_id,
-            "paths": paths,
-            "grade_class": GRADE_TO_COLOR.get(item["grade"]),
-            **item,
-        }
+    return {
+        "id": item.doc_id,
+        "paths": paths,
+        "grade_class": GRADE_TO_COLOR.get(item["grade"]),
+        **item,
+    }
 
 
 @app.get("/strip")
