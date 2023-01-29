@@ -11,5 +11,4 @@ COPY ./main.py /code
 COPY ./tasks.py /code
 COPY ./setup.json /code
 
-#CMD ["gunicorn", "-w", "2", "--bind=0.0.0.0:80", "-k", "uvicorn.workers.UvicornWorker", "main:app"]
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--loop", "asyncio", "--workers", "1", "--limit-concurrency", "100", "--limit-max-requests", "100"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--workers", "1", "--limit-concurrency", "100"]
