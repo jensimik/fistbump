@@ -20,8 +20,6 @@ from tasks import repeat_every
 from pydantic import BaseModel, Field
 from pydantic.typing import Literal
 from typing import Optional
-from token_throttler import TokenBucket, TokenThrottler
-from token_throttler.storage import RuntimeStorage
 
 app = FastAPI()
 session = AsyncHTMLSession()
@@ -52,11 +50,6 @@ GOOGLE_MAPS_API_KEY = "AIzaSyAWEoNtxFZFCNxOi-9il0whTnRr7dP331w"
 GOOGLE_MAPS_PLACE_ID = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
 TZ = tz.gettz("Europe/Copenhagen")
 AUTH_TOKEN = "gWvN8wBDQ$7u5T"
-
-throttler: TokenThrottler = TokenThrottler(cost=1, storage=RuntimeStorage())
-throttler.add_bucket(
-    identifier="ip", bucket=TokenBucket(replenish_time=10, max_tokens=5)
-)
 
 # load holds setup from json file
 with open("setup.json", "r") as f:
@@ -461,12 +454,21 @@ async def strip():
             }
 
 
+LIMITER = []
+
+
 @app.get("/setter-code/{setter_code}")
 async def link_setter_code(setter_code: str, request: Request):
-    print(request.client.host)
-    await asyncio.sleep(15)
+    h = request.client.host
+    if h in LIMITER:
+        raise HTTPException(status_code=403, detail="go away")
+    LIMITER.append(h)
+    await asyncio.sleep(13)
     if setter_code == "1337":
+        LIMITER.remove(h)
         return {"token": AUTH_TOKEN}
+    # else
+    LIMITER.remove(h)
     raise HTTPException(status_code=403, detail="go away")
 
 
