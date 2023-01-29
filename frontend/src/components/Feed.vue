@@ -69,7 +69,7 @@ async function refresh() {
     items.value = await FeedMethodsAPI.index();
 }
 
-await refresh();
+// await refresh();
 
 // refresh on visibilitychange (switching to the app)
 window.addEventListener('visibilitychange', async () => {

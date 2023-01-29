@@ -10,7 +10,7 @@ async function refresh() {
     items.value = await CalendarMethodsAPI.index();
     hours.value = await HourMethodsAPI.index();
 }
-await refresh();
+// await refresh();
 
 // refresh on visibilitychange (switching to the app)
 window.addEventListener('visibilitychange', async () => {

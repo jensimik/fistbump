@@ -6,7 +6,7 @@ const strip = ref({});
 async function refresh() {
     strip.value = await StripMethodsAPI.index();
 }
-await refresh();
+// await refresh();
 // refresh on visibilitychange (switching to the app)
 window.addEventListener('visibilitychange', async () => {
     if (document.visibilityState === 'visible') {
