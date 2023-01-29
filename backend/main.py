@@ -253,35 +253,35 @@ async def _refresh_stokt():
 
 @app.get("/feed")
 async def feed():
+    today = datetime.now(tz=TZ).replace(tzinfo=None)
     async with AIOTinyDB(FEED_DB) as db:
         data = sorted(db, key=lambda d: d["created"], reverse=True)[:50]
-        today = datetime.now(tz=TZ).replace(tzinfo=None)
-        for d in data:
-            d["id"] = d.doc_id
-            d["name"] = d["name"].lower()
-            d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
-            d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
-        return data
+    for d in data:
+        d["id"] = d.doc_id
+        d["name"] = d["name"].lower()
+        d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
+        d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
+    return data
 
 
 @app.get("/section/{section_id}")
 async def feed(section_id: str):
+    today = datetime.now(tz=TZ).replace(tzinfo=None)
     async with AIOTinyDB(FEED_DB) as db:
         data = sorted(
             db.search(where("section") == section_id),
             key=lambda d: d["created"],
             reverse=True,
         )[:50]
-        today = datetime.now(tz=TZ).replace(tzinfo=None)
-        for d in data:
-            d["id"] = d.doc_id
-            d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
-            d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
+    for d in data:
+        d["id"] = d.doc_id
+        d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
+        d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
 
-        grades = Counter([d["grade_class"] for d in data])
-        colors = Counter([d["color"] for d in data])
+    grades = Counter([d["grade_class"] for d in data])
+    colors = Counter([d["color"] for d in data])
 
-        return {"data": data, "colors": colors, "grades": grades}
+    return {"data": data, "colors": colors, "grades": grades}
 
 
 @app.post("/feed")
@@ -345,26 +345,27 @@ async def feed_update_item(
     async with AIOTinyDB(FEED_DB) as db:
         item = db.get(doc_id=item_id)
 
-        image_url = item["image"]
+    image_url = item["image"]
 
-        if file:
-            save_filename = f"{uuid4().hex}.jpg"
-            async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
-                while content := await file.read(1024):  # async read chunk
-                    await out_file.write(content)  # async write chunk
-            image_url = f"https://fbs.gnerd.dk/static/{save_filename}"
+    if file:
+        save_filename = f"{uuid4().hex}.jpg"
+        async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
+            while content := await file.read(1024):  # async read chunk
+                await out_file.write(content)  # async write chunk
+        image_url = f"https://fbs.gnerd.dk/static/{save_filename}"
 
-        problem = {
-            "name": name,
-            "grade": grade,
-            "color": color,
-            "section": section,
-            "setter": setter,
-            "text": text,
-            "image": image_url,
-            "created": item["created"],
-        }
+    problem = {
+        "name": name,
+        "grade": grade,
+        "color": color,
+        "section": section,
+        "setter": setter,
+        "text": text,
+        "image": image_url,
+        "created": item["created"],
+    }
 
+    async with AIOTinyDB(FEED_DB) as db:
         db.update(problem, doc_ids=[item_id])
     return problem
 
@@ -373,52 +374,50 @@ async def feed_update_item(
 async def feed_get_item(item_id: int):
     async with AIOTinyDB(FEED_DB) as db:
         item = db.get(doc_id=item_id)
-        # parse hold paths if stökt
-        paths = []
-        if item["section"] == "Ö":
-            starting_hold_count = sum(
-                [1 if hold.startswith("S") else 0 for hold in item["holds"].split(" ")]
-            )
-            for hold in item["holds"].split(" "):
-                hit = int(hold[1:])
-                if hold.startswith("S"):
-                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "hand"})
-                    if starting_hold_count == 2:
-                        paths.append(
-                            {
-                                "path": "M" + HOLDS_PATH[hit]["rightTapeStr"],
-                                "type": "hand",
-                            }
-                        )
-                    else:
-                        paths.append(
-                            {
-                                "path": "M" + HOLDS_PATH[hit]["rightTapeStr"],
-                                "type": "hand",
-                            }
-                        )
-                        paths.append(
-                            {
-                                "path": "M" + HOLDS_PATH[hit]["leftTapeStr"],
-                                "type": "hand",
-                            }
-                        )
-                elif hold.startswith("F"):
-                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "foot"})
-                elif hold.startswith("T"):
-                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "hand"})
+    # parse hold paths if stökt
+    paths = []
+    if item["section"] == "Ö":
+        starting_hold_count = sum(
+            [1 if hold.startswith("S") else 0 for hold in item["holds"].split(" ")]
+        )
+        for hold in item["holds"].split(" "):
+            hit = int(hold[1:])
+            if hold.startswith("S"):
+                paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "hand"})
+                if starting_hold_count == 2:
                     paths.append(
                         {
-                            "path": "M" + HOLDS_PATH[hit]["topPolygonStr"],
+                            "path": "M" + HOLDS_PATH[hit]["rightTapeStr"],
                             "type": "hand",
                         }
                     )
-                elif hold.startswith("O"):
-                    paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "hand"})
                 else:
                     paths.append(
-                        {"path": HOLDS_PATH[int(hold)]["pathStr"], "type": "hand"}
+                        {
+                            "path": "M" + HOLDS_PATH[hit]["rightTapeStr"],
+                            "type": "hand",
+                        }
                     )
+                    paths.append(
+                        {
+                            "path": "M" + HOLDS_PATH[hit]["leftTapeStr"],
+                            "type": "hand",
+                        }
+                    )
+            elif hold.startswith("F"):
+                paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "foot"})
+            elif hold.startswith("T"):
+                paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "hand"})
+                paths.append(
+                    {
+                        "path": "M" + HOLDS_PATH[hit]["topPolygonStr"],
+                        "type": "hand",
+                    }
+                )
+            elif hold.startswith("O"):
+                paths.append({"path": HOLDS_PATH[hit]["pathStr"], "type": "hand"})
+            else:
+                paths.append({"path": HOLDS_PATH[int(hold)]["pathStr"], "type": "hand"})
 
         return {
             "id": item.doc_id,
@@ -491,25 +490,25 @@ async def grade_stats():
                 [GRADE_TO_COLOR.get(d["grade"], "?") for d in db if d["section"] == "Ö"]
             ).most_common()
         }
-        return {
-            "boulder": {
-                "green": stats_boulder.get("green", 0),
-                "yellow": stats_boulder.get("yellow", 0),
-                "blue": stats_boulder.get("blue", 0),
-                "purple": stats_boulder.get("purple", 0),
-                "red": stats_boulder.get("red", 0),
-                "brown": stats_boulder.get("brown", 0),
-                "black": stats_boulder.get("black", 0),
-                "white": stats_boulder.get("white", 0),
-            },
-            "stokt": {
-                "green": stats_stokt.get("green", 0),
-                "yellow": stats_stokt.get("yellow", 0),
-                "blue": stats_stokt.get("blue", 0),
-                "purple": stats_stokt.get("purple", 0),
-                "red": stats_stokt.get("red", 0),
-                "brown": stats_stokt.get("brown", 0),
-                "black": stats_stokt.get("black", 0),
-                "white": stats_stokt.get("white", 0),
-            },
-        }
+    return {
+        "boulder": {
+            "green": stats_boulder.get("green", 0),
+            "yellow": stats_boulder.get("yellow", 0),
+            "blue": stats_boulder.get("blue", 0),
+            "purple": stats_boulder.get("purple", 0),
+            "red": stats_boulder.get("red", 0),
+            "brown": stats_boulder.get("brown", 0),
+            "black": stats_boulder.get("black", 0),
+            "white": stats_boulder.get("white", 0),
+        },
+        "stokt": {
+            "green": stats_stokt.get("green", 0),
+            "yellow": stats_stokt.get("yellow", 0),
+            "blue": stats_stokt.get("blue", 0),
+            "purple": stats_stokt.get("purple", 0),
+            "red": stats_stokt.get("red", 0),
+            "brown": stats_stokt.get("brown", 0),
+            "black": stats_stokt.get("black", 0),
+            "white": stats_stokt.get("white", 0),
+        },
+    }
