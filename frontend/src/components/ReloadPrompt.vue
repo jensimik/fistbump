@@ -27,28 +27,26 @@ const click_update = async () => {
 <template>
     <div v-if="needRefresh" class="pwa-toast" role="alert">
         <div class="message">
-            New content available, click on reload button to update.
+            New app version available, click on reload button to update.
         </div>
         <button class="button" v-if="needRefresh" @click="click_update">
             Reload
-        </button>
-        <button class="button" @click="close">
-            Close
         </button>
     </div>
 </template>
 
 <style>
 .pwa-toast {
-    position: absolute;
+    position: fixed;
+    margin-left: auto;
+    margin-right: auto;
     right: 0;
-    bottom: 0;
-    margin: 16px;
+    left: 0;
     padding: 12px;
     border: 1px solid #8885;
     border-radius: 4px;
     background-color: #fff;
-    z-index: 1;
+    z-index: 10001;
     text-align: left;
     box-shadow: 3px 4px 5px 0px #8885;
 }
