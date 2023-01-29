@@ -9,11 +9,8 @@ const setter_auth = useLocalStorage("setter_auth", "");
 
 const props = defineProps(['id'])
 
-console.log(props);
-
 const item = ref({});
 item.value = await FeedMethodsAPI.get(props.id);
-console.log(item)
 </script>
 
 <template>

@@ -40,7 +40,18 @@ const router = createRouter({
       name: 'settings',
       component: () => import('../views/SettingsView.vue'),
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(savedPosition)
+        }, 250)
+      })
+    } else {
+      return { top: 0 }
+    }
+  },
 })
 
 export default router
