@@ -6,9 +6,14 @@ import { ref } from 'vue';
 const props = defineProps(['id'])
 
 const items = ref([]);
+const colors = ref({});
+const grades = ref({})
+
 async function refresh() {
     const data = await FeedMethodsAPI.index_section(props.id);
     items.value = data.data;
+    colors.value = data.colors;
+    grades.value = data.grades
 }
 await refresh();
 // refresh on visibilitychange (switching to the app)
@@ -24,9 +29,9 @@ window.addEventListener('visibilitychange', async () => {
 
     <div class="flex two">
         <div>Hold colors used</div>
-        <div class="right"><span class="label" :class="color" v-for="(c, color) in data.colors">{{ c }}</span></div>
+        <div class="right"><span class="label" :class="color" v-for="(c, color) in colors">{{ c }}</span></div>
         <div>Grades</div>
-        <div class="right"><span class="label" :class="color" v-for="(c, color) in data.grades">{{ c }}</span></div>
+        <div class="right"><span class="label" :class="color" v-for="(c, color) in grades">{{ c }}</span></div>
     </div>
 
     <div class="flex two">
