@@ -15,23 +15,10 @@ const sections = useLocalStorage("sections", ["calendar", "hours_popular", "stri
 //   sections.value = temp
 // }
 
-const componentKey = ref(0);
-
-const forceRerender = () => {
-  componentKey.value += 1;
-};
-
-// refresh on visibilitychange (switching to the app)
-window.addEventListener('visibilitychange', function () {
-  if (document.visibilityState === 'visible') {
-    componentKey.value += 1;
-  }
-});
-
 </script>
 
 <template>
-  <div :key="componentKey">
+  <div>
     <!-- <div v-if="sections.includes('welcome')" class="welcome">
       <h1>Nice to see you here phew 👊💪</h1>
       <p>This app is made to give you all the information for your daily NKK routine - check out what is happening while

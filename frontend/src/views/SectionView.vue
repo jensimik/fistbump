@@ -5,9 +5,18 @@ import { ref } from 'vue';
 
 const props = defineProps(['id'])
 
-const data = ref({})
-data.value = await FeedMethodsAPI.index_section(props.id);
-const items = data.value.data;
+const items = ref([]);
+async function refresh() {
+    const data = await FeedMethodsAPI.index_section(props.id);
+    items.value = data.data;
+}
+await refresh();
+// refresh on visibilitychange (switching to the app)
+window.addEventListener('visibilitychange', async () => {
+    if (document.visibilityState === 'visible') {
+        await refresh();
+    }
+});
 </script>
 
 <template>

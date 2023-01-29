@@ -4,9 +4,20 @@ import HourMethodsAPI from '../api/resources/HourMethods.js';
 import { ref } from 'vue';
 
 const items = ref([]);
-items.value = await CalendarMethodsAPI.index();
 const hours = ref({});
-hours.value = await HourMethodsAPI.index();
+
+async function refresh() {
+    items.value = await CalendarMethodsAPI.index();
+    hours.value = await HourMethodsAPI.index();
+}
+await refresh();
+
+// refresh on visibilitychange (switching to the app)
+window.addEventListener('visibilitychange', async () => {
+    if (document.visibilityState === 'visible') {
+        await refresh();
+    }
+});
 
 </script>
 

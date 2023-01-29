@@ -3,7 +3,16 @@ import StripMethodsAPI from '../api/resources/StripMethods.js';
 import { ref } from 'vue';
 
 const strip = ref({});
-strip.value = await StripMethodsAPI.index();
+async function refresh() {
+    strip.value = await StripMethodsAPI.index();
+}
+await refresh();
+// refresh on visibilitychange (switching to the app)
+window.addEventListener('visibilitychange', async () => {
+    if (document.visibilityState === 'visible') {
+        await refresh();
+    }
+});
 </script>
 
 <template>
