@@ -14,7 +14,6 @@ const sections = useLocalStorage("sections", ["calendar", "hours_popular", "stri
 //   temp.splice(index, 1);
 //   sections.value = temp
 // }
-
 </script>
 
 <template>
