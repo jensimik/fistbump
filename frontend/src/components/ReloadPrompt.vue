@@ -1,10 +1,5 @@
 <script setup lang="ts">
 import { useRegisterSW } from 'virtual:pwa-register/vue'
-// import { pwaInfo } from 'virtual:pwa-info'
-// eslint-disable-next-line no-console
-// console.log(pwaInfo)
-// replaced dyanmicaly
-const reloadSW: any = '__RELOAD_SW__'
 const {
     offlineReady,
     needRefresh,
@@ -12,19 +7,11 @@ const {
 } = useRegisterSW({
     immediate: true,
     onRegisteredSW(swUrl, r) {
-        // eslint-disable-next-line no-console
-        // console.log(`Service Worker at: ${swUrl}`)
-        if (reloadSW === 'true') {
-            r && setInterval(async () => {
-                // eslint-disable-next-line no-console
-                console.log('Checking for sw update')
-                await r.update()
-            }, 20000 /* 20s for testing purposes */)
-        }
-        else {
+        r && setInterval(async () => {
             // eslint-disable-next-line no-console
-            // console.log(`SW Registered: ${r}`)
-        }
+            console.log('Checking for sw update')
+            await r.update()
+        }, 20000 /* 20s for testing purposes */)
     },
 })
 const close = async () => {
