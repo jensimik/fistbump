@@ -43,7 +43,7 @@ window.addEventListener('visibilitychange', function () {
         <dd>⬇️ In the image showing the sections you can click the section name to get a section-view of problems on
           that section (try to click on S4)</dd>
         <dd>⬇️ In the problems list you can click on the name of a problem to view it</dd>
-        <dd>🤳 Swipe gestures to go back/forward like in safari and pinch to zoom on problem images 🔍</dd>
+        <dd>🤳 Swipe gestures to go back/forward and pinch to zoom on problem images 🔍</dd>
         <dt>Information in the app</dt>
         <dd>
           <dl>
