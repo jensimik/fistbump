@@ -253,6 +253,7 @@ async def _refresh_stokt():
 
 @app.get("/feed")
 async def feed():
+    print("feed requested")
     today = datetime.now(tz=TZ).replace(tzinfo=None)
     async with AIOTinyDB(FEED_DB) as db:
         data = sorted(db, key=lambda d: d["created"], reverse=True)[:50]
@@ -261,6 +262,7 @@ async def feed():
         d["name"] = d["name"].lower()
         d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
         d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
+    print("feed finished")
     return data
 
 
