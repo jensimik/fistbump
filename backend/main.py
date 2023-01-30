@@ -182,7 +182,7 @@ async def _get_calendar_agenda(today):
             d = {
                 "datetime": entry_datetime,
                 "date": entry_date,
-                "time": entry_time,
+                "time": " - ".join(entry_time.split("-")),
                 "title": entry_title,
             }
             data.append(d)
@@ -196,8 +196,8 @@ async def _get_calendar_agenda(today):
 @app.get("/calendar")
 async def get_calendar_agenda():
     today = datetime.now(tz=TZ).date()
-    data, today, tomorrow = await _get_calendar_agenda(today)
-    return today
+    data, calendar_today, calendar_tomorrow = await _get_calendar_agenda(today)
+    return calendar_today
     # return {"today": today, "tomorrow": tomorrow, "data": data}
 
 
