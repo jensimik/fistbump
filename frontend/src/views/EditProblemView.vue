@@ -29,7 +29,7 @@ async function update(e) {
     formData.set('section', data.value.section);
     formData.set('setter', data.value.setter);
     formData.set('text', data.value.text);
-    formData.set('token', setter_auth.value);
+    formData.set('auth', setter_auth.value);
     if (image.value) {
         formData.set('file', image.value);
     }
