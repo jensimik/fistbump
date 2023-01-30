@@ -263,7 +263,6 @@ async def _refresh_stokt():
 
 @app.get("/feed")
 async def feed():
-    print("feed requested")
     today = datetime.now(tz=TZ).replace(tzinfo=None)
     async with DB as db:
         data = sorted(db, key=lambda d: d["created"], reverse=True)[:50]
@@ -272,7 +271,6 @@ async def feed():
         d["name"] = d["name"].lower()
         d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
         d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
-    print("feed finished")
     return data
 
 
@@ -441,25 +439,25 @@ async def feed_get_item(item_id: int):
 
 @app.get("/strip")
 async def strip():
-    today = datetime.now(tz=TZ).date()
+    today = datetime.now(tz=TZ)
     STRIPDATA = [
-        (date(2023, 1, 26), "probyg", "Section 4"),
-        (date(2023, 2, 3), "workshop", "Section 5"),
-        (date(2023, 2, 9), "probyg", "Section 1"),
-        (date(2023, 2, 17), "fribyg", "Section 2"),
-        (date(2023, 2, 23), "probyg", "Section 3"),
-        (date(2023, 3, 3), "forbund", "Section 4+5"),
-        (date(2023, 3, 9), "probyg", "Section 1"),
-        (date(2023, 3, 17), "fribyg", "Section 2"),
-        (date(2023, 3, 23), "probyg", "Section 3"),
-        (date(2023, 3, 31), "workshop", "Section 4"),
-        (date(2023, 4, 18), "juniorbattle", "Section 1+2+3+4+5"),
+        (datetime(2023, 1, 26, 12, 0, 0), "probyg", "Section 4"),
+        (datetime(2023, 2, 3, 12, 0, 0), "workshop", "Section 5"),
+        (datetime(2023, 2, 9, 12, 0, 0), "probyg", "Section 1"),
+        (datetime(2023, 2, 17, 12, 0, 0), "fribyg", "Section 2"),
+        (datetime(2023, 2, 23, 12, 0, 0), "probyg", "Section 3"),
+        (datetime(2023, 3, 3, 12, 0, 0), "forbund", "Section 4+5"),
+        (datetime(2023, 3, 9, 12, 0, 0), "probyg", "Section 1"),
+        (datetime(2023, 3, 17, 12, 0, 0), "fribyg", "Section 2"),
+        (datetime(2023, 3, 23, 12, 0, 0), "probyg", "Section 3"),
+        (datetime(2023, 3, 31, 12, 0, 0), "workshop", "Section 4"),
+        (datetime(2023, 4, 18, 12, 0, 0), "juniorbattle", "Section 1+2+3+4+5"),
     ]
     for next_strip, setters, section in STRIPDATA:
         if next_strip >= today:
             return {
-                "date": f"{next_strip:%d %b}",
-                "until": (next_strip - today).days - 1,
+                # "now": today.isoformat(),
+                "datetime": next_strip.isoformat(),
                 "section": section,
                 "setters": setters,
             }
