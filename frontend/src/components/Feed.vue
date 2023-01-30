@@ -108,6 +108,7 @@ h2 {
 
 td.name {
     width: 72%;
+    overflow: hidden;
 }
 
 td {
