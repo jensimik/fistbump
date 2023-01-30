@@ -108,14 +108,20 @@ h2 {
 
 td.time {
     text-align: center;
+    width: auto;
+}
+
+td.section {
+    width: auto;
 }
 
 td.tdgrade {
     text-align: center;
+    width: auto;
 }
 
 td.name {
-    max-width: 80%;
+    max-width: 72%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
