@@ -268,7 +268,6 @@ async def feed():
         data = sorted(db, key=lambda d: d["created"], reverse=True)[:50]
     for d in data:
         d["id"] = d.doc_id
-        d["name"] = d["name"].lower()
         d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
         d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
     return data
