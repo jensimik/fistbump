@@ -1,5 +1,7 @@
 <script setup>
 import FeedMethodsAPI from '../api/resources/FeedMethods.js';
+import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict'
+import parseISO from 'date-fns/parseISO'
 import { ref } from 'vue';
 
 function gradeToColor(grade) {
@@ -85,7 +87,7 @@ window.addEventListener('visibilitychange', async () => {
     <table class="primary">
         <tbody>
             <tr v-for="item in items" :key="item.id">
-                <td>-{{ item.days_back }}d</td>
+                <td>-{{ formatDistanceToNowStrict(parseISO(item.created)) }}</td>
                 <td class="section"><span v-if="item.color" class="label" :class="item.color"
                         :title="'holds color ' + item.color">{{ item.section }}</span><span v-else>{{
                             item.section
