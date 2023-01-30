@@ -406,6 +406,9 @@ async def feed_update_item(
 async def feed_get_item(item_id: int):
     async with DB as db:
         item = db.get(doc_id=item_id)
+
+    if "image_hex" in item:
+        item["image_webp"] = "https://fbs.gnerd.dk/webp/{}.webp".format(item["hex"])
     # parse hold paths if stökt
     paths = []
     if item["section"] == "Ö":
@@ -546,12 +549,12 @@ async def grade_stats():
     }
 
 
-@app.get("/fixup")
-async def fixup():
-    async with DB as db:
-        for i in db:
-            if "image" in i:
-                hex = i["image"][28:-4]
-                i["hex"] = hex
-                db.update(i, doc_ids=[i.doc_id])
-    return {"ok": "done"}
+# @app.get("/fixup")
+# async def fixup():
+#     async with DB as db:
+#         for i in db:
+#             if "image" in i:
+#                 hex = i["image"][28:-4]
+#                 i["hex"] = hex
+#                 db.update(i, doc_ids=[i.doc_id])
+#     return {"ok": "done"}
