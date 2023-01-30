@@ -356,7 +356,7 @@ def webp_image(hex: str):
     return FileResponse(webp_filename, media_type="image/webp")
 
 
-@app.get("/webp/{hex}-{new_width}.webp", response_class=FileResponse)
+@app.get("/webp/{hex}/{new_width}.webp", response_class=FileResponse)
 def webp_image(hex: str, new_width: int):
     jpg_filename = STATIC_PATH / f"{hex}.jpg"
     webp_filename = jpg_filename.with_suffix(f"-{new_width}.webp")
