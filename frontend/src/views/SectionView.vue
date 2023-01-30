@@ -31,7 +31,7 @@ window.addEventListener('visibilitychange', async () => {
         <div>Hold colors used</div>
         <div class="right"><span class="label" :class="color" v-for="(c, color) in colors">{{ c }}</span></div>
         <div>Grades</div>
-        <div class="right"><span class="label" :class="color" v-for="(c, color) in grades">{{ c }}</span></div>
+        <div class="right"><span class="label" :class="c[0]" v-for="c in grades">{{ c[1] }}</span></div>
     </div>
 
     <div class="flex two">
