@@ -6,7 +6,8 @@ from uuid import uuid4
 from collections import Counter
 from datetime import date, datetime, timedelta
 from dateutil import tz
-from fastapi import FastAPI, UploadFile, FileResponse, Form, Request, HTTPException
+from fastapi import FastAPI, UploadFile, Form, Request, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from requests_html import AsyncHTMLSession
