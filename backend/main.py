@@ -316,7 +316,8 @@ async def feed_post(
     if auth != AUTH_TOKEN:
         raise HTTPException(status_code=403)
     today = datetime.now(tz=TZ).date()
-    save_filename = f"{uuid4().hex}.jpg"
+    hex = uuid4().hex
+    save_filename = f"{hex}.jpg"
     problem = {
         "name": name,
         "grade": grade,
@@ -325,6 +326,7 @@ async def feed_post(
         "setter": setter,
         "text": text,
         "image": f"https://fbs.gnerd.dk/static/{save_filename}",
+        "image_hex": hex,
         "created": f"{today:%Y-%m-%dT%H:%M:%S}",
     }
     async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
@@ -373,9 +375,11 @@ async def feed_update_item(
         item = db.get(doc_id=item_id)
 
     image_url = item["image"]
+    hex = item["hex"]
 
     if file:
-        save_filename = f"{uuid4().hex}.jpg"
+        hex = uuid4().hex
+        save_filename = f"{hex}.jpg"
         async with aiofiles.open(f"/static/{save_filename}", "wb") as out_file:
             while content := await file.read(1024):  # async read chunk
                 await out_file.write(content)  # async write chunk
@@ -389,6 +393,7 @@ async def feed_update_item(
         "setter": setter,
         "text": text,
         "image": image_url,
+        "image_hex": hex,
         "created": item["created"],
     }
 
@@ -539,3 +544,14 @@ async def grade_stats():
             "white": stats_stokt.get("white", 0),
         },
     }
+
+
+@app.get("/fixup")
+async def fixup():
+    async with DB as db:
+        for i in db:
+            if "image" in i:
+                hex = i["image"][28:-4]
+                i["hex"] = hex
+                db.update(i, doc_ids=[i.doc_id])
+    return {"ok": "done"}
