@@ -366,8 +366,8 @@ def webp_image(hex: str, new_width: int):
         with Image.open(jpg_filename) as im:
             width, height = im.size
             new_height = int(new_width * height / width)
-            im.resize((new_width, new_height))
-            im.save(webp_filename, format="webp", method=6, quality=40)
+            resized = im.thumbnail((new_width, new_height))
+            resized.save(webp_filename, format="webp", method=6, quality=40)
     return FileResponse(webp_filename, media_type="image/webp")
 
 
