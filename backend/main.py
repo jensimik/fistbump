@@ -1,7 +1,6 @@
 import json
 import aiofiles
 import asyncio
-import PIL
 from pprint import pprint
 from uuid import uuid4
 from collections import Counter
@@ -23,6 +22,7 @@ from pydantic import BaseModel, Field
 from pydantic.typing import Literal
 from typing import Optional
 from pathlib import Path
+from PIL import Image
 import sentry_sdk
 
 sentry_sdk.init(
@@ -351,7 +351,7 @@ def webp_image(hex: str):
     jpg_filename = STATIC_PATH / f"{hex}.jpg"
     webp_filename = jpg_filename.with_suffix(".webp")
     if not webp_filename.exists():
-        with PIL.Image.open(jpg_filename) as im:
+        with Image.open(jpg_filename) as im:
             im.save(webp_filename, format="webp", method=6, quality=40)
     return FileResponse(webp_filename, media_type="image/webp")
 
@@ -361,7 +361,7 @@ def webp_image(hex: str, new_width: int):
     jpg_filename = STATIC_PATH / f"{hex}.jpg"
     webp_filename = jpg_filename.with_suffix(f"-{new_width}.webp")
     if not webp_filename.exists():
-        with PIL.Image.open(jpg_filename) as im:
+        with Image.open(jpg_filename) as im:
             width, height = im.size
             new_height = new_width * height / width
             im.resize((new_width, new_height))
