@@ -439,7 +439,7 @@ async def feed_get_item(item_id: int):
 
 @app.get("/strip")
 async def strip():
-    today = datetime.now(tz=TZ)
+    today = datetime.now(tz=TZ).replace(tzinfo=None)
     STRIPDATA = [
         (datetime(2023, 1, 26, 12, 0, 0), "probyg", "Section 4"),
         (datetime(2023, 2, 3, 12, 0, 0), "workshop", "Section 5"),
