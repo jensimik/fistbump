@@ -359,7 +359,9 @@ def webp_image(hex: str):
 @app.get("/webp/{hex}/{new_width}.webp", response_class=FileResponse)
 def webp_image(hex: str, new_width: int):
     jpg_filename = STATIC_PATH / f"{hex}.jpg"
-    webp_filename = jpg_filename.with_suffix(f"-{new_width}.webp")
+    webp_filename = jpg_filename.with_suffix(".webp").with_name(
+        f"{jpg_filename.name}-{new_width}"
+    )
     if not webp_filename.exists():
         with Image.open(jpg_filename) as im:
             width, height = im.size
