@@ -107,8 +107,10 @@ h2 {
 }
 
 td.name {
-    width: 72%;
+    width: 70%;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 td {
