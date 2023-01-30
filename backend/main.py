@@ -22,7 +22,7 @@ from pydantic import BaseModel, Field
 from pydantic.typing import Literal
 from typing import Optional
 from pathlib import Path
-from Pil import Image
+from PIL import Image
 import sentry_sdk
 
 sentry_sdk.init(
