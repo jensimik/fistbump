@@ -288,9 +288,12 @@ async def feed(section_id: str):
         d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
         d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
 
-    grades = Counter([d["grade_class"] for d in data])
+    grades_temp = Counter([d["grade_class"] for d in data])
     colors = Counter([d["color"] for d in data])
-
+    grades = [
+        (c, grades_temp.get(c, 0))
+        for c in ["green", "yellow", "blue", "purple", "red", "brown", "black", "white"]
+    ]
     return {"data": data, "colors": colors, "grades": grades}
 
 
