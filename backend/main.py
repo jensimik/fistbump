@@ -6,7 +6,7 @@ from uuid import uuid4
 from collections import Counter
 from datetime import date, datetime, timedelta
 from dateutil import tz
-from fastapi import FastAPI, UploadFile, Form, Request, HTTPException
+from fastapi import FastAPI, UploadFile, FileResponse, Form, Request, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from requests_html import AsyncHTMLSession
@@ -20,6 +20,8 @@ from tasks import repeat_every
 from pydantic import BaseModel, Field
 from pydantic.typing import Literal
 from typing import Optional
+from pathlib import Path
+from Pil import Image
 import sentry_sdk
 
 sentry_sdk.init(
@@ -60,6 +62,7 @@ GOOGLE_MAPS_PLACE_ID = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
 TZ = tz.gettz("Europe/Copenhagen")
 AUTH_TOKEN = "gWvN8wBDQ$7u5T"
 DB = AIOTinyDB(FEED_DB)
+STATIC_PATH = Path("/static")
 
 # load holds setup from json file
 with open("setup.json", "r") as f:
@@ -338,6 +341,15 @@ async def feed_delete_item(item_id: int, auth: str):
         raise HTTPException(status_code=403)
     async with DB as db:
         item = db.remove(doc_ids=[item_id])
+
+
+@app.get("/webp/{hex}.webp", response_class=FileResponse)
+def webp_image(hex: str):
+    jpg_filename = STATIC_PATH / f"{hex}.jpg"
+    webp_filename = jpg_filename.with_suffix(".webp")
+    with Image.open(jpg_filename) as im:
+        im.save(webp_filename, format="webp", method=6, quality=40)
+    return webp_filename
 
 
 @app.put("/feed/{item_id}")
