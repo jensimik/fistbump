@@ -84,7 +84,8 @@ function gradeToColor(grade) {
             <p v-if="item.text">{{ item.text }}</p>
             <div class="imgw">
                 <picture>
-                    <source type="image/webp" :srcset="item.image_webp" />
+                    <source type="image/webp" media="(max-width: 800px)" :srcset="item.image_webp800" />
+                    <source type="image/webp" media="(max-width: 801px)" :srcset="item.image_webp" />
                     <img :src="item.image" class="problem" />
                 </picture>
                 <span class="label holds big left" :class="item.color">holds</span>
