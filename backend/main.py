@@ -273,7 +273,7 @@ async def feed():
     for d in data:
         d["id"] = d.doc_id
         d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
-        if sum(1 for c in d["name"] if c.isupper()) > 4:
+        if sum(1 for c in d["name"] if c.isupper()) > 8:
             d["name"] = d["name"].lower().capitalize()
         d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
     return data

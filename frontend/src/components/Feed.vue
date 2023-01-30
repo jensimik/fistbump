@@ -121,7 +121,7 @@ td.tdgrade {
 }
 
 td.name {
-    width: auto;
+    width: calc(100% - 6em);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
