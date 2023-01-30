@@ -291,7 +291,7 @@ async def feed(section_id: str):
     grades_temp = Counter([d["grade_class"] for d in data])
     colors = Counter([d["color"] for d in data])
     grades = [
-        (c, grades_temp.get(c, 0))
+        {c: grades_temp.get(c, 0)}
         for c in ["green", "yellow", "blue", "purple", "red", "brown", "black", "white"]
     ]
     return {"data": data, "colors": colors, "grades": grades}
