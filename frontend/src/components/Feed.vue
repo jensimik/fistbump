@@ -91,9 +91,9 @@ window.addEventListener('visibilitychange', async () => {
                             item.section
                         }}</span></td>
                 <td class="name"><router-link :to="{ name: 'problem', params: { id: item.id } }">{{
-                    item.name.length >= 16 ? item.name.substring(0, 16) + ".." : item.name
+                    item.name.length >= 28 ? item.name.substring(0, 28) + ".." : item.name
                 }}</router-link></td>
-                <td><span class="label grade" :class="item.grade_class">{{
+                <td class="tdgrade"><span class="label grade" :class="item.grade_class">{{
                     item.grade
                 }}</span></td>
             </tr>
@@ -106,8 +106,20 @@ h2 {
     padding: 0;
 }
 
+td.time {
+    max-width: 10%;
+}
+
+td.section {
+    max-width: 10%;
+}
+
+td.tdgrade {
+    max-width: 10%;
+}
+
 td.name {
-    width: 70%;
+    max-width: 70%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

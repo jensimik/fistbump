@@ -20,7 +20,7 @@ window.addEventListener('visibilitychange', async () => {
 
 <template>
     <h2>{{ strip.section }} strip {{ format(parseISO(strip.datetime), 'd LLL') }}</h2>
-    <p>{{ strip.setters }} | {{ formatDistanceToNowStrict(parseISO(strip.datetime)) }} days left to close the set</p>
+    <p>{{ strip.setters }} | {{ formatDistanceToNowStrict(parseISO(strip.datetime)) }} days left to close it</p>
     <div>
         <svg width="276.38361mm" height="40.095062mm" viewBox="0 0 276.38361 40.095062" version="1.1" id="svg5"
             xml:space="preserve" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
