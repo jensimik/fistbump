@@ -90,9 +90,9 @@ window.addEventListener('visibilitychange', async () => {
                         :title="'holds color ' + item.color">{{ item.section }}</span><span v-else>{{
                             item.section
                         }}</span></td>
-                <td class="name"><router-link :to="{ name: 'problem', params: { id: item.id } }">{{
+                <td class="name"><span><router-link :to="{ name: 'problem', params: { id: item.id } }">{{
                     item.name
-                }}</router-link></td>
+                }}</router-link></span></td>
                 <td class="tdgrade"><span class="label grade" :class="item.grade_class">{{
                     item.grade
                 }}</span></td>
@@ -122,10 +122,19 @@ td.tdgrade {
 
 td.name {
     width: calc(100% - 10em);
+}
+
+td.name span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
+    display: inline-block;
+    white-space: nowrap;
+    position: relative;
+    width: 100%;
+    margin-right: -1000px;
+    vertical-align: middle;
 }
 
 td {
