@@ -350,7 +350,7 @@ def webp_image(hex: str):
     webp_filename = jpg_filename.with_suffix(".webp")
     with Image.open(jpg_filename) as im:
         im.save(webp_filename, format="webp", method=6, quality=40)
-    return webp_filename
+    return FileResponse(webp_filename, media_type="image/webp")
 
 
 @app.put("/feed/{item_id}")
