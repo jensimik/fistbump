@@ -292,6 +292,11 @@ async def feed(section_id: str):
         d["id"] = d.doc_id
         d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
         d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
+        if "image_hex" in d:
+            d["image_webp"] = "https://fbs.gnerd.dk/webp/{}.webp".format(d["image_hex"])
+            d["image_webp800"] = "https://fbs.gnerd.dk/webp/{}/800.webp".format(
+                d["image_hex"]
+            )
 
     grades_temp = Counter([d["grade_class"] for d in data])
     colors = Counter([d["color"] for d in data])

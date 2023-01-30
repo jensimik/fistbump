@@ -57,7 +57,13 @@ function gradeToColor(grade) {
     <div v-if="props.slim" class="slim">
         <div class="imgw">
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
-                <img :src="item.image" class="problem" />
+                <picture>
+                    <source type="image/webp" media="(min-width: 801px)" :srcset="item.image_webp" />
+                    <source type="image/webp" media="(max-width: 800px)" :srcset="item.image_webp800" />
+                    <img :src="item.image" class="problem" />
+                </picture>
+
+                <!-- <img :src="item.image" class="problem" /> -->
             </router-link>
             <span class="label holds big left" :class="item.color">holds</span>
             <span class="label grade big right" :class="item.grade_class">{{
