@@ -549,12 +549,12 @@ async def grade_stats():
     }
 
 
-# @app.get("/fixup")
-# async def fixup():
-#     async with DB as db:
-#         for i in db:
-#             if "image" in i:
-#                 hex = i["image"][28:-4]
-#                 i["hex"] = hex
-#                 db.update(i, doc_ids=[i.doc_id])
-#     return {"ok": "done"}
+@app.get("/fixup")
+async def fixup():
+    async with DB as db:
+        for i in db:
+            if "image" in i:
+                hex = i["image"][28:-4]
+                i["image_hex"] = hex
+                db.update(i, doc_ids=[i.doc_id])
+    return {"ok": "done"}
