@@ -97,7 +97,6 @@ async def create_problem(
 @router.delete("/problems/{item_id}")
 async def delete_problem(
     item_id: int,
-    auth: str,
     _: APIKey = Depends(get_api_key),
 ) -> schemas.Status:
     async with DB as db:
