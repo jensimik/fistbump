@@ -125,7 +125,7 @@ async def update_problem(
         item = db.get(doc_id=item_id)
 
     image_url = item["image"]
-    hex = item["hex"]
+    hex = item["image_hex"]
 
     # if file provided in update then save it
     if file:
