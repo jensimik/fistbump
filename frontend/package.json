@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@sentry/tracing": "^7.34.0",
@@ -16,8 +17,11 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@testing-library/vue": "^6.6.1",
     "@vitejs/plugin-vue": "^4.0.0",
+    "happy-dom": "^8.2.2",
     "vite": "^4.0.0",
-    "vite-plugin-pwa": "^0.14.1"
+    "vite-plugin-pwa": "^0.14.1",
+    "vitest": "^0.28.3"
   }
 }
