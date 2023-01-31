@@ -1,5 +1,6 @@
+import httpx
 from datetime import datetime
-from .helpers import session, DB, where
+from .helpers import DB, where
 from .config import settings
 
 
@@ -16,27 +17,28 @@ async def refresh_stokt():
         "Accept-Language": "en-GB,en;q=0.9",
         "Authorization": f"Token {settings.stokt_token}",
     }
-    r = await session.get(
-        "https://www.sostokt.com/api/gyms/1ada530f-887b-44b2-b817-976f058e6696/new-climbs",
-        headers=headers,
-    )
-    if r.ok:
-        data = r.json()
-        problems = [
-            {
-                "stokt_id": p["id"],
-                "section": "Ö",
-                "name": p["name"],
-                "grade": p["crowdGrade"]["font"],
-                "holds": p["holdsList"],
-                "setter": p["climbSetters"]["fullName"],
-                "hidden": p["isPrivate"],
-                "created": "{0:%Y-%m-%dT%H:%M:%S}".format(
-                    datetime.fromisoformat(p["dateCreated"])
-                ),
-            }
-            for p in data
-        ]
+    async with httpx.AsyncClient() as client:
+        r = await client.get(
+            "https://www.sostokt.com/api/gyms/1ada530f-887b-44b2-b817-976f058e6696/new-climbs",
+            headers=headers,
+        )
+        if r.is_success:
+            data = r.json()
+            problems = [
+                {
+                    "stokt_id": p["id"],
+                    "section": "Ö",
+                    "name": p["name"],
+                    "grade": p["crowdGrade"]["font"],
+                    "holds": p["holdsList"],
+                    "setter": p["climbSetters"]["fullName"],
+                    "hidden": p["isPrivate"],
+                    "created": "{0:%Y-%m-%dT%H:%M:%S}".format(
+                        datetime.fromisoformat(p["dateCreated"])
+                    ),
+                }
+                for p in data
+            ]
     async with DB as db:
         for problem in problems:
             if problem["hidden"]:

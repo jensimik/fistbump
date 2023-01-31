@@ -1,3 +1,4 @@
+import httpx
 from fastapi import APIRouter
 from functools import lru_cache
 from async_lru import alru_cache
@@ -5,7 +6,7 @@ from livepopulartimes import get_populartimes_by_place_id
 from datetime import datetime, timedelta
 from fistbump import schemas
 from fistbump.config import settings
-from fistbump.helpers import session
+from requests_html import HTML
 
 router = APIRouter(tags=["calendar"])
 
@@ -47,17 +48,21 @@ async def _get_opening_hours(today):
     hours_tomorrow = "n/a"
     weekday_today = today.weekday()
     weekday_tomorrow = (today + timedelta(days=1)).weekday()
-    r = await session.get("https://kulturogfritidn.kk.dk/noerrebrohallen")
-    if r.ok:
-        div_opening_hours = r.html.find("div.kk-contact-opening-hours", first=True)
-        for row in div_opening_hours.find("div.kk-contact-opening-hours__row"):
-            label = row.find("div.kk-contact-opening-hours__label", first=True).text
-            value = row.find("div.kk-contact-opening-hours__value > p", first=True).text
-            data[label] = value
-            if weekday_today in WEEKDAY_REVERSE.get(label, []):
-                hours_today = value
-            elif weekday_tomorrow in WEEKDAY_REVERSE.get(label, []):
-                hours_tomorrow = value
+    async with httpx.AsyncClient() as client:
+        r = await client.get("https://kulturogfritidn.kk.dk/noerrebrohallen")
+        if r.is_success:
+            html = HTML(html=r.content)
+            div_opening_hours = html.find("div.kk-contact-opening-hours", first=True)
+            for row in div_opening_hours.find("div.kk-contact-opening-hours__row"):
+                label = row.find("div.kk-contact-opening-hours__label", first=True).text
+                value = row.find(
+                    "div.kk-contact-opening-hours__value > p", first=True
+                ).text
+                data[label] = value
+                if weekday_today in WEEKDAY_REVERSE.get(label, []):
+                    hours_today = value
+                elif weekday_tomorrow in WEEKDAY_REVERSE.get(label, []):
+                    hours_tomorrow = value
     return data, hours_today, hours_tomorrow
 
 
@@ -73,24 +78,26 @@ async def _get_calendar_agenda(today):
     today_str = "{0:%d}.{0:%m}.{0:%Y}".format(today)
     # tomorrow_str = "{0:%d}.{0:%m}.{0:%Y}".format(today + timedelta(days=1))
     today = []
-    r = await session.get(
-        "https://nkk.klub-modul.dk/cms/activity.aspx?CalendarType=Agenda"
-    )
-    if r.ok:
-        div_calendar = r.html.find("div#km_cal_agenda", first=True)
-        for row in div_calendar.find("div.km-agenda-item"):
-            entry_datetime = row.find("div.km-agenda-time", first=True).text
-            entry_date = entry_datetime[:10]
-            entry_time = entry_datetime[11:]
-            entry_title = row.find("div.km-agenda-eventname", first=True).text
-            d = {
-                "datetime": entry_datetime,
-                "date": entry_date,
-                "time": " - ".join(entry_time.split("-")),
-                "title": entry_title,
-            }
-            if entry_date == today_str:
-                today.append(d)
+    async with httpx.AsyncClient() as client:
+        r = await client.get(
+            "https://nkk.klub-modul.dk/cms/activity.aspx?CalendarType=Agenda"
+        )
+        if r.is_success:
+            html = HTML(html=r.content)
+            div_calendar = html.find("div#km_cal_agenda", first=True)
+            for row in div_calendar.find("div.km-agenda-item"):
+                entry_datetime = row.find("div.km-agenda-time", first=True).text
+                entry_date = entry_datetime[:10]
+                entry_time = entry_datetime[11:]
+                entry_title = row.find("div.km-agenda-eventname", first=True).text
+                d = {
+                    "datetime": entry_datetime,
+                    "date": entry_date,
+                    "time": " - ".join(entry_time.split("-")),
+                    "title": entry_title,
+                }
+                if entry_date == today_str:
+                    today.append(d)
     return today
 
 

@@ -1,16 +1,9 @@
 import json
-from requests_html import AsyncHTMLSession
 from functools import lru_cache
 from aiotinydb import AIOTinyDB
 from tinydb import where
 from tinydb.operations import set as tinydb_set
-from .config import Settings
-
-settings = Settings()
-
-
-# async requests-html session
-session = AsyncHTMLSession()
+from .config import settings
 
 # the database instance
 DB = AIOTinyDB(settings.problem_db_file)

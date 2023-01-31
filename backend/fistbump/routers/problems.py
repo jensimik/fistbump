@@ -35,14 +35,6 @@ async def problems() -> list[schemas.Problem]:
 async def get_problem(item_id: int) -> schemas.Problem:
     async with DB as db:
         item = db.get(doc_id=item_id)
-
-    # if "image_hex" in item:
-    #     item["image_webp"] = "https://fbs.gnerd.dk/webp/{}.webp".format(
-    #         item["image_hex"]
-    #     )
-    #     item["image_webp800"] = "https://fbs.gnerd.dk/webp/{}/800.webp".format(
-    #         item["image_hex"]
-    #     )
     return schemas.Problem(
         id=item.doc_id,
         grade_class=GRADE_TO_COLOR.get(item["grade"]),
@@ -117,14 +109,18 @@ async def update_problem(
     file: Optional[UploadFile] = None,
     _: APIKey = Depends(get_api_key),
 ) -> schemas.Problem:
-    today = datetime.now(tz=settings.tz)
 
     # get the problem from db
     async with DB as db:
         item = db.get(doc_id=item_id)
 
-    image_url = item["image"]
-    hex = item["image_hex"]
+    # set fields
+    item["name"] = name
+    item["color"] = color
+    item["grade"] = grade
+    item["setter"] = setter
+    item["text"] = text
+    item["section"] = section
 
     # if file provided in update then save it
     if file:
@@ -136,25 +132,16 @@ async def update_problem(
             while content := await file.read(1024):  # async read chunk
                 await out_file.write(content)  # async write chunk
         image_url = f"https://fbs.gnerd.dk/static/{save_filename}"
+        item["image_hex"] = hex
+        item["image_url"] = image_url
 
-    problem = {
-        "name": name,
-        "grade": grade,
-        "color": color,
-        "section": section,
-        "setter": setter,
-        "text": text,
-        "image": image_url,
-        "image_hex": hex,
-        "created": item["created"],
-    }
     # update in tinydb
     async with DB as db:
-        db.update(problem, doc_ids=[item_id])
+        db.update(item, doc_ids=[item_id])
     return schemas.Problem(
         id=item_id,
-        grade_class=GRADE_TO_COLOR.get(problem["grade"]),
-        **problem,
+        grade_class=GRADE_TO_COLOR.get(item["grade"]),
+        **item,
     )
 
 

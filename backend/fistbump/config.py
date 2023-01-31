@@ -16,7 +16,8 @@ class Settings(BaseSettings):
     google_maps_api_key: str
     google_maps_place_id: str
     stokt_token: str
-    sentry_dsn: str
+    sentry_dsn: str = None
+    stokt_refresh: int = 0
     tz: tzfile = gettz("Europe/Copenhagen")
 
     class Config:
