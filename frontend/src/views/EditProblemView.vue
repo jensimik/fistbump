@@ -63,7 +63,7 @@ function onFileChange(event) {
     }
 }
 data.value = await ProblemsMethodsAPI.get(props.id);
-preview.value = data.value.image;
+preview.value = `https://fbs.gnerd.dk/static/${data.value.image_hex}.jpg`;
 </script>
 
 <template>
