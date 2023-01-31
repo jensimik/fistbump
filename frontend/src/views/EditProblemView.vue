@@ -15,17 +15,21 @@ const data = ref({
     section: "S1",
     setter: "",
     text: "",
-    button_disabled: false,
-    button_text: "update",
-    error: "",
 });
+
+const button_data = ref({
+    text: "update",
+    disabled: false,
+    error: "",
+})
 
 const preview = ref(null);
 const image = ref(null);
 
 async function update(e) {
-    data.value.button_disabled = true
-    data.value.button_text = "working..."
+    button_data.value.disabled = true
+    button_data.value.text = "working..."
+    data.value.error = ""
     let formData = new FormData()
     formData.set('name', data.value.name);
     formData.set('color', data.value.color);
@@ -40,17 +44,17 @@ async function update(e) {
         await ProblemsMethodsAPI.update(props.id, formData, setter_auth.value)
         router.push({ name: 'problem', params: { id: props.id } })
     } catch (error) {
-        data.value.error = "error in data - did you fill out all required fields and attach image?"
+        button_data.value.error = "error in data - did you fill out all required fields and attach image?"
     }
-    data.value.button_text = "update"
-    data.value.button_disabled = false
+    button_data.value.text = "update"
+    button_data.value.disabled = false
 }
 async function remove(e) {
     try {
         await ProblemsMethodsAPI.remove(props.id, setter_auth.value)
         router.push({ name: "home" })
     } catch (error) {
-        data.value.error = "error in auth"
+        button_data.value.error = "error in auth"
     }
 }
 
@@ -139,11 +143,9 @@ preview.value = `https://fbs.gnerd.dk/static/${data.value.image_hex}.jpg`;
                         accept="image/*;capture=camera">
                 </label>
             </div>
-            <p v-if="data.error">{{ data.error }}</p>
+            <p v-if="button_data.error">{{ button_data.error }}</p>
             <button class="button warning" @click="remove">remove</button>
-            <button class="button success" :disabled="data.button_disabled" @click="update">{{
-                data.button_text
-            }}</button>
+            <button class="button" :disabled="button_data.disabled" @click="update">{{ button_data.text }}</button>
         </div>
     </div>
 </template>
