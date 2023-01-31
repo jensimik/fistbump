@@ -17,7 +17,7 @@ const data = {
 async function link_setter_code(e) {
     e.disabled = true
     const answer = await SetterMethods.get(data.setter_code.value)
-    data.setter_auth.value = answer.token;
+    data.setter_auth.value = answer.access_token;
     window.location.reload()
 }
 </script>
@@ -59,7 +59,7 @@ async function link_setter_code(e) {
             </select>
         </div>
         <div v-if="data.setter.value == 'yes'">
-            <GradeDistribution></GradeDistribution>
+            <!-- <GradeDistribution></GradeDistribution> -->
             <label for="setter_code">
                 <h2>Setter code</h2>
             </label>

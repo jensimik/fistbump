@@ -1,5 +1,5 @@
 <script setup>
-import FeedMethodsAPI from '../api/resources/FeedMethods.js';
+import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
 import Problem from '../components/Problem.vue'
 import useLocalStorage from '../useLocalStorage';
 
@@ -10,7 +10,7 @@ const setter_auth = useLocalStorage("setter_auth", "");
 const props = defineProps(['id'])
 
 const item = ref({});
-item.value = await FeedMethodsAPI.get(props.id);
+item.value = await ProblemsMethodsAPI.get(props.id);
 </script>
 
 <template>

@@ -3,54 +3,6 @@ const props = defineProps(['data', 'slim', 'auth'])
 
 const item = props.data;
 
-function gradeToColor(grade) {
-    switch (grade.toUpperCase()) {
-        case "?":
-            return "turquoise";
-        case "4":
-            return "green";
-        case "let":
-            return "green";
-        case "5+":
-            return "orange";
-        case "5B":
-            return "orange";
-        case "5B+":
-            return "orange";
-        case "5B-5B+":
-            return "orange";
-        case "5C":
-            return "blue";
-        case "5C+":
-            return "blue";
-        case "6A":
-            return "blue";
-        case "6A+":
-            return "blue";
-        case "6B":
-            return "purple";
-        case "6B+":
-            return "purple";
-        case "6C":
-            return "red";
-        case "6C+":
-            return "red";
-        case "7A":
-            return "brown";
-        case "7A+":
-            return "brown";
-        case "7B":
-            return "black";
-        case "7B+":
-            return "black";
-        case "7C":
-            return "black";
-        case "7C+":
-            return "pink";
-        case "8A":
-            return "pink";
-    }
-}
 </script>
 
 <template>
@@ -58,11 +10,9 @@ function gradeToColor(grade) {
         <div class="imgw">
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
                 <picture>
-                    <source type="image/webp" :srcset="item.image_webp800" />
-                    <img :src="item.image" class="problem" />
+                    <source type="image/webp" :srcset="`https://fbs.gnerd.dk/webp/${item.image_hex}/800.webp`" />
+                    <img :src="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" class="problem" />
                 </picture>
-
-                <!-- <img :src="item.image" class="problem" /> -->
             </router-link>
             <span class="label holds big left" :class="item.color">holds</span>
             <span class="label grade big right" :class="item.grade_class">{{
@@ -89,8 +39,8 @@ function gradeToColor(grade) {
             <p v-if="item.text">{{ item.text }}</p>
             <div class="imgw">
                 <picture>
-                    <source type="image/webp" :srcset="item.image_webp" />
-                    <img :src="item.image" class="problem" />
+                    <source type="image/webp" :srcset="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" />
+                    <img :src="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" class="problem" />
                 </picture>
                 <span class="label holds big left" :class="item.color">holds</span>
                 <span class="label grade big right" :class="item.grade_class">{{

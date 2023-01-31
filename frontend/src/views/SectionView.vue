@@ -1,5 +1,5 @@
 <script setup>
-import FeedMethodsAPI from '../api/resources/FeedMethods.js';
+import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
 import Problem from '../components/Problem.vue';
 import { ref } from 'vue';
 
@@ -10,7 +10,7 @@ const colors = ref({});
 const grades = ref({})
 
 async function refresh() {
-    const data = await FeedMethodsAPI.index_section(props.id);
+    const data = await ProblemsMethodsAPI.index_section(props.id);
     items.value = data.data;
     colors.value = data.colors;
     grades.value = data.grades

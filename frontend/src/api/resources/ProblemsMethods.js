@@ -3,7 +3,7 @@ import { APISettings } from '../config.js';
 export default {
 
     async index() {
-        return fetch(APISettings.baseURL + '/feed', {
+        return fetch(APISettings.baseURL + '/problems', {
             method: 'GET',
             headers: APISettings.headers
         })
@@ -16,7 +16,7 @@ export default {
             });
     },
     async index_section(section_id) {
-        return fetch(APISettings.baseURL + '/section/' + section_id, {
+        return fetch(APISettings.baseURL + '/sections/' + section_id, {
             method: 'GET',
             headers: APISettings.headers
         })
@@ -29,7 +29,7 @@ export default {
             });
     },
     async get(item_id) {
-        return fetch(APISettings.baseURL + '/feed/' + item_id, {
+        return fetch(APISettings.baseURL + '/problems/' + item_id, {
             method: 'GET',
             headers: APISettings.headers
         })
@@ -41,10 +41,10 @@ export default {
                 }
             });
     },
-    async update(item_id, data) {
-        return fetch(APISettings.baseURL + '/feed/' + item_id, {
+    async update(item_id, data, auth) {
+        return fetch(APISettings.baseURL + '/problems/' + item_id, {
             method: 'PUT',
-            headers: APISettings,
+            headers: { ...APISettings.headers, access_token: auth },
             body: data
         })
             .then(function (response) {
@@ -56,9 +56,9 @@ export default {
             });
     },
     async remove(item_id, auth) {
-        return fetch(APISettings.baseURL + '/feed/' + item_id + '/' + auth, {
+        return fetch(APISettings.baseURL + '/problems/' + item_id, {
             method: 'DELETE',
-            headers: APISettings,
+            headers: { ...APISettings.headers, access_token: auth },
         })
             .then(function (response) {
                 if (response.status != 200) {
@@ -68,14 +68,14 @@ export default {
                 }
             });
     },
-    async store(data) {
-        return fetch(APISettings.baseURL + '/feed', {
+    async store(data, auth) {
+        return fetch(APISettings.baseURL + '/problems', {
             method: 'POST',
-            headers: APISettings,
+            headers: { ...APISettings, access_token: auth },
             body: data
         })
             .then(function (response) {
-                if (response.status != 200) {
+                if (response.status != 201) {
                     throw response.status;
                 } else {
                     return response.json();

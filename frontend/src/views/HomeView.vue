@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import Feed from '../components/Feed.vue'
+import RecentProblems from '../components/RecentProblems.vue'
 import HoursPopular from '../components/HoursPopular.vue'
 import Calendar from '../components/Calendar.vue'
 import Strip from '../components/NextStrip.vue'
@@ -69,7 +69,7 @@ const sections = useLocalStorage("sections", ["calendar", "hours_popular", "stri
     <Calendar v-if="sections.includes('calendar')"></Calendar>
     <HoursPopular v-if="sections.includes('hours_popular')"></HoursPopular>
     <Strip v-if="sections.includes('strip')"></Strip>
-    <Feed v-if="sections.includes('problems')"></Feed>
+    <RecentProblems v-if="sections.includes('problems')"></RecentProblems>
   </div>
 </template>
 

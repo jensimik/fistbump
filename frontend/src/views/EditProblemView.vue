@@ -1,5 +1,5 @@
 <script setup>
-import FeedMethodsAPI from '../api/resources/FeedMethods.js';
+import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
 import router from '../router/index.js';
 import { ref } from 'vue';
 import useLocalStorage from '../useLocalStorage';
@@ -22,6 +22,7 @@ const preview = ref(null);
 const image = ref(null);
 
 async function update(e) {
+    e.disabled = true
     let formData = new FormData()
     formData.set('name', data.value.name);
     formData.set('color', data.value.color);
@@ -29,20 +30,20 @@ async function update(e) {
     formData.set('section', data.value.section);
     formData.set('setter', data.value.setter);
     formData.set('text', data.value.text);
-    formData.set('auth', setter_auth.value);
     if (image.value) {
         formData.set('file', image.value);
     }
     try {
-        await FeedMethodsAPI.update(props.id, formData)
+        await ProblemsMethodsAPI.update(props.id, formData, setter_auth.value)
         router.push({ name: 'problem', params: { id: props.id } })
     } catch (error) {
         data.value.error = "error in data - did you fill out all required fields and attach image?"
     }
+    e.disabled = false
 }
 async function remove(e) {
     try {
-        await FeedMethodsAPI.remove(props.id, setter_auth.value)
+        await ProblemsMethodsAPI.remove(props.id, setter_auth.value)
         router.push({ name: "home" })
     } catch (error) {
         data.value.error = "error in auth"
@@ -61,7 +62,7 @@ function onFileChange(event) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-data.value = await FeedMethodsAPI.get(props.id);
+data.value = await ProblemsMethodsAPI.get(props.id);
 preview.value = data.value.image;
 </script>
 

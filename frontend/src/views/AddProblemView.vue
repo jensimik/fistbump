@@ -1,5 +1,5 @@
 <script setup>
-import FeedMethodsAPI from '../api/resources/FeedMethods.js';
+import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
 import router from '../router/index.js';
 import useLocalStorage from '../useLocalStorage';
 import { ref } from 'vue';
@@ -22,6 +22,7 @@ const preview = ref(null);
 const image = ref(null);
 
 async function add(e) {
+  e.disabled = true
   let formData = new FormData()
   formData.set('name', data.value.name)
   formData.set('color', data.value.color)
@@ -30,15 +31,13 @@ async function add(e) {
   formData.set('setter', data.value.setter)
   formData.set('text', data.value.text)
   formData.set('file', image.value)
-  formData.set('auth', setter_auth.value)
-  e.disabled = true
   try {
-    await FeedMethodsAPI.store(formData)
-    router.push({ name: 'home' })
+    answer = await ProblemsMethodsAPI.store(formData, setter_auth.value)
+    router.push({ name: 'problem', params: { id: answer.id } })
   } catch (error) {
     data.value.error = "failed to submit - did you fill out all fields and upload image?"
   }
-  e.disable = false
+  e.disabled = false
 }
 
 function onFileChange(event) {

@@ -1,72 +1,12 @@
 <script setup>
-import FeedMethodsAPI from '../api/resources/FeedMethods.js';
+import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
 import { ref } from 'vue';
 
-function gradeToColor(grade) {
-    switch (grade.toUpperCase()) {
-        case "?":
-            return "turquoise";
-        case "4":
-            return "green";
-        case "let":
-            return "green";
-        case "5+":
-            return "orange";
-        case "5B":
-            return "orange";
-        case "5B+":
-            return "orange";
-        case "5B-5B+":
-            return "orange";
-        case "5C":
-            return "blue";
-        case "5C+":
-            return "blue";
-        case "6A":
-            return "blue";
-        case "6A+":
-            return "blue";
-        case "5C-6A+":
-            return "blue";
-        case "6B":
-            return "purple";
-        case "6B+":
-            return "purple";
-        case "6B-6B+":
-            return "purple";
-        case "6C":
-            return "red";
-        case "6C+":
-            return "red";
-        case "6C-6C+":
-            return "red";
-        case "7A":
-            return "brown";
-        case "7A+":
-            return "brown";
-        case "7A-7A+":
-            return "brown";
-        case "7B":
-            return "black";
-        case "7B+":
-            return "black";
-        case "7C":
-            return "black";
-        case "7B-7C":
-            return "black";
-        case "7C+":
-            return "pink";
-        case "8A":
-            return "pink";
-        case "7C+-8C":
-            return "pink";
-    }
-}
 const items = ref([]);
 
 // refresh function
 async function refresh() {
-    items.value = await FeedMethodsAPI.index();
+    items.value = await ProblemsMethodsAPI.index();
 }
 
 await refresh();
