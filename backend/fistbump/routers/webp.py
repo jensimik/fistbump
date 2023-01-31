@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
-from PIL import Image
+from PIL import Image, ImageOps
 from fistbump.config import settings
 
 router = APIRouter(tags=["misc"])
@@ -12,6 +12,8 @@ def webp_image(hex: str):
     webp_filename = settings.static_directory / f"{hex}.webp"
     if not webp_filename.exists():
         with Image.open(jpg_filename) as im:
+            # rotate it before save as webp don't have the exif
+            im = ImageOps.exif_transpose(im)
             im.save(webp_filename, format="webp", method=6, quality=40)
     return FileResponse(webp_filename, media_type="image/webp")
 
@@ -22,6 +24,8 @@ def webp_image_new_width(hex: str, new_width: int):
     webp_filename = settings.static_directory / f"{hex}-{new_width}.webp"
     if not webp_filename.exists():
         with Image.open(jpg_filename) as im:
+            # rotate it before save as webp don't have the exif
+            im = ImageOps.exif_transpose(im)
             width, height = im.size
             new_height = int(new_width * height / width)
             im.thumbnail((new_width, new_height))
