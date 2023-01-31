@@ -80,6 +80,9 @@ wrapper {
 img.problem {
     width: 100%;
     display: block;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    object-position: left;
 }
 
 .imgw {

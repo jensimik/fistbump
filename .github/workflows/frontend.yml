@@ -6,12 +6,12 @@ name: Node.js CI
 on:
   push:
     paths: 
-      - "/frontend/**/*"
+      - "frontend/**/*"
       - ".github/workflows/frontend.yml"
     branches: [ "main" ]
   pull_request:
     paths: 
-      - "/frontend/**/*"
+      - "frontend/**/*"
       - ".github/workflows/frontend.yml"
     branches: [ "main" ]
 
