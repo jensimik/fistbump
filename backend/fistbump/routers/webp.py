@@ -17,7 +17,7 @@ def webp_image(hex: str):
 
 
 @router.get("/webp/{hex}/{new_width}.webp", response_class=FileResponse)
-def webp_image(hex: str, new_width: int):
+def webp_image_new_width(hex: str, new_width: int):
     jpg_filename = settings.static_directory / f"{hex}.jpg"
     webp_filename = settings.static_directory / f"{hex}-{new_width}.webp"
     if not webp_filename.exists():

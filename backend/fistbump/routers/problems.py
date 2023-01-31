@@ -1,7 +1,7 @@
 import aiofiles
 from uuid import uuid4
 from typing import Literal, Optional
-from fastapi import APIRouter, UploadFile, HTTPException, status, Depends, Form
+from fastapi import APIRouter, UploadFile, status, Depends, Form
 from fastapi.security.api_key import APIKey
 from datetime import datetime
 from collections import Counter
@@ -92,7 +92,7 @@ async def delete_problem(
     _: APIKey = Depends(get_api_key),
 ) -> schemas.Status:
     async with DB as db:
-        item = db.remove(doc_ids=[item_id])
+        db.remove(doc_ids=[item_id])
     return schemas.Status(message="deleted problem")
 
 

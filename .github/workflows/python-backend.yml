@@ -11,6 +11,15 @@ on:
 permissions:
   contents: read
 
+
+env:
+  STATIC_DIRECTORY: /tmp
+  PROBLEM_DB_FILE: /tmp/problems.json
+  STOKT_TOKEN: ${{ secrets.STOKT_TOKEN }}
+  GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+  GOOGLE_MAPS_PLACE_ID: ChIJ7etYrU1SUkYRu9v7IHXpF5c
+  AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+
 jobs:
   build:
 

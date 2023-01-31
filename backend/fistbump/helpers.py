@@ -8,6 +8,7 @@ from .config import settings
 # the database instance
 DB = AIOTinyDB(settings.problem_db_file)
 
+
 # stökt setup of hold path definitions
 @lru_cache
 def get_stokt_setup():
