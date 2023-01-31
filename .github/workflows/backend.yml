@@ -4,8 +4,14 @@ name: fistbump
 
 on:
   push:
+    paths:
+      - "/backend/**/*"
+      - ".github/workflows/backend.yml"
     branches: [ "main" ]
   pull_request:
+    paths:
+      - "/backend/**/*"
+      - ".github/workflows/backend.yml"
     branches: [ "main" ]
 
 permissions:
