@@ -14,11 +14,23 @@ const data = {
     setter_auth: useLocalStorage("setter_auth", ""),
 };
 
+const button_data = ref({
+    disabled: false,
+    text: "link your setter code *"
+})
+
 async function link_setter_code(e) {
-    e.disabled = true
-    const answer = await SetterMethods.get(data.setter_code.value)
-    data.setter_auth.value = answer.access_token;
-    window.location.reload()
+    button_data.value.disabled = true
+    button_data.value.text = "working..."
+    try {
+        const answer = await SetterMethods.get(data.setter_code.value)
+        data.setter_auth.value = answer.access_token;
+        window.location.reload()
+    } catch (error) {
+
+    }
+    button_data.value.disabled = false
+    button_data.value.text = "link your setter code *"
 }
 </script>
 
@@ -59,7 +71,7 @@ async function link_setter_code(e) {
             </select>
         </div>
         <div v-if="data.setter.value == 'yes'">
-            <!-- <GradeDistribution></GradeDistribution> -->
+            <GradeDistribution></GradeDistribution>
             <label for="setter_code">
                 <h2>Setter code</h2>
             </label>
@@ -67,8 +79,10 @@ async function link_setter_code(e) {
                 placeholder="enter current code for 'grebrum'" />
             <p>status: <span v-if="data.setter_auth.value" class="green">setter code is linked successful</span><span
                     v-else class="orange">not linked</span></p>
-            <button @click="link_setter_code">link your setter code *</button>
-            <p>* wait up to 15 seconds after clicking - status should be green</p>
+            <button v-if="!data.setter_auth.value" :disabled="button_data.disabled" @click="link_setter_code">{{
+                button_data.text
+            }}</button>
+            <p v-if="!data.setter_auth.value">* wait up to 15 seconds after clicking - status should be green</p>
         </div>
     </div>
 </template>

@@ -16,13 +16,17 @@ const data = ref({
   setter: setter_name.value,
   text: "",
   error: "",
+  button_disabled: false,
+  button_text: "add"
 });
 
 const preview = ref(null);
 const image = ref(null);
 
 async function add(e) {
-  e.disabled = true
+  data.value.button_disabled = true
+  data.value.button_text = "working..."
+  data.value.error = ""
   let formData = new FormData()
   formData.set('name', data.value.name)
   formData.set('color', data.value.color)
@@ -32,12 +36,13 @@ async function add(e) {
   formData.set('text', data.value.text)
   formData.set('file', image.value)
   try {
-    answer = await ProblemsMethodsAPI.store(formData, setter_auth.value)
+    const answer = await ProblemsMethodsAPI.store(formData, setter_auth.value)
     router.push({ name: 'problem', params: { id: answer.id } })
   } catch (error) {
     data.value.error = "failed to submit - did you fill out all fields and upload image?"
   }
-  e.disabled = false
+  data.value.button_text = "add"
+  data.value.button_disabled = false
 }
 
 function onFileChange(event) {
@@ -130,7 +135,7 @@ function onFileChange(event) {
       <p v-if="data.error">{{ data.error }}</p>
       <div class="flex one">
         <div>
-          <button class="button addbutton" @click="add">add</button>
+          <button class="button addbutton" :disabled="data.button_disabled" @click="add">{{ data.button_text }}</button>
         </div>
       </div>
     </div>

@@ -15,6 +15,8 @@ const data = ref({
     section: "S1",
     setter: "",
     text: "",
+    button_disabled: false,
+    button_text: "update",
     error: "",
 });
 
@@ -22,7 +24,8 @@ const preview = ref(null);
 const image = ref(null);
 
 async function update(e) {
-    e.disabled = true
+    data.value.button_disabled = true
+    data.value.button_text = "working..."
     let formData = new FormData()
     formData.set('name', data.value.name);
     formData.set('color', data.value.color);
@@ -39,7 +42,8 @@ async function update(e) {
     } catch (error) {
         data.value.error = "error in data - did you fill out all required fields and attach image?"
     }
-    e.disabled = false
+    data.value.button_text = "update"
+    data.value.button_disabled = false
 }
 async function remove(e) {
     try {
@@ -137,7 +141,9 @@ preview.value = `https://fbs.gnerd.dk/static/${data.value.image_hex}.jpg`;
             </div>
             <p v-if="data.error">{{ data.error }}</p>
             <button class="button warning" @click="remove">remove</button>
-            <button class="button success" @click="update">update</button>
+            <button class="button success" :disabled="data.button_disabled" @click="update">{{
+                data.button_text
+            }}</button>
         </div>
     </div>
 </template>
