@@ -1,10 +1,9 @@
 <script setup>
-import HoursPopularMethodsAPI from '../api/resources/HoursPopularMethods.js';
-import { ref } from 'vue';
-import { GChart } from 'vue-google-charts';
+import HoursPopularMethodsAPI from '../api/resources/HoursPopularMethods.js'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { GChart } from 'vue-google-charts'
 
-
-const type = 'ColumnChart';
+const type = 'ColumnChart'
 
 const options = {
     chartArea: { width: '100%' },
@@ -33,7 +32,26 @@ const options = {
 };
 
 const hours = ref({});
-hours.value = [["Hour", "People"]].concat(await HoursPopularMethodsAPI.index());
+
+// refresh function
+const refresh = async () => {
+    hours.value = [["Hour", "People"]].concat(await HoursPopularMethodsAPI.index());
+}
+
+const visibilityChange = async () => {
+    if (document.visibilityState === 'visible') {
+        await refresh()
+    }
+}
+onMounted(async () => {
+    await refresh()
+    document.addEventListener('visibilitychange', visibilityChange)
+})
+
+onBeforeUnmount(async () => {
+    document.removeEventListener('visibilitychange', visibilityChange)
+})
+
 </script>
 
 <template>

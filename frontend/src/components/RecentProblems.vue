@@ -1,22 +1,27 @@
 <script setup>
-import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
-import { ref } from 'vue';
+import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-const items = ref([]);
+const items = ref([])
 
 // refresh function
-async function refresh() {
-    items.value = await ProblemsMethodsAPI.index();
+const refresh = async () => {
+    items.value = await ProblemsMethodsAPI.index()
 }
 
-await refresh();
-
-// refresh on visibilitychange (switching to the app)
-window.addEventListener('visibilitychange', async () => {
+const visibilityChange = async () => {
     if (document.visibilityState === 'visible') {
-        await refresh();
+        await refresh()
     }
-});
+}
+onMounted(async () => {
+    await refresh();
+    document.addEventListener('visibilitychange', visibilityChange)
+})
+
+onBeforeUnmount(async () => {
+    document.removeEventListener('visibilitychange', visibilityChange)
+})
 </script>
 
 <template>

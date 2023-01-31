@@ -178,16 +178,22 @@ async def feed(section_id: str):
 @router.get("/grade-stats")
 async def grade_stats():
     async with DB as db:
-        stats_boulder = Counter(
-            [
-                GRADE_TO_COLOR.get(d["grade"], "?")
-                for d in db
-                if d["section"] in ["S1", "S2", "S3", "S4", "S5"]
-            ]
-        ).most_common()
-        stats_stokt = Counter(
-            [GRADE_TO_COLOR.get(d["grade"], "?") for d in db if d["section"] == "Ö"]
-        ).most_common()
+        stats_boulder = {
+            k: v
+            for k, v in Counter(
+                [
+                    GRADE_TO_COLOR.get(d["grade"], "?")
+                    for d in db
+                    if d["section"] in ["S1", "S2", "S3", "S4", "S5"]
+                ]
+            ).most_common()
+        }
+        stats_stokt = {
+            k: v
+            for k, v in Counter(
+                [GRADE_TO_COLOR.get(d["grade"], "?") for d in db if d["section"] == "Ö"]
+            ).most_common()
+        }
 
     return {
         "boulder": {

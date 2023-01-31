@@ -1,21 +1,31 @@
 <script setup>
-import StripMethodsAPI from '../api/resources/StripMethods.js';
+import StripMethodsAPI from '../api/resources/StripMethods.js'
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict'
 import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const strip = ref({});
-async function refresh() {
-    strip.value = await StripMethodsAPI.index();
+
+
+// refresh function
+const refresh = async () => {
+    strip.value = await StripMethodsAPI.index()
 }
-await refresh();
-// refresh on visibilitychange (switching to the app)
-window.addEventListener('visibilitychange', async () => {
+
+const visibilityChange = async () => {
     if (document.visibilityState === 'visible') {
-        await refresh();
+        await refresh()
     }
-});
+}
+onMounted(async () => {
+    await refresh()
+    document.addEventListener('visibilitychange', visibilityChange)
+})
+
+onBeforeUnmount(async () => {
+    document.removeEventListener('visibilitychange', visibilityChange)
+})
 </script>
 
 <template>

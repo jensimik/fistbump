@@ -1,23 +1,30 @@
 <script setup>
-import CalendarMethodsAPI from '../api/resources/CalendarMethods.js';
-import HourMethodsAPI from '../api/resources/HourMethods.js';
-import { ref } from 'vue';
+import CalendarMethodsAPI from '../api/resources/CalendarMethods.js'
+import HourMethodsAPI from '../api/resources/HourMethods.js'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-const items = ref([]);
-const hours = ref({});
+const items = ref([])
+const hours = ref({})
 
-async function refresh() {
-    items.value = await CalendarMethodsAPI.index();
-    hours.value = await HourMethodsAPI.index();
+// refresh function
+const refresh = async () => {
+    items.value = await CalendarMethodsAPI.index()
+    hours.value = await HourMethodsAPI.index()
 }
-await refresh();
 
-// refresh on visibilitychange (switching to the app)
-window.addEventListener('visibilitychange', async () => {
+const visibilityChange = async () => {
     if (document.visibilityState === 'visible') {
-        await refresh();
+        await refresh()
     }
-});
+}
+onMounted(async () => {
+    await refresh();
+    document.addEventListener('visibilitychange', visibilityChange)
+})
+
+onBeforeUnmount(async () => {
+    document.removeEventListener('visibilitychange', visibilityChange)
+})
 
 </script>
 
