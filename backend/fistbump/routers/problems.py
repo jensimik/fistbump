@@ -17,7 +17,11 @@ router = APIRouter(tags=["problems"])
 async def problems() -> list[schemas.Problem]:
     today = datetime.now(tz=settings.tz).replace(tzinfo=None)
     async with DB as db:
-        data = sorted(db, key=lambda d: d["created"], reverse=True)[:50]
+        data = sorted(
+            filter(lambda d: d["grade"] != "?", db),
+            key=lambda d: d["created"],
+            reverse=True,
+        )[:50]
     return [
         schemas.Problem(
             id=d.doc_id,
