@@ -1,5 +1,6 @@
 import json
 from functools import lru_cache
+from itertools import cycle
 from aiotinydb import AIOTinyDB
 from tinydb import where
 from tinydb.operations import set as tinydb_set
@@ -20,6 +21,7 @@ def get_stokt_setup():
 def holds_to_paths(holds_str):
     HOLDS_PATH = get_stokt_setup()
     holds = holds_str.split(" ")
+    leftrightcycle = cycle(["leftTapeStr", "rightTapeStr"])
     starting_hold_count = sum([1 if hold.startswith("S") else 0 for hold in holds])
     for hold in holds:
         sw = hold[0]
@@ -28,8 +30,15 @@ def holds_to_paths(holds_str):
             "path": HOLDS_PATH[hit]["pathStr"],
             "type": "foot" if sw == "F" else "hand",
         }
-        if sw == "S" and starting_hold_count == 1:
-            yield {"path": "M" + HOLDS_PATH[hit]["leftTapeStr"], "type": "hand"}
+        if sw == "S":
+            if starting_hold_count == 1:
+                yield {"path": "M" + HOLDS_PATH[hit]["leftTapeStr"], "type": "hand"}
+                yield {"path": "M" + HOLDS_PATH[hit]["rightTapeStr"], "type": "hand"}
+            elif starting_hold_count == 2:
+                yield {
+                    "path": "M" + HOLDS_PATH[hit][next(leftrightcycle)],
+                    "type": "hand",
+                }
         elif sw == "T":
             yield {"path": "M" + HOLDS_PATH[hit]["topPolygonStr"], "type": "hand"}
 

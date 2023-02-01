@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     stokt_token: str
     sentry_dsn: str = None
     stokt_refresh: int = 0
+    setter_code: str
     tz: tzfile = gettz("Europe/Copenhagen")
 
     class Config:

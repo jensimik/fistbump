@@ -38,20 +38,9 @@ async def link_setter_code(setter_code: str, request: Request) -> schemas.Setter
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="go away")
     LIMITER.append(h)
     await asyncio.sleep(10)
-    if setter_code == "1337":
+    if setter_code == settings.setter_code:
         LIMITER.remove(h)
         return schemas.SetterToken(access_token=settings.auth_token)
     # else
     LIMITER.remove(h)
     raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="go away")
-
-
-# @router.get("/fixup")
-# async def fixup():
-#     async with DB as db:
-#         for i in db:
-#             if "image" in i:
-#                 hex = i["image"][28:-4]
-#                 i["image_hex"] = hex
-#                 db.update(i, doc_ids=[i.doc_id])
-#     return {"ok": "done"}
