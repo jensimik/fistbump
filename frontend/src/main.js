@@ -16,7 +16,7 @@ Sentry.init({
     //         tracePropagationTargets: ["localhost", "my-site-url.com", /^\//],
     //     }),
     // ],
-    tracesSampleRate: 0.2,
+    // tracesSampleRate: 0.2,
 });
 
 app.use(router)
