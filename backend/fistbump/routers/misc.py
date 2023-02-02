@@ -25,7 +25,13 @@ async def strip() -> schemas.Strip:
     ]
     for next_strip, setters, section in STRIPDATA:
         if next_strip >= today:
-            return schemas.Strip(datetime=next_strip, section=section, setters=setters)
+            return schemas.Strip(
+                datetime=next_strip,
+                section=section,
+                setters=setters,
+                days_to_strip=(next_strip - today).days,
+                date_formatted=f"{next_strip:%b %d}",
+            )
 
 
 LIMITER = []

@@ -7,6 +7,8 @@ class Strip(BaseModel):
     datetime: datetime
     section: str
     setters: str
+    days_to_strip: int
+    date_formatted: str
 
 
 class Hours(BaseModel):
