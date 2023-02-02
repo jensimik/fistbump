@@ -31,7 +31,7 @@ async function link_setter_code(e) {
         </div>
         <div>
             <label for="name">Name</label>
-            <input v-model="name.value" type="text" required name="name" placeholder="name" />
+            <input v-model="name" type="text" required name="name" placeholder="name" />
             <label>Frontpage modules</label>
             <label class="labelblock" for="calendar"><input type="checkbox" id="calendar" name="calendar"
                     value="calendar" v-model="sections.value" /><span class="checkable">calendar</span></label>
@@ -44,7 +44,7 @@ async function link_setter_code(e) {
             <label class="labelblock" for="problems"><input type="checkbox" id="problems" name="problems"
                     value="problems" v-model="sections.value" /><span class="checkable">problems</span></label>
             <label>Do you set problems?</label>
-            <select v-model="setter.value" name="setter">
+            <select v-model="setter" name="setter">
                 <option value="no">no</option>
                 <option value="yes">yes</option>
             </select>
