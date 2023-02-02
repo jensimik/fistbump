@@ -3,10 +3,7 @@ import RecentProblems from '../components/RecentProblems.vue';
 import HoursPopular from '../components/HoursPopular.vue';
 import Calendar from '../components/Calendar.vue';
 import Strip from '../components/NextStrip.vue';
-// import useLocalStorage from '../useLocalStorage';
 import { sections } from '../localStorage';
-
-// const sections = useLocalStorage("sections", ["calendar", "hours_popular", "strip", "problems"]);
 
 </script>
 
