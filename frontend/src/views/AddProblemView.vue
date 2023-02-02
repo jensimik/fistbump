@@ -1,12 +1,8 @@
 <script setup>
 import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
 import router from '../router/index.js';
-import useLocalStorage from '../useLocalStorage';
 import { ref } from 'vue';
-
-
-const setter_name = useLocalStorage("name", "")
-const setter_auth = useLocalStorage("setter_auth", "");
+import { setter_name, setter_auth } from '../localStorage';
 
 const data = ref({
   name: "",
