@@ -27,7 +27,7 @@ async function link_setter_code(e) {
 <template>
     <div class="flex one">
         <div>
-            <h2>Profile for {{ data.name }}</h2>
+            <h2>Profile for {{ name }}</h2>
         </div>
         <div>
             <label for="name">Name</label>
