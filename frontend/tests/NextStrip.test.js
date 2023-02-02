@@ -7,7 +7,10 @@ import StripMethodsAPI from '../src/api/resources/StripMethods'
 const mockNextStripData = {
     datetime: "2023-01-01T12:00:00",
     section: "Section 4",
-    setters: "fribyg"
+    setters: "fribyg",
+    days_to_strip: 3,
+    date_formatted: "Jan 1"
+
 }
 
 test('next strip', async () => {
@@ -40,5 +43,5 @@ test('next strip', async () => {
 
     const header = wrapper.get("h2")
     // should match the mocked strip data
-    expect(header.text()).toEqual('Section 4 strip 1 Jan')
+    expect(header.text()).toEqual('Section 4 strip Jan 1')
 })

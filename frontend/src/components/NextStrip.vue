@@ -1,8 +1,5 @@
 <script setup>
 import StripMethodsAPI from '../api/resources/StripMethods.js'
-import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict'
-import format from 'date-fns/format'
-import parseISO from 'date-fns/parseISO'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const strip = ref({});
@@ -29,8 +26,8 @@ onBeforeUnmount(async () => {
 </script>
 
 <template>
-    <h2>{{ strip.section }} strip {{ format(parseISO(strip.datetime), 'd LLL') }}</h2>
-    <p>{{ strip.setters }} | {{ formatDistanceToNowStrict(parseISO(strip.datetime)) }} days left to close it</p>
+    <h2>{{ strip.section }} strip {{ strip.date_formatted }}</h2>
+    <p>{{ strip.setters }} | {{ strip.days_to_strip }} days left to close it</p>
     <div>
         <svg width="276.38361mm" height="40.095062mm" viewBox="0 0 276.38361 40.095062" version="1.1" id="svg5"
             xml:space="preserve" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
