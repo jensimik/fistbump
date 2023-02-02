@@ -2,14 +2,14 @@
 import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
 import router from '../router/index.js';
 import { ref } from 'vue';
-import { setter_name, setter_auth } from '../localStorage';
+import { name, setter_auth } from '../localStorage';
 
 const data = ref({
   name: "",
   grade: "6A",
   section: "S1",
   color: "",
-  setter: setter_name.value,
+  setter: name.value,
   text: "",
   error: "",
   button_disabled: false,
