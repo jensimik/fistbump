@@ -1,11 +1,9 @@
 <script setup>
 import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
 import Problem from '../components/Problem.vue'
-import useLocalStorage from '../useLocalStorage';
+import { setter_auth } from '../localStorage';
 
 import { ref } from 'vue';
-
-const setter_auth = useLocalStorage("setter_auth", "");
 
 const props = defineProps(['id'])
 
