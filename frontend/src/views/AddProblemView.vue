@@ -18,6 +18,21 @@ const data = ref({
 
 const preview = ref(null);
 const image = ref(null);
+const image_size = ref({ width: 0, height: 0 });
+const annotations = ref([]);
+
+const add_circle = async (e) => {
+  const { farthestViewportElement: svgRoot } = e.target;
+  let pt = DOMPoint.fromPoint(svgRoot);
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
+  annotations.value.push({ cx: cpt.x, cy: cpt.y })
+}
+
+const remove_circle = async (id) => {
+  annotations.value.splice(id, 1);
+}
 
 async function add(e) {
   data.value.button_disabled = true
@@ -46,6 +61,13 @@ function onFileChange(event) {
   if (input.files) {
     var reader = new FileReader();
     reader.onload = (e) => {
+      let img = new Image();
+      img.onload = () => {
+        image_size.value.width = img.width;
+        image_size.value.height = img.height;
+      }
+      img.src = e.target.result;
+
       preview.value = e.target.result;
     }
     image.value = input.files[0];
@@ -117,17 +139,19 @@ function onFileChange(event) {
       <label for="text">Notes</label>
       <input v-model="data.text" type="text" name="text" />
       <label>Image</label>
-      <div class="flex one">
-        <div class="imagecontainer">
-          <img class="preview" :src="preview ? preview : 'https://via.placeholder.com/900x1200'" />
-          <label for="image" class="dropimage" :style="{
-            backgroundSize: preview ? '50%' : '100%'
-          }">
-            <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
-              accept="image/*;capture=camera">
-          </label>
-        </div>
+      <div v-if="preview">
+        <svg width="100%" :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height"
+          xmlns="http://www.w3.org/2000/svg">
+          <image :href="preview" :height="image_size.height" :width="image_size.width" @click="add_circle"
+            @touchstart="add_circle" />
+          <g>
+            <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136" @click="remove_circle(index)"
+              fill="transparent" :key="index" v-for="(a, index) in annotations" />
+          </g>
+        </svg>
       </div>
+      <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
+        accept="image/*;capture=camera">
       <p v-if="data.error">{{ data.error }}</p>
       <div class="flex one">
         <div>
