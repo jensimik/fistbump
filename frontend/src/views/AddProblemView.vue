@@ -22,6 +22,7 @@ const image_size = ref({ width: 0, height: 0 });
 const annotations = ref([]);
 
 const add_circle = async (e) => {
+  console.log(e);
   const { farthestViewportElement: svgRoot } = e.target;
   let pt = DOMPoint.fromPoint(svgRoot);
   pt.x = e.clientX;
@@ -142,12 +143,13 @@ function onFileChange(event) {
       <div v-if="preview">
         <svg width="100%" :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height"
           xmlns="http://www.w3.org/2000/svg">
-          <g v-touch="add_circle">
+          <g @touchstart="add_circle" @click="add_circle">
             <image :href="preview" :height="image_size.height" :width="image_size.width" />
           </g>
           <g>
-            <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136" v-touch="() => remove_circle(index)"
-              fill="transparent" :key="index" v-for="(a, index) in annotations" />
+            <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136"
+              @touchstart="() => remove_circle(index)" @click="() => remove_circle(index)" fill="transparent"
+              :key="index" v-for="(a, index) in annotations" />
           </g>
         </svg>
       </div>
