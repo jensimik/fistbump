@@ -21,19 +21,46 @@ const image = ref(null);
 const image_size = ref({ width: 0, height: 0 });
 const annotations = ref([]);
 
+const client = {
+  x: 0,
+  y: 0,
+  timestamp: 0,
+}
+
+const touch_start = async (e) => {
+  client.x = e.touches[0].clientX;
+  client.y = e.touches[0].clientY;
+  client.timestamp = e.timeStamp;
+  console.log(client)
+}
+const touch_cancel = async (e) => {
+  client.x = 0;
+  client.y = 0;
+  client.timestamp = e.timeStamp;
+}
 const add_circle = async (e) => {
   const { farthestViewportElement: svgRoot } = e.target;
   const isTouch = e.type.indexOf('touch') >= 0
   let pt = DOMPoint.fromPoint(svgRoot);
   if (isTouch) {
-    pt.x = e.touches[0].clientX;
-    pt.y = e.touches[0].clientY;
+    let deltaX = e.changedTouches[0].clientX - client.x;
+    let deltaY = e.changedTouches[0].clientY - client.y;
+    let deltaT = e.timeStamp - client.timestamp
+    console.log("deltaX:" + deltaX + " deltaY:" + deltaY + " deltaT:" + deltaT);
+    if (deltaX <= 5 && deltaY <= 5 && deltaT >= 500) {
+      pt.x = e.touches[0].clientX;
+      pt.y = e.touches[0].clientY;
+      let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
+      annotations.value.push({ cx: cpt.x, cy: cpt.y })
+      return false;
+    }
   } else {
     pt.x = e.clientX;
     pt.y = e.clientY;
+    let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
+    annotations.value.push({ cx: cpt.x, cy: cpt.y })
+    return false;
   }
-  let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
-  annotations.value.push({ cx: cpt.x, cy: cpt.y })
 }
 
 const remove_circle = async (id) => {
@@ -149,10 +176,11 @@ function onFileChange(event) {
         <svg width="100%" :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height"
           xmlns="http://www.w3.org/2000/svg">
           <image id="svgimg" :href="preview" :height="image_size.height" :width="image_size.width"
-            @touchstart="add_circle" @click="add_circle" />
+            @touchstart="touch_start" @touch_cancel="touch_cancel" @touchend="add_circle" @click="add_circle" />
           <g>
-            <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136" @touchend="remove_circle(index)"
-              @click="remove_circle(index)" fill="transparent" :key="index" v-for="(a, index) in annotations" />
+            <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136" @touchstart="touch_start"
+              @touchcancel="touch_cancel" @touchend="remove_circle(index)" @click="remove_circle(index)"
+              fill="transparent" :key="index" v-for="(a, index) in annotations" />
           </g>
         </svg>
       </div>
