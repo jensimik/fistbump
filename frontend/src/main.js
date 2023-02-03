@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import * as Sentry from "@sentry/vue";
-import Vue3TouchEvents from "vue3-touch-events";
 // import { BrowserTracing } from "@sentry/tracing";
 
 
@@ -20,7 +19,6 @@ Sentry.init({
     // tracesSampleRate: 0.2,
 });
 
-app.use(Vue3TouchEvents)
 app.use(router)
 
 app.mount('#app')

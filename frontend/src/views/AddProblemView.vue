@@ -143,13 +143,12 @@ function onFileChange(event) {
       <div v-if="preview">
         <svg width="100%" :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height"
           xmlns="http://www.w3.org/2000/svg">
-          <g @touchstart="add_circle" @click="add_circle">
-            <image :href="preview" :height="image_size.height" :width="image_size.width" />
-          </g>
+          <image id="svgimg" :href="preview" :height="image_size.height" :width="image_size.width"
+            @click="add_circle" />
           <g>
             <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136"
-              @touchstart="() => remove_circle(index)" @click="() => remove_circle(index)" fill="transparent"
-              :key="index" v-for="(a, index) in annotations" />
+              @touchend="() => remove_circle(index)" @click="() => remove_circle(index)" fill="transparent" :key="index"
+              v-for="(a, index) in annotations" />
           </g>
         </svg>
       </div>
@@ -167,6 +166,10 @@ function onFileChange(event) {
 
 
 <style scoped>
+#svgimg {
+  cursor: pointer;
+}
+
 .imagecontainer {
   position: relative;
 }
