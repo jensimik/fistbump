@@ -121,7 +121,7 @@ function onFileChange(event) {
       <div class="flex one">
         <div class="imagecontainer">
           <p>hej med dig</p>
-          <camera :resolution="{ width: 375, height: 812 }" autoplay>
+          <camera :resolution="{ width: 1080, height: 1920 }" autoplay>
             <button>I'm on top of the video</button>
           </camera>
         </div>
