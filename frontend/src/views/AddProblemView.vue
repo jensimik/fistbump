@@ -121,7 +121,7 @@ function onFileChange(event) {
       <div class="flex one">
         <div class="imagecontainer">
           <p>hej med dig</p>
-          <camera :resolution="{ width: 1080, height: 1920 }" autoplay>
+          <camera id="vid" :resolution="{ width: 1080, height: 1920 }" autoplay>
             <button>I'm on top of the video</button>
           </camera>
         </div>
@@ -138,6 +138,10 @@ function onFileChange(event) {
 
 
 <style scoped>
+#vid {
+  aspect-ratio: 3/4;
+}
+
 .imagecontainer {
   position: relative;
 }
