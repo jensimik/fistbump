@@ -1,4 +1,5 @@
 <script setup>
+import Camera from "simple-vue-camera";
 import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
 import router from '../router/index.js';
 import { ref } from 'vue';
@@ -119,13 +120,10 @@ function onFileChange(event) {
       <label>Image</label>
       <div class="flex one">
         <div class="imagecontainer">
-          <img class="preview" :src="preview ? preview : 'https://via.placeholder.com/900x1200'" />
-          <label for="image" class="dropimage" :style="{
-            backgroundSize: preview ? '50%' : '100%'
-          }">
-            <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
-              accept="image/*;capture=camera">
-          </label>
+          <p>hej med dig</p>
+          <camera :resolution="{ width: 375, height: 812 }" autoplay>
+            <button>I'm on top of the video</button>
+          </camera>
         </div>
       </div>
       <p v-if="data.error">{{ data.error }}</p>
