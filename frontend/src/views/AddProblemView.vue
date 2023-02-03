@@ -13,12 +13,19 @@ const data = ref({
   setter: name,
   text: "",
   error: "",
+  image: null,
   button_disabled: false,
   button_text: "add"
 });
 
 const preview = ref(null);
 const image = ref(null);
+
+const snapshot = async () => {
+  const blob = await camera.value?.snapshot();
+
+  data.value.image = URL.createObjectURL(blob);
+}
 
 async function add(e) {
   data.value.button_disabled = true
@@ -121,10 +128,12 @@ function onFileChange(event) {
       <div class="flex one">
         <div class="imagecontainer">
           <p>hej med dig</p>
-          <camera id="vid" :resolution="{ width: 1080, height: 1920 }" autoplay>
-            <button>I'm on top of the video</button>
+          <camera id="vid" ref="camera" :resolution="{ width: 1080, height: 1920 }" autoplay>
+            <button @click="snapshot">I'm on top of the video</button>
           </camera>
         </div>
+
+        <img v-if="data.image" :src="data.image" />
       </div>
       <p v-if="data.error">{{ data.error }}</p>
       <div class="flex one">
