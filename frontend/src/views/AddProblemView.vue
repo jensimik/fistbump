@@ -22,18 +22,21 @@ const image_size = ref({ width: 0, height: 0 });
 const annotations = ref([]);
 
 const add_circle = async (e) => {
-  alert("add_circle");
-  console.log(e);
   const { farthestViewportElement: svgRoot } = e.target;
+  const isTouch = e.type.indexOf('touch') >= 0
   let pt = DOMPoint.fromPoint(svgRoot);
-  pt.x = e.clientX;
-  pt.y = e.clientY;
+  if (isTouch) {
+    pt.x = e.touches[0].clientX;
+    pt.y = e.touches[0].clientY;
+  } else {
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+  }
   let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
   annotations.value.push({ cx: cpt.x, cy: cpt.y })
 }
 
 const remove_circle = async (id) => {
-  alert("remove_circle");
   annotations.value.splice(id, 1);
 }
 
@@ -146,11 +149,10 @@ function onFileChange(event) {
         <svg width="100%" :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height"
           xmlns="http://www.w3.org/2000/svg">
           <image id="svgimg" :href="preview" :height="image_size.height" :width="image_size.width"
-            @touchstart="add_circle" />
+            @touchstart="add_circle" @click="add_circle" />
           <g>
-            <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136"
-              @touchstart="() => remove_circle(index)" fill="transparent" :key="index"
-              v-for="(a, index) in annotations" />
+            <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136" @touchend="remove_circle(index)"
+              @click="remove_circle(index)" fill="transparent" :key="index" v-for="(a, index) in annotations" />
           </g>
         </svg>
       </div>
