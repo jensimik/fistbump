@@ -144,7 +144,7 @@ function onFileChange(event) {
           xmlns="http://www.w3.org/2000/svg">
           <image :href="preview" :height="image_size.height" :width="image_size.width" v-touch="add_circle" />
           <g>
-            <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136" v-touch="remove_circle(index)"
+            <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136" v-touch="() => remove_circle(index)"
               fill="transparent" :key="index" v-for="(a, index) in annotations" />
           </g>
         </svg>
