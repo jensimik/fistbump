@@ -42,6 +42,7 @@ async def get_problem(item_id: int) -> schemas.Problem:
         item = db.get(doc_id=item_id)
     return schemas.Problem(
         id=item.doc_id,
+        annotations=[],
         grade_class=GRADE_TO_COLOR.get(item["grade"]),
         paths=[p for p in holds_to_paths(item["holds"])] if "holds" in item else [],
         **item,
