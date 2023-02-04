@@ -59,6 +59,8 @@ async function update(e) {
     formData.set('image_height', image_size.value.height);
     formData.set('image_width', image_size.value.width);
     formData.set('annotations', JSON.stringify(annotations.value));
+    formData.set('holds_start', data.value.holds_start);
+    formData.set('holds_top', data.value.holds_top);
     if (image.value) {
         formData.set('file', image.value);
     }

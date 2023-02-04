@@ -18,10 +18,22 @@ const item = props.data;
                             v-for="(a, index) in item.annotations" />
                         <circle class="hold hand" :cx="a.cx" :cy="a.cy" r="105" :key="index"
                             v-for="(a, index) in item.annotations.slice(-item.holds_top)" v-if="item.holds_top" />
-                        <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
-                            :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
-                            class="hold hand" :key="index"
-                            v-for="(a, index) in item.annotations.slice(0, item.holds_start)" v-if="item.holds_start" />
+                        <g v-if="item.holds_start == 1">
+                            <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
+                                :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
+                                class="hold hand" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                            <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
+                                :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
+                                class="hold hand" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                        </g>
+                        <g v-if="item.holds_start == 2">
+                            <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
+                                :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
+                                class="hold hand" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                            <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
+                                :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
+                                class="hold hand" :key="index" v-for="(a, index) in item.annotations.slice(1, 2)" />
+                        </g>
                     </svg>
                 </div>
                 <picture v-else>
@@ -62,10 +74,22 @@ const item = props.data;
                             v-for="(a, index) in item.annotations" />
                         <circle class="hold hand" :cx="a.cx" :cy="a.cy" r="105" :key="index"
                             v-for="(a, index) in item.annotations.slice(-item.holds_top)" v-if="item.holds_top" />
-                        <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
-                            :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
-                            class="hold hand" :key="index"
-                            v-for="(a, index) in item.annotations.slice(0, item.holds_start)" v-if="item.holds_start" />
+                        <g v-if="item.holds_start == 1">
+                            <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
+                                :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
+                                class="hold hand" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                            <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
+                                :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
+                                class="hold hand" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                        </g>
+                        <g v-if="item.holds_start == 2">
+                            <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
+                                :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
+                                class="hold hand" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                            <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
+                                :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
+                                class="hold hand" :key="index" v-for="(a, index) in item.annotations.slice(1, 2)" />
+                        </g>
                     </svg>
                 </div>
                 <picture v-else>
