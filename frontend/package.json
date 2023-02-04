@@ -13,7 +13,8 @@
     "@sentry/vue": "^7.36.0",
     "vue": "^3.2.47",
     "vue-google-charts": "^1.1.0",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vue3-touch-events": "^4.1.0"
   },
   "devDependencies": {
     "@testing-library/vue": "^6.6.1",

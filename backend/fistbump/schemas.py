@@ -3,6 +3,11 @@ from datetime import datetime
 from typing import Literal, Optional
 
 
+class Circle(BaseModel):
+    cx: int
+    cy: int
+
+
 class Strip(BaseModel):
     datetime: datetime
     section: str
@@ -53,6 +58,9 @@ class Problem(BaseModel):
             "orange",
         ]
     ]
+    image_width: Optional[int] = None
+    image_height: Optional[int] = None
+    annotations: Optional[list[Circle]] = []
     # image_hex only for problems in the boulder
     image_hex: Optional[str] = None
     # paths only for stokt

@@ -15,6 +15,23 @@ const data = ref({
     text: "",
 });
 
+const image_size = ref({ width: 0, height: 0 });
+const annotations = ref([]);
+
+const add_circle = async (e) => {
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+    let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
+    annotations.value.push({ cx: cpt.x, cy: cpt.y })
+    e.preventDefault();
+}
+
+
+const remove_circle = async (e, id) => {
+    annotations.value.splice(id, 1);
+    e.preventDefault();
+}
+
 const button_data = ref({
     text: "update",
     disabled: false,
@@ -35,6 +52,9 @@ async function update(e) {
     formData.set('section', data.value.section);
     formData.set('setter', data.value.setter);
     formData.set('text', data.value.text);
+    formData.set('image_height', image_size.value.height);
+    formData.set('image_width', image_size.value.width);
+    formData.set('annotations', annotations.value);
     if (image.value) {
         formData.set('file', image.value);
     }
@@ -62,6 +82,13 @@ function onFileChange(event) {
     if (input.files) {
         var reader = new FileReader();
         reader.onload = (e) => {
+            let img = new Image();
+            img.onload = () => {
+                image_size.value.width = img.width;
+                image_size.value.height = img.height;
+            }
+            img.src = e.target.result;
+
             preview.value = e.target.result;
         }
         image.value = input.files[0];
@@ -70,6 +97,8 @@ function onFileChange(event) {
 }
 data.value = await ProblemsMethodsAPI.get(props.id);
 preview.value = `https://fbs.gnerd.dk/static/${data.value.image_hex}.jpg`;
+image_size.value.height = data.value.image_size.height;
+image_size.value.width = data.value.image_size.width;
 </script>
 
 <template>
@@ -132,14 +161,14 @@ preview.value = `https://fbs.gnerd.dk/static/${data.value.image_hex}.jpg`;
             <label for="text">Notes</label>
             <input v-model="data.text" type="text" name="text" />
             <label>Image</label>
-            <div class="imagecontainer">
-                <img class="preview" v-if="preview" :src="preview" />
-                <label for="image" class="dropimage" :style="{
-                    backgroundSize: preview ? '50%' : '100%'
-                }">
-                    <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
-                        accept="image/*;capture=camera">
-                </label>
+            <div v-if="preview">
+                <svg width="100%" :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <image :href="preview" :height="image_size.height" :width="image_size.width" @click="add_circle" />
+                    <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="30" stroke="#FF4136"
+                        @click="(e) => remove_circle(e, index)" fill="transparent" :key="index"
+                        v-for="(a, index) in annotations" />
+                </svg>
             </div>
             <p v-if="button_data.error">{{ button_data.error }}</p>
             <button class="button warning" @click="remove">remove</button>
@@ -150,29 +179,12 @@ preview.value = `https://fbs.gnerd.dk/static/${data.value.image_hex}.jpg`;
 
 
 <style scoped>
-.imagecontainer {
-    position: relative;
+svg {
+    width: 100%;
 }
 
-.dropimage {
-    background-color: transparent;
-    background-repeat: no-repeat;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-}
-
-.imageupload {
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: 100%;
-}
-
-img.preview {
-    width: 100%;
+svg>img {
+    cursor: pointer;
 }
 
 button {
