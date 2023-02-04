@@ -31,7 +31,6 @@ const touch_start = async (e) => {
   client.x = e.touches[0].clientX;
   client.y = e.touches[0].clientY;
   client.timestamp = e.timeStamp;
-  console.log(client)
 }
 const touch_cancel = async (e) => {
   client.x = 0;
@@ -46,25 +45,55 @@ const add_circle = async (e) => {
     let deltaX = e.changedTouches[0].clientX - client.x;
     let deltaY = e.changedTouches[0].clientY - client.y;
     let deltaT = e.timeStamp - client.timestamp
-    console.log("deltaX:" + deltaX + " deltaY:" + deltaY + " deltaT:" + deltaT);
+    //    console.log("deltaX:" + deltaX + " deltaY:" + deltaY + " deltaT:" + deltaT);
     if (deltaX <= 5 && deltaY <= 5 && deltaT >= 500) {
       pt.x = e.touches[0].clientX;
       pt.y = e.touches[0].clientY;
       let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
       annotations.value.push({ cx: cpt.x, cy: cpt.y })
-      return false;
+      e.preventDefault();
     }
   } else {
     pt.x = e.clientX;
     pt.y = e.clientY;
     let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
     annotations.value.push({ cx: cpt.x, cy: cpt.y })
-    return false;
+    e.preventDefault();
   }
 }
 
-const remove_circle = async (id) => {
-  annotations.value.splice(id, 1);
+const move_circle = async (e, id) => {
+  const { farthestViewportElement: svgRoot } = e.target;
+  let pt = DOMPoint.fromPoint(svgRoot);
+  const isTouch = e.type.indexOf('touch') >= 0
+  if (isTouch) {
+    pt.x = e.touches[0].clientX;
+    pt.y = e.touches[0].clientY;
+  } else {
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+  }
+  let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
+  annotations.value[id] = { cx: cpt.x, cy: cpt.y };
+  e.preventDefault();
+}
+
+const remove_circle = async (e, id) => {
+  const { farthestViewportElement: svgRoot } = e.target;
+  const isTouch = e.type.indexOf('touch') >= 0
+  let pt = DOMPoint.fromPoint(svgRoot);
+  if (isTouch) {
+    let deltaX = e.changedTouches[0].clientX - client.x;
+    let deltaY = e.changedTouches[0].clientY - client.y;
+    let deltaT = e.timeStamp - client.timestamp
+    if (deltaX <= 5 && deltaY <= 5 && deltaT >= 500) {
+      annotations.value.splice(id, 1);
+      e.preventDefault();
+    }
+  } else {
+    annotations.value.splice(id, 1);
+    e.preventDefault();
+  }
 }
 
 async function add(e) {
@@ -177,11 +206,10 @@ function onFileChange(event) {
           xmlns="http://www.w3.org/2000/svg">
           <image id="svgimg" :href="preview" :height="image_size.height" :width="image_size.width"
             @touchstart="touch_start" @touch_cancel="touch_cancel" @touchend="add_circle" @click="add_circle" />
-          <g>
-            <circle :cx="a.cx" :cy="a.cy" r="50" stroke-width="15" stroke="#FF4136" @touchstart="touch_start"
-              @touchcancel="touch_cancel" @touchend="remove_circle(index)" @click="remove_circle(index)"
-              fill="transparent" :key="index" v-for="(a, index) in annotations" />
-          </g>
+          <circle :cx="a.cx" :cy="a.cy" r="100" stroke-width="25" stroke="#FF4136" @touchstart="touch_start"
+            @touchmove="(e) => move_circle(e, index)" @touchcancel="touch_cancel"
+            @touchend="(e) => remove_circle(e, index)" @click="(e) => remove_circle(e, index)" fill="transparent"
+            :key="index" v-for="(a, index) in annotations" />
         </svg>
       </div>
       <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
