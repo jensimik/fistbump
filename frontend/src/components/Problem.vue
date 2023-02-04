@@ -9,7 +9,16 @@ const item = props.data;
     <div v-if="props.slim" class="slim">
         <div class="imgw">
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
-                <picture>
+                <div v-if="item.image_width">
+                    <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
+                        xmlns="http://www.w3.org/2000/svg" class="problem">
+                        <image :href="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" :width="item.image_width"
+                            :height="item.image_height" class="problem" />
+                        <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="30" stroke="#FF4136" fill="transparent"
+                            :key="index" v-for="(a, index) in item.annotations" />
+                    </svg>
+                </div>
+                <picture v-else>
                     <source type="image/webp" :srcset="`https://fbs.gnerd.dk/webp/${item.image_hex}/800.webp`" />
                     <img :src="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" class="problem" />
                 </picture>
@@ -90,7 +99,7 @@ wrapper {
     display: inline-block;
 }
 
-img.problem {
+.problem {
     width: 100%;
     display: block;
     aspect-ratio: 3/4;
