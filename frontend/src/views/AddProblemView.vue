@@ -21,103 +21,43 @@ const image = ref(null);
 const image_size = ref({ width: 0, height: 0 });
 const annotations = ref([]);
 
-const client = {
-  x: 0,
-  y: 0,
-  timestamp: 0,
-  moved: false,
-}
-
-const touch_start = async (e) => {
-  client.x = e.touches[0].clientX;
-  client.y = e.touches[0].clientY;
-  client.timestamp = e.timeStamp;
-}
-const touch_cancel = async (e) => {
-  client.x = 0;
-  client.y = 0;
-  client.timestamp = e.timeStamp;
-}
 const add_circle = async (e) => {
-  const { farthestViewportElement: svgRoot } = e.target;
-  const isTouch = e.type.indexOf('touch') >= 0
-  let pt = DOMPoint.fromPoint(svgRoot);
-  if (isTouch) {
-    let deltaX = e.changedTouches[0].clientX - client.x;
-    let deltaY = e.changedTouches[0].clientY - client.y;
-    let deltaT = e.timeStamp - client.timestamp
-    //    console.log("deltaX:" + deltaX + " deltaY:" + deltaY + " deltaT:" + deltaT);
-    if (deltaX <= 5 && deltaY <= 5 && deltaT >= 500) {
-      pt.x = e.touches[0].clientX;
-      pt.y = e.touches[0].clientY;
-      let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
-      annotations.value.push({ cx: cpt.x, cy: cpt.y })
-      e.preventDefault();
-    }
-  } else {
-    pt.x = e.clientX;
-    pt.y = e.clientY;
-    let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
-    annotations.value.push({ cx: cpt.x, cy: cpt.y })
-    e.preventDefault();
-  }
-}
-
-const move_circle = async (e, id) => {
-  const { farthestViewportElement: svgRoot } = e.target;
-  let pt = DOMPoint.fromPoint(svgRoot);
-  const isTouch = e.type.indexOf('touch') >= 0
-  if (isTouch) {
-    pt.x = e.touches[0].clientX;
-    pt.y = e.touches[0].clientY;
-  } else {
-    pt.x = e.clientX;
-    pt.y = e.clientY;
-  }
+  pt.x = e.clientX;
+  pt.y = e.clientY;
   let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
-  annotations.value[id] = { cx: cpt.x, cy: cpt.y };
-  client.moved = true;
+  annotations.value.push({ cx: cpt.x, cy: cpt.y })
   e.preventDefault();
 }
 
+
 const remove_circle = async (e, id) => {
-  const { farthestViewportElement: svgRoot } = e.target;
-  const isTouch = e.type.indexOf('touch') >= 0
-  let pt = DOMPoint.fromPoint(svgRoot);
-  if (isTouch) {
-    let deltaX = e.changedTouches[0].clientX - client.x;
-    let deltaY = e.changedTouches[0].clientY - client.y;
-    let deltaT = e.timeStamp - client.timestamp
-    if (deltaX <= 5 && deltaY <= 5 && deltaT >= 500) {
-      annotations.value.splice(id, 1);
-      e.preventDefault();
-    }
-  } else {
-    annotations.value.splice(id, 1);
-    e.preventDefault();
-  }
+  annotations.value.splice(id, 1);
+  e.preventDefault();
 }
 
 async function add(e) {
-  data.value.button_disabled = true
-  data.value.button_text = "working..."
-  data.value.error = ""
-  let formData = new FormData()
-  formData.set('name', data.value.name)
-  formData.set('color', data.value.color)
-  formData.set('grade', data.value.grade)
-  formData.set('section', data.value.section)
-  formData.set('setter', data.value.setter)
-  formData.set('text', data.value.text)
-  formData.set('file', image.value)
+  data.value.button_disabled = true;
+  data.value.button_text = "working...";
+  data.value.error = "";
+  let formData = new FormData();
+  formData.set('name', data.value.name);
+  formData.set('color', data.value.color);
+  formData.set('grade', data.value.grade);
+  formData.set('section', data.value.section);
+  formData.set('setter', data.value.setter);
+  formData.set('text', data.value.text);
+  formData.set('file', image.value);
+  formData.set('image_height', image_size.value.height);
+  formData.set('image_width', image_size.value.width);
+  formData.set('annotations', annotations.value);
   try {
-    const answer = await ProblemsMethodsAPI.store(formData, setter_auth.value)
-    router.push({ name: 'problem', params: { id: answer.id } })
+    const answer = await ProblemsMethodsAPI.store(formData, setter_auth.value);
+    router.push({ name: 'problem', params: { id: answer.id } });
   } catch (error) {
-    data.value.error = "failed to submit - did you fill out all fields and upload image?"
+    data.value.error = "failed to submit - did you fill out all fields and upload image?";
   }
-  data.value.button_text = "add"
-  data.value.button_disabled = false
+  data.value.button_text = "add";
+  data.value.button_disabled = false;
 }
 
 function onFileChange(event) {
@@ -204,12 +144,9 @@ function onFileChange(event) {
       <input v-model="data.text" type="text" name="text" />
       <label>Image</label>
       <div v-if="preview">
-        <svg width="100%" :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height"
-          xmlns="http://www.w3.org/2000/svg">
-          <image id="svgimg" :href="preview" :height="image_size.height" :width="image_size.width"
-            @touchstart="touch_start" @touch_cancel="touch_cancel" @touchend="add_circle" @click="add_circle" />
-          <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="30" stroke="#FF4136" @touchstart="touch_start"
-            @touchcancel="touch_cancel" @touchend="(e) => remove_circle(e, index)"
+        <svg :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height" xmlns="http://www.w3.org/2000/svg">
+          <image :href="preview" :height="image_size.height" :width="image_size.width" @click="add_circle" />
+          <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="30" stroke="#FF4136"
             @click="(e) => remove_circle(e, index)" fill="transparent" :key="index" v-for="(a, index) in annotations" />
         </svg>
       </div>
@@ -227,33 +164,12 @@ function onFileChange(event) {
 
 
 <style scoped>
-#svgimg {
+svg {
+  width: 100%;
+}
+
+svg>img {
   cursor: pointer;
-}
-
-.imagecontainer {
-  position: relative;
-}
-
-.dropimage {
-  background-color: transparent;
-  background-repeat: no-repeat;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-}
-
-.imageupload {
-  width: 100%;
-  background-repeat: no-repeat;
-  background-size: 100%;
-}
-
-img.preview {
-  width: 100%;
 }
 
 button {

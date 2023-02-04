@@ -55,6 +55,9 @@ async def create_problem(
     color: str = Form(),
     grade: str = Form(),
     setter: str = Form(),
+    image_width: int = Form(),
+    image_height: int = Form(),
+    annotations: list[schemas.Circle] = Form(),
     text: Optional[str] = Form(""),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
     _: APIKey = Depends(get_api_key),
@@ -78,6 +81,9 @@ async def create_problem(
         "text": text,
         "image": f"https://fbs.gnerd.dk/static/{save_filename}",
         "image_hex": hex,
+        "image_width": image_width,
+        "image_height": image_height,
+        "annotations": annotations,
         "created": today.isoformat(timespec="seconds"),
     }
     async with DB as db:
@@ -108,6 +114,9 @@ async def update_problem(
     color: str = Form(),
     grade: str = Form(),
     setter: str = Form(),
+    image_width: int = Form(),
+    image_height: int = Form(),
+    annotations: list[schemas.Circle] = Form(),
     text: Optional[str] = Form(""),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
     file: Optional[UploadFile] = None,
@@ -125,6 +134,9 @@ async def update_problem(
     item["setter"] = setter
     item["text"] = text
     item["section"] = section
+    item["image_width"] = image_width
+    item["image_height"] = image_height
+    item["annotations"] = annotations
 
     # if file provided in update then save it
     if file:

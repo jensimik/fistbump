@@ -8,7 +8,8 @@ from dateutil.tz import tzfile, gettz
 class Settings(BaseSettings):
     app_name: str = "Fistbump"
     cors_origins: list = [
-        "http://localhost:8000",
+        "http://localhost:5173",
+        "http://192.168.1.44:5173",
         "https://fistbump.nkk.dk",
     ]
     auth_token: str

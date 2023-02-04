@@ -38,7 +38,16 @@ const item = props.data;
         <div v-else>
             <p v-if="item.text">{{ item.text }}</p>
             <div class="imgw">
-                <picture>
+                <div v-if="item.image_width">
+                    <svg width="100%" :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <img :href="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" :width="item.image_width"
+                            :height="item.image_height" class="problem" />
+                        <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="30" stroke="#FF4136" fill="transparent"
+                            :key="index" v-for="(a, index) in item.annotations" />
+                    </svg>
+                </div>
+                <picture v-else>
                     <source type="image/webp" :srcset="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" />
                     <img :src="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" class="problem" />
                 </picture>
