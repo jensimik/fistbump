@@ -25,6 +25,7 @@ const client = {
   x: 0,
   y: 0,
   timestamp: 0,
+  moved: false,
 }
 
 const touch_start = async (e) => {
@@ -75,6 +76,7 @@ const move_circle = async (e, id) => {
   }
   let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
   annotations.value[id] = { cx: cpt.x, cy: cpt.y };
+  client.moved = true;
   e.preventDefault();
 }
 
@@ -206,10 +208,9 @@ function onFileChange(event) {
           xmlns="http://www.w3.org/2000/svg">
           <image id="svgimg" :href="preview" :height="image_size.height" :width="image_size.width"
             @touchstart="touch_start" @touch_cancel="touch_cancel" @touchend="add_circle" @click="add_circle" />
-          <circle :cx="a.cx" :cy="a.cy" r="100" stroke-width="25" stroke="#FF4136" @touchstart="touch_start"
-            @touchmove="(e) => move_circle(e, index)" @touchcancel="touch_cancel"
-            @touchend="(e) => remove_circle(e, index)" @click="(e) => remove_circle(e, index)" fill="transparent"
-            :key="index" v-for="(a, index) in annotations" />
+          <circle :cx="a.cx" :cy="a.cy" r="100" stroke-width="40" stroke="#FF4136" @touchstart="touch_start"
+            @touchcancel="touch_cancel" @touchend="(e) => remove_circle(e, index)"
+            @click="(e) => remove_circle(e, index)" fill="transparent" :key="index" v-for="(a, index) in annotations" />
         </svg>
       </div>
       <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
