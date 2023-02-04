@@ -22,6 +22,8 @@ const image_size = ref({ width: 0, height: 0 });
 const annotations = ref([]);
 
 const add_circle = async (e) => {
+  const { farthestViewportElement: svgRoot } = e.target;
+  let pt = DOMPoint.fromPoint(svgRoot);
   pt.x = e.clientX;
   pt.y = e.clientY;
   let cpt = pt.matrixTransform(svgRoot.getScreenCTM().inverse())
