@@ -60,7 +60,7 @@ class Problem(BaseModel):
     ]
     image_width: Optional[int] = None
     image_height: Optional[int] = None
-    annotations: Optional[int] = []  # Optional[list[Circle]] = []
+    annotations: Optional[str] = []  # Optional[list[Circle]] = []
     # image_hex only for problems in the boulder
     image_hex: Optional[str] = None
     # paths only for stokt
