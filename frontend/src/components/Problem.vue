@@ -12,7 +12,7 @@ const item = props.data;
                 <div v-if="item.image_width">
                     <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
                         xmlns="http://www.w3.org/2000/svg" class="problem">
-                        <image :href="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" :width="item.image_width"
+                        <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
                         <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="20" stroke="#fff" fill="transparent"
                             :key="index" v-for="(a, index) in item.annotations" />
@@ -50,7 +50,7 @@ const item = props.data;
                 <div v-if="item.image_width">
                     <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
                         xmlns="http://www.w3.org/2000/svg">
-                        <image :href="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" :width="item.image_width"
+                        <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
                         <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="20" stroke="#fff" fill="transparent"
                             :key="index" v-for="(a, index) in item.annotations" />
