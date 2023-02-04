@@ -16,7 +16,7 @@ const item = props.data;
                             :height="item.image_height" class="problem" />
                         <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="80" :key="index"
                             v-for="(a, index) in item.annotations" />
-                        <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="105" :key="index"
+                        <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="115" :key="index"
                             v-for="(a, index) in item.annotations.slice(-item.holds_top)" v-if="item.holds_top" />
                         <g v-if="item.holds_start == 1">
                             <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
@@ -72,7 +72,7 @@ const item = props.data;
                             :height="item.image_height" class="problem" />
                         <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="80" :key="index"
                             v-for="(a, index) in item.annotations" />
-                        <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="105" :key="index"
+                        <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="115" :key="index"
                             v-for="(a, index) in item.annotations.slice(-item.holds_top)" v-if="item.holds_top" />
                         <g v-if="item.holds_start == 1">
                             <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
