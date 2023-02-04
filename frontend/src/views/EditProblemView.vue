@@ -109,6 +109,7 @@ data.value.grade = answer.grade;
 data.value.section = answer.section;
 data.value.holds_start = answer.holds_start;
 data.value.holds_top = answer.holds_top;
+data.value.text = answer.text;
 annotations.value = answer.annotations;
 image_size.value.height = answer.image_height;
 image_size.value.width = answer.image_width;

@@ -43,6 +43,7 @@ class Problem(BaseModel):
     section: Literal["Ö", "S1", "S2", "S3", "S4", "S5", "L"]
     setter: str
     created: datetime
+    text: Optional[str] = ""
     days_back: Optional[int] = None
     # hold color only for problems in the boulder
     color: Optional[
