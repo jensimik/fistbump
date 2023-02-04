@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Literal, Optional, AnyStr
 
 
 class Circle(BaseModel):
@@ -60,7 +60,7 @@ class Problem(BaseModel):
     ]
     image_width: Optional[int] = None
     image_height: Optional[int] = None
-    annotations: Optional[list[Circle]] = []
+    annotations: AnyStr = None  # Optional[list[Circle]] = []
     # image_hex only for problems in the boulder
     image_hex: Optional[str] = None
     # paths only for stokt

@@ -178,6 +178,8 @@ preview.value = `https://fbs.gnerd.dk/static/${answer.image_hex}.jpg`;
                         v-for="(a, index) in annotations" />
                 </svg>
             </div>
+            <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
+                accept="image/*;capture=camera">
             <p v-if="button_data.error">{{ button_data.error }}</p>
             <button class="button warning" @click="remove">remove</button>
             <button class="button" :disabled="button_data.disabled" @click="update">{{ button_data.text }}</button>
