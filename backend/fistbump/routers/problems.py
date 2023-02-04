@@ -1,4 +1,5 @@
 import aiofiles
+import json
 from uuid import uuid4
 from typing import Literal, Optional
 from fastapi import APIRouter, UploadFile, status, Depends, Form
@@ -57,7 +58,7 @@ async def create_problem(
     setter: str = Form(),
     image_width: int = Form(),
     image_height: int = Form(),
-    annotations: list[schemas.Circle] = Form(),
+    annotations: str = Form(),
     text: Optional[str] = Form(""),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
     _: APIKey = Depends(get_api_key),
@@ -83,7 +84,7 @@ async def create_problem(
         "image_hex": hex,
         "image_width": image_width,
         "image_height": image_height,
-        "annotations": annotations,
+        "annotations": json.loads(annotations),
         "created": today.isoformat(timespec="seconds"),
     }
     async with DB as db:
@@ -116,7 +117,7 @@ async def update_problem(
     setter: str = Form(),
     image_width: int = Form(),
     image_height: int = Form(),
-    annotations: list[schemas.Circle] = Form(),
+    annotations: str = Form(),
     text: Optional[str] = Form(""),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
     file: Optional[UploadFile] = None,
@@ -136,7 +137,7 @@ async def update_problem(
     item["section"] = section
     item["image_width"] = image_width
     item["image_height"] = image_height
-    item["annotations"] = annotations
+    item["annotations"] = json.loads(annotations)
 
     # if file provided in update then save it
     if file:

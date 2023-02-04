@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Literal, Optional, AnyStr
 
 
 class Circle(BaseModel):
