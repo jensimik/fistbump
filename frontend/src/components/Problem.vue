@@ -39,7 +39,7 @@ const item = props.data;
             <p v-if="item.text">{{ item.text }}</p>
             <div class="imgw">
                 <div v-if="item.image_width">
-                    <svg width="100%" :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height"
+                    <svg width="100%" :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
                         xmlns="http://www.w3.org/2000/svg">
                         <img :href="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
