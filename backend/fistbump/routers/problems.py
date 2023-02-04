@@ -117,7 +117,7 @@ async def update_problem(
     setter: str = Form(),
     image_width: int = Form(),
     image_height: int = Form(),
-    annotations: list[schemas.Circle] = Form(),
+    annotations: str = Form(),
     text: Optional[str] = Form(""),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
     file: Optional[UploadFile] = None,
@@ -137,7 +137,7 @@ async def update_problem(
     item["section"] = section
     item["image_width"] = image_width
     item["image_height"] = image_height
-    item["annotations"] = annotations
+    item["annotations"] = json.loads(annotations)
 
     # if file provided in update then save it
     if file:

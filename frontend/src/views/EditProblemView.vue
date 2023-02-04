@@ -56,7 +56,7 @@ async function update(e) {
     formData.set('text', data.value.text);
     formData.set('image_height', image_size.value.height);
     formData.set('image_width', image_size.value.width);
-    formData.set('annotations', annotations.value);
+    formData.set('annotations', JSON.stringify(annotations.value));
     if (image.value) {
         formData.set('file', image.value);
     }
@@ -97,10 +97,16 @@ function onFileChange(event) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-data.value = await ProblemsMethodsAPI.get(props.id);
-preview.value = `https://fbs.gnerd.dk/static/${data.value.image_hex}.jpg`;
-image_size.value.height = data.value.image_size.height;
-image_size.value.width = data.value.image_size.width;
+const answer = await ProblemsMethodsAPI.get(props.id);
+data.value.name = answer.name;
+data.value.setter = answer.setter;
+data.value.color = answer.color;
+data.value.grade = answer.grade;
+data.value.section = answer.section;
+annotations.value = answer.annotations;
+image_size.value.height = answer.image_height;
+image_size.value.width = answer.image_width;
+preview.value = `https://fbs.gnerd.dk/static/${answer.image_hex}.jpg`;
 </script>
 
 <template>
