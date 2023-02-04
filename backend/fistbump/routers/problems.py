@@ -59,6 +59,8 @@ async def create_problem(
     image_width: int = Form(),
     image_height: int = Form(),
     annotations: str = Form(),
+    holds_start: int = Form(),
+    holds_top: int = Form(),
     text: Optional[str] = Form(""),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
     _: APIKey = Depends(get_api_key),
@@ -85,6 +87,8 @@ async def create_problem(
         "image_width": image_width,
         "image_height": image_height,
         "annotations": json.loads(annotations),
+        "holds_start": holds_start,
+        "holds_top": holds_top,
         "created": today.isoformat(timespec="seconds"),
     }
     async with DB as db:
@@ -118,6 +122,8 @@ async def update_problem(
     image_width: int = Form(),
     image_height: int = Form(),
     annotations: str = Form(),
+    holds_start: int = Form(),
+    holds_top: int = Form(),
     text: Optional[str] = Form(""),
     section: Literal["S1", "S2", "S3", "S4", "S5"] = Form(),
     file: Optional[UploadFile] = None,
@@ -138,6 +144,8 @@ async def update_problem(
     item["image_width"] = image_width
     item["image_height"] = image_height
     item["annotations"] = json.loads(annotations)
+    item["holds_start"] = holds_start
+    item["holds_top"] = holds_top
 
     # if file provided in update then save it
     if file:
@@ -188,7 +196,11 @@ async def feed(section_id: str):
         (c, grades_temp.get(c, 0))
         for c in ["green", "yellow", "blue", "purple", "red", "brown", "black", "white"]
     ]
-    return {"data": data, "colors": colors, "grades": grades}
+    return {
+        "data": [schemas.Problem(**d) for d in data],
+        "colors": colors,
+        "grades": grades,
+    }
 
 
 # setter stats about grades

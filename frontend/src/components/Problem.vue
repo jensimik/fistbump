@@ -12,10 +12,28 @@ const item = props.data;
                 <div v-if="item.image_width">
                     <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
                         xmlns="http://www.w3.org/2000/svg" class="problem">
-                        <image :href="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" :width="item.image_width"
+                        <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
-                        <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="20" stroke="#fff" fill="transparent"
-                            :key="index" v-for="(a, index) in item.annotations" />
+                        <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="80" :key="index"
+                            v-for="(a, index) in item.annotations" />
+                        <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="115" :key="index"
+                            v-for="(a, index) in item.annotations.slice(-item.holds_top)" v-if="item.holds_top" />
+                        <g v-if="item.holds_start == 1">
+                            <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
+                                :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
+                                class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                            <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
+                                :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
+                                class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                        </g>
+                        <g v-if="item.holds_start == 2">
+                            <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
+                                :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
+                                class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                            <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
+                                :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
+                                class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(1, 2)" />
+                        </g>
                     </svg>
                 </div>
                 <picture v-else>
@@ -50,10 +68,28 @@ const item = props.data;
                 <div v-if="item.image_width">
                     <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
                         xmlns="http://www.w3.org/2000/svg">
-                        <image :href="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" :width="item.image_width"
+                        <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
-                        <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="20" stroke="#fff" fill="transparent"
-                            :key="index" v-for="(a, index) in item.annotations" />
+                        <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="80" :key="index"
+                            v-for="(a, index) in item.annotations" />
+                        <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="115" :key="index"
+                            v-for="(a, index) in item.annotations.slice(-item.holds_top)" v-if="item.holds_top" />
+                        <g v-if="item.holds_start == 1">
+                            <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
+                                :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
+                                class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                            <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
+                                :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
+                                class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                        </g>
+                        <g v-if="item.holds_start == 2">
+                            <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
+                                :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
+                                class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                            <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
+                                :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
+                                class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(1, 2)" />
+                        </g>
                     </svg>
                 </div>
                 <picture v-else>
@@ -81,16 +117,20 @@ svg {
     margin-left: 0;
 }
 
-path.hold {
+.hold {
     stroke-width: 15px;
     fill: none;
 }
 
-path.foot {
+.fat {
+    stroke-width: 25px;
+}
+
+.foot {
     stroke: #39CCCC;
 }
 
-path.hand {
+.hand {
     stroke: #fff;
 }
 
