@@ -148,8 +148,8 @@ function onFileChange(event) {
       <div v-if="preview">
         <svg :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height" xmlns="http://www.w3.org/2000/svg">
           <image :href="preview" :height="image_size.height" :width="image_size.width" @click="add_circle" />
-          <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="30" stroke="#FF4136"
-            @click="(e) => remove_circle(e, index)" fill="transparent" :key="index" v-for="(a, index) in annotations" />
+          <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="20" stroke="#fff" @click="(e) => remove_circle(e, index)"
+            fill="transparent" :key="index" v-for="(a, index) in annotations" />
         </svg>
       </div>
       <input name="image" title="Drop image or click me" @change="onFileChange" type="file"

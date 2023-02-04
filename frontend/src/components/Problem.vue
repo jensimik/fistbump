@@ -14,7 +14,7 @@ const item = props.data;
                         xmlns="http://www.w3.org/2000/svg" class="problem">
                         <image :href="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
-                        <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="30" stroke="#FF4136" fill="transparent"
+                        <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="20" stroke="#fff" fill="transparent"
                             :key="index" v-for="(a, index) in item.annotations" />
                     </svg>
                 </div>
@@ -52,7 +52,7 @@ const item = props.data;
                         xmlns="http://www.w3.org/2000/svg">
                         <image :href="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
-                        <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="30" stroke="#FF4136" fill="transparent"
+                        <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="20" stroke="#fff" fill="transparent"
                             :key="index" v-for="(a, index) in item.annotations" />
                     </svg>
                 </div>

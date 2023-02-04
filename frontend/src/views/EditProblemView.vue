@@ -173,7 +173,7 @@ preview.value = `https://fbs.gnerd.dk/static/${answer.image_hex}.jpg`;
                 <svg width="100%" :viewBox="'0 0 ' + image_size.width + ' ' + image_size.height"
                     xmlns="http://www.w3.org/2000/svg">
                     <image :href="preview" :height="image_size.height" :width="image_size.width" @click="add_circle" />
-                    <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="30" stroke="#FF4136"
+                    <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="20" stroke="#fff"
                         @click="(e) => remove_circle(e, index)" fill="transparent" :key="index"
                         v-for="(a, index) in annotations" />
                 </svg>
