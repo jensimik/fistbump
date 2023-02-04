@@ -14,8 +14,8 @@ const item = props.data;
                         xmlns="http://www.w3.org/2000/svg" class="problem">
                         <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
-                        <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="20" stroke="#fff" fill="transparent"
-                            :key="index" v-for="(a, index) in item.annotations" />
+                        <circle class="hold hand" :cx="a.cx" :cy="a.cy" r="80" :key="index"
+                            v-for="(a, index) in item.annotations" />
                     </svg>
                 </div>
                 <picture v-else>
@@ -52,8 +52,13 @@ const item = props.data;
                         xmlns="http://www.w3.org/2000/svg">
                         <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
-                        <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="20" stroke="#fff" fill="transparent"
-                            :key="index" v-for="(a, index) in item.annotations" />
+                        <circle class="hold hand" :cx="a.cx" :cy="a.cy" r="80" :key="index"
+                            v-for="(a, index) in item.annotations" />
+                        <circle class="hold hand" :cx="a.cx" :cy="a.cy" r="120" :key="index"
+                            v-for="(a, index) in item.annotations_top" />
+                        <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
+                            :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
+                            class="hold hand" :key="index" v-for="(a, index) in item.annotations_start" />
                     </svg>
                 </div>
                 <picture v-else>
@@ -81,16 +86,16 @@ svg {
     margin-left: 0;
 }
 
-path.hold {
+.hold {
     stroke-width: 15px;
     fill: none;
 }
 
-path.foot {
+.foot {
     stroke: #39CCCC;
 }
 
-path.hand {
+.hand {
     stroke: #fff;
 }
 

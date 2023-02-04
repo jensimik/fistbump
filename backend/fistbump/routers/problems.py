@@ -23,6 +23,10 @@ async def problems() -> list[schemas.Problem]:
             key=lambda d: d["created"],
             reverse=True,
         )[:50]
+    for d in data:
+        if "annotations" in d:
+            d["annotations_start"] = d["annotations"][0]
+            d["annotations_top"] = d["annotations"][-1]
     return [
         schemas.Problem(
             id=d.doc_id,
