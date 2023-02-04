@@ -72,6 +72,7 @@ async def create_problem(
             await out_file.write(content)  # async write chunk
     # save problem in tinydb
     today = datetime.now(tz=settings.tz).replace(tzinfo=None)
+    print(annotations)
     problem = {
         "name": name,
         "grade": grade,
