@@ -44,6 +44,10 @@ async def problems() -> list[schemas.Problem]:
 async def get_problem(item_id: int) -> schemas.Problem:
     async with DB as db:
         item = db.get(doc_id=item_id)
+    if "annotations" in item:
+        item["annotations_start"] = item["annotations"][0]
+        item["annotations_top"] = item["annotations"][-1]
+
     return schemas.Problem(
         id=item.doc_id,
         grade_class=GRADE_TO_COLOR.get(item["grade"]),
