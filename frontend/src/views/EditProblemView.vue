@@ -13,6 +13,8 @@ const data = ref({
     section: "S1",
     setter: "",
     text: "",
+    holds_start: 2,
+    holds_top: 0,
 });
 
 const image_size = ref({ width: 0, height: 0 });
@@ -103,6 +105,8 @@ data.value.setter = answer.setter;
 data.value.color = answer.color;
 data.value.grade = answer.grade;
 data.value.section = answer.section;
+data.value.holds_start = answer.holds_start;
+data.value.holds_top = answer.holds_top;
 annotations.value = answer.annotations;
 image_size.value.height = answer.image_height;
 image_size.value.width = answer.image_width;
@@ -177,6 +181,18 @@ preview.value = `https://fbs.gnerd.dk/static/${answer.image_hex}.jpg`;
                         @click="(e) => remove_circle(e, index)" fill="transparent" :key="index"
                         v-for="(a, index) in annotations" />
                 </svg>
+                <label for="holds_start">How many starting holds</label>
+                <select v-model="data.holds_start">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+                <label for="holds_top">Finish hold or topout?</label>
+                <select v-model="data.holds_top">
+                    <option value="0">topout</option>
+                    <option value="1">last hold</option>
+                    <option value="2">last two holds</option>
+                </select>
             </div>
             <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
                 accept="image/*;capture=camera">

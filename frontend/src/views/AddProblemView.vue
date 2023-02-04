@@ -12,6 +12,8 @@ const data = ref({
   setter: name,
   text: "",
   error: "",
+  holds_start: 2,
+  holds_top: 0,
   button_disabled: false,
   button_text: "add"
 });
@@ -52,6 +54,8 @@ async function add(e) {
   formData.set('image_height', image_size.value.height);
   formData.set('image_width', image_size.value.width);
   formData.set('annotations', JSON.stringify(annotations.value));
+  formData.set("holds_start", data.value.holds_start);
+  formData.set("holds_top", data.value.holds_top);
   try {
     const answer = await ProblemsMethodsAPI.store(formData, setter_auth.value);
     router.push({ name: 'problem', params: { id: answer.id } });
@@ -154,6 +158,23 @@ function onFileChange(event) {
       </div>
       <input name="image" title="Drop image or click me" @change="onFileChange" type="file"
         accept="image/*;capture=camera">
+      <div v-if="preview">
+        <p v-if="!annotations.value">click on the image to add mark holds (start with starting holds, and finish with
+          the top
+          hold)</p>
+        <label for="holds_start">How many starting holds</label>
+        <select v-model="data.holds_start">
+          <option value=0>0</option>
+          <option value=1>1</option>
+          <option value=2>2</option>
+        </select>
+        <label for="holds_top">Finish hold or topout?</label>
+        <select v-model="data.holds_top">
+          <option value=0>topout</option>
+          <option value=1>last hold</option>
+          <option value=2>last two holds</option>
+        </select>
+      </div>
       <p v-if="data.error">{{ data.error }}</p>
       <div class="flex one">
         <div>
