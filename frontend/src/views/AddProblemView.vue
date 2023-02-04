@@ -51,7 +51,7 @@ async function add(e) {
   formData.set('file', image.value);
   formData.set('image_height', image_size.value.height);
   formData.set('image_width', image_size.value.width);
-  formData.set('annotations', annotations.value);
+  formData.set('annotations', JSON.stringify(annotations.value));
   try {
     const answer = await ProblemsMethodsAPI.store(formData, setter_auth.value);
     router.push({ name: 'problem', params: { id: answer.id } });
