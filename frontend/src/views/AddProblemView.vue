@@ -208,7 +208,7 @@ function onFileChange(event) {
           xmlns="http://www.w3.org/2000/svg">
           <image id="svgimg" :href="preview" :height="image_size.height" :width="image_size.width"
             @touchstart="touch_start" @touch_cancel="touch_cancel" @touchend="add_circle" @click="add_circle" />
-          <circle :cx="a.cx" :cy="a.cy" r="100" stroke-width="40" stroke="#FF4136" @touchstart="touch_start"
+          <circle :cx="a.cx" :cy="a.cy" r="80" stroke-width="30" stroke="#FF4136" @touchstart="touch_start"
             @touchcancel="touch_cancel" @touchend="(e) => remove_circle(e, index)"
             @click="(e) => remove_circle(e, index)" fill="transparent" :key="index" v-for="(a, index) in annotations" />
         </svg>
