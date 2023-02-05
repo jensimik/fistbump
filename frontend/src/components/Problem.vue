@@ -20,7 +20,7 @@ const toggleShow = async () => {
                         xmlns="http://www.w3.org/2000/svg" class="problem">
                         <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
-                        <g v-if="showHolds">
+                        <g v-show="showHolds">
                             <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="80" :key="index"
                                 v-for="(a, index) in item.annotations" />
                             <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="115" :key="index"
@@ -82,7 +82,7 @@ const toggleShow = async () => {
                         xmlns="http://www.w3.org/2000/svg">
                         <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
-                        <g v-if="showHolds">
+                        <g v-show="showHolds">
                             <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="80" :key="index"
                                 v-for="(a, index) in item.annotations" />
                             <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="115" :key="index"
