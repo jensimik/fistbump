@@ -1,8 +1,10 @@
 import aiofiles
 import json
+import csv
 from uuid import uuid4
 from typing import Literal, Optional
 from fastapi import APIRouter, UploadFile, status, Depends, Form
+from fastapi.responses import StreamingResponse
 from fastapi.security.api_key import APIKey
 from datetime import datetime
 from collections import Counter
@@ -203,6 +205,29 @@ async def feed(section_id: str):
         "colors": colors,
         "grades": grades,
     }
+
+
+# export data as csv - to google spreadsheets?
+@router.get("/problems.csv")
+async def problems_csv():
+    today = datetime.now(tz=settings.tz).replace(tzinfo=None)
+    async with DB as db:
+        data = sorted(
+            filter(lambda d: d["section"] in ["S1", "S2", "S3", "S4", "S5"], db),
+            key=lambda d: d["created"],
+            reverse=True,
+        )
+
+    async def iter():
+        keys = ["id", "name", "hold_color", "grade_color", "grade", "holds"]
+        # header
+        yield ",".join(keys) + "\n"
+        for d in data:
+            d["hold_color"] = d["color"]
+            d["grade_color"] = GRADE_TO_COLOR.get(d["grade"])
+            yield ",".join([d[k] for k in keys]) + "\n"
+
+    return StreamingResponse(iter(), media_type="text/csv")
 
 
 # setter stats about number of holds on the walls for each color?
