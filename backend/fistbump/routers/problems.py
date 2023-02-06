@@ -225,6 +225,7 @@ async def problems_csv():
         for d in data:
             d["hold_color"] = d["color"]
             d["grade_color"] = GRADE_TO_COLOR.get(d["grade"])
+            d["holds"] = len(d.get("annotations", []))
             yield ",".join([d[k] for k in keys]) + "\n"
 
     return StreamingResponse(iter(), media_type="text/csv")
