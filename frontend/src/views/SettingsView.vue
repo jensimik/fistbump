@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import GradeDistribution from '../components/GradeDistribution.vue';
+import HoldStats from '../components/HoldStats.vue';
 import SetterMethods from '../api/resources/SetterMethods';
 import { name, setter_code, sections, setter, setter_auth } from '../localStorage';
 
@@ -51,6 +52,7 @@ async function link_setter_code(e) {
         </div>
         <div v-if="setter == 'yes'">
             <GradeDistribution></GradeDistribution>
+            <HoldStats></HoldStats>
             <label for="setter_code">
                 <h2>Setter code</h2>
             </label>

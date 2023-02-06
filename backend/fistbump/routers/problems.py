@@ -191,7 +191,9 @@ async def feed(section_id: str):
             )
 
     grades_temp = Counter([d["grade_class"] for d in data])
-    colors = Counter([d["color"] for d in data])
+
+    colors = Counter({c: 0 for c in settings.hold_colors})
+    colors.update([d["color"] for d in data])
     grades = [
         (c, grades_temp.get(c, 0))
         for c in ["green", "yellow", "blue", "purple", "red", "brown", "black", "white"]
@@ -201,6 +203,18 @@ async def feed(section_id: str):
         "colors": colors,
         "grades": grades,
     }
+
+
+# setter stats about number of holds on the walls for each color?
+@router.get("/hold-stats")
+async def hold_stats():
+    count_problems = Counter({c: 0 for c in settings.hold_colors})
+    count_holds = Counter({c: 0 for c in settings.hold_colors})
+    async with DB as db:
+        for d in filter(lambda t: t["section"] in ["S1", "S2", "S3", "S4", "S5"], db):
+            count_holds[d["color"]] += len(d.get("annotations", []))
+            count_problems[d["color"]] += 1
+    return {"holds": count_holds, "problems": count_problems}
 
 
 # setter stats about grades
