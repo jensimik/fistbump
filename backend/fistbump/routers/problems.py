@@ -223,6 +223,7 @@ async def problems_csv():
         # header
         yield ",".join(keys) + "\n"
         for d in data:
+            d["id"] = d.doc_id
             d["hold_color"] = d["color"]
             d["grade_color"] = GRADE_TO_COLOR.get(d["grade"])
             d["holds"] = len(d.get("annotations", []))
