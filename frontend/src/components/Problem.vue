@@ -18,7 +18,7 @@ const toggleShow = async () => {
                 <div v-if="item.image_width">
                     <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
                         xmlns="http://www.w3.org/2000/svg" class="problem">
-                        <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" :width="item.image_width"
+                        <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}/800.webp`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
                         <g v-show="showHolds">
                             <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="80" :key="index"
@@ -83,7 +83,7 @@ const toggleShow = async () => {
                 <div v-if="item.image_width">
                     <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
                         xmlns="http://www.w3.org/2000/svg">
-                        <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" :width="item.image_width"
+                        <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}/800.webp`" :width="item.image_width"
                             :height="item.image_height" class="problem" />
                         <g v-show="showHolds">
                             <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="80" :key="index"
