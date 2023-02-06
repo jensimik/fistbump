@@ -211,7 +211,7 @@ async def hold_stats():
     count_problems = Counter({c: 0 for c in settings.hold_colors})
     count_holds = Counter({c: 0 for c in settings.hold_colors})
     async with DB as db:
-        for d in filter(db, lambda t: t["section"] in ["S1", "S2", "S3", "S4", "S5"]):
+        for d in filter(lambda t: t["section"] in ["S1", "S2", "S3", "S4", "S5"], db):
             count_holds[d["color"]] += len(d["annotations"])
             count_problems[d["color"]] += 1
     return {"holds": count_holds, "problems": count_problems}
