@@ -21,6 +21,17 @@ class Settings(BaseSettings):
     sentry_dsn: str = None
     stokt_refresh: int = 0
     setter_code: str
+    hold_colors: list = [
+        "yellow",
+        "red",
+        "blue",
+        "green",
+        "black",
+        "white",
+        "purple",
+        "brown",
+        "orange",
+    ]
     tz: tzfile = gettz("Europe/Copenhagen")
 
     class Config:

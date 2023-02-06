@@ -61,7 +61,10 @@ const toggleShow = async () => {
         </div>
     </div>
     <div v-else>
-        <h2>{{ item.name }} ({{ item.section }})</h2>
+        <h2>{{ item.name }} (<router-link v-if="item.section != 'Ö'"
+                :to="{ name: 'section', params: { id: item.section } }">{{
+                    item.section
+                }}</router-link><span v-else>{{ item.section }}</span>)</h2>
         <div v-if="item.section == 'Ö'">
             <div class="imgw">
                 <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
