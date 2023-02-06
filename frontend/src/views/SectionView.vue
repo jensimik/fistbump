@@ -58,29 +58,8 @@ h2 {
     padding: 0;
 }
 
-td.name {
-    width: 72%;
-}
-
-td {
-    padding-right: 0.1em;
-    padding-left: 0;
-}
-
-tr td:first-child {
-    padding-left: 0.3em;
-}
-
-tr td:last-child {
-    padding-right: 0.3em;
-}
-
 span.grade {
     width: 5em;
-}
-
-td.section {
-    text-align: center;
 }
 
 span.label {

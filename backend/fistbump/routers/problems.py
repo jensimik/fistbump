@@ -214,7 +214,10 @@ async def hold_stats():
         for d in filter(lambda t: t["section"] in ["S1", "S2", "S3", "S4", "S5"], db):
             count_holds[d["color"]] += len(d.get("annotations", []))
             count_problems[d["color"]] += 1
-    return {"holds": count_holds, "problems": count_problems}
+    return {
+        "holds": count_holds.most_common(),
+        "problems": count_problems.most_common(),
+    }
 
 
 # setter stats about grades

@@ -7,17 +7,16 @@ data.value = await HoldStatsMethodsAPI.index();
 </script>
 
 <template>
-    <h2>Holds color stats</h2>
+    <h2>Stats by hold color</h2>
     <div class="flex two">
-        <div>Holds in use by color</div>
-        <div class="right"><span class="label" :class="color" v-for="(c, color) in data.holds">{{
-            c
+        <div class="third">Holds</div>
+        <div class="two-third right"><span class="label" :class="c[0]" v-for="c in data.holds">{{
+            c[1]
         }}</span>
         </div>
-        <div>
-            Problems by hold color</div>
-        <div class="right"><span class="label" :class="color" v-for="(c, color) in data.problems">{{
-            c
+        <div class="third">Problems</div>
+        <div class="two-third right"><span class="label" :class="c[0]" v-for="c in data.problems">{{
+            c[1]
         }}</span>
         </div>
     </div>
