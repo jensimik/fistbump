@@ -223,11 +223,11 @@ async def problems_csv():
         # header
         yield ",".join(keys) + "\n"
         for d in data:
-            d["id"] = d.doc_id
+            d["id"] = str(d.doc_id)
             d["hold_color"] = d["color"]
             d["grade_color"] = GRADE_TO_COLOR.get(d["grade"])
-            d["holds"] = len(d.get("annotations", []))
-            yield ",".join([str(d[k]) for k in keys]) + "\n"
+            d["holds"] = str(len(d.get("annotations", [])))
+            yield ",".join([d[k] for k in keys]) + "\n"
 
     return StreamingResponse(iter(), media_type="text/csv")
 
