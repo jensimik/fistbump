@@ -31,11 +31,18 @@ const options = {
     },
 };
 
-const hours = ref({});
+const hours = ref([]);
+const online = ref(true);
 
 // refresh function
 const refresh = async () => {
-    hours.value = [["Hour", "People"]].concat(await HoursPopularMethodsAPI.index());
+    try {
+        hours.value = [["Hour", "People"]].concat(await HoursPopularMethodsAPI.index());
+        online.value = true;
+    } catch (error) {
+        online.value = false;
+        hours.value = [];
+    }
 }
 
 const visibilityChange = async () => {
@@ -58,9 +65,10 @@ onBeforeUnmount(async () => {
     <h2>Peak hours <span class="small">(<a
                 href="https://www.google.com/maps/place/N%C3%B8rrebro+Klatreklub/@55.699755,12.54276,17z/data=!3m1!4b1!4m5!3m4!1s0x4652524dad58ebed:0x9717e97520fbdbbb!8m2!3d55.699755!4d12.54276">google-maps
                 estimate</a>)</span></h2>
-    <div>
+    <div v-if="online">
         <GChart id="ccc" :data="hours" :options="options" :type="type"></GChart>
     </div>
+    <div v-else>could not fetch data - are you online?</div>
 </template>
 
 <style scoped>

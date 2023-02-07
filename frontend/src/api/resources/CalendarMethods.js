@@ -13,6 +13,6 @@ export default {
                 } else {
                     return response.json();
                 }
-            });
+            })
     },
 }
