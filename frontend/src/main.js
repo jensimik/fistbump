@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import * as Sentry from "@sentry/vue";
-// import { BrowserTracing } from "@sentry/tracing";
+import { BrowserTracing } from "@sentry/tracing";
 
 
 const app = createApp(App)
