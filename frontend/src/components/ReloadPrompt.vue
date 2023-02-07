@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 
-const intervalMS = 20 * 1000 // every 20 seconds
+const intervalMS = 60 * 30 * 1000 // every 30 minutes
 
 const {
     offlineReady,
@@ -10,7 +10,7 @@ const {
 } = useRegisterSW({
     immediate: true,
     onRegisteredSW(swUrl, r) {
-        r && setInterval(async () => {
+        const check = async () => {
             if (!(!r.installing && navigator))
                 return
 
@@ -23,11 +23,17 @@ const {
                     'cache': 'no-store',
                     'cache-control': 'no-cache',
                 },
-            })
+            });
 
             if (resp?.status === 200)
-                await r.update()
-        }, intervalMS)
+                await r.update();
+        };
+        // check periodic
+        r && setInterval(async () => {
+            await check();
+        }, intervalMS);
+        // check on visibilityChange on window 
+        window.addEventListener('visibilitychange', check);
     },
 })
 const close = async () => {
@@ -35,7 +41,7 @@ const close = async () => {
     needRefresh.value = false
 }
 const click_update = async () => {
-    await updateServiceWorker()
+    await updateServiceWorker();
     await new Promise(r => setTimeout(r, 1000));
     window.location.reload()
 }
