@@ -50,13 +50,18 @@ const visibilityChange = async () => {
         await refresh()
     }
 }
+const networkOnline = async () => {
+    await refresh();
+}
 onMounted(async () => {
-    await refresh()
-    document.addEventListener('visibilitychange', visibilityChange)
+    await refresh();
+    document.addEventListener('visibilitychange', visibilityChange);
+    window.addEventListener('online', networkOnline);
 })
 
 onBeforeUnmount(async () => {
-    document.removeEventListener('visibilitychange', visibilityChange)
+    document.removeEventListener('visibilitychange', visibilityChange);
+    window.removeEventListener('online', networkOnline);
 })
 
 </script>
