@@ -57,6 +57,7 @@ class Problem(BaseModel):
             "purple",
             "brown",
             "orange",
+            "rainbow",
         ]
     ]
     image_width: Optional[int] = None
