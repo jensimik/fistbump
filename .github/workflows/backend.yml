@@ -26,7 +26,9 @@ env:
   GOOGLE_MAPS_PLACE_ID: ChIJ7etYrU1SUkYRu9v7IHXpF5c
   AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
   SETTER_CODE: ${{ secrets.SETTER_CODE }}
-
+  SENTRY_RELEASE_AUTH_TOKEN: ${{ secrets.SENTRY_RELEASE_AUTH_TOKEN }}
+  SENTRY_ORG: gnerd
+  SENTRY_PROJECT: python-fastapi
 jobs:
   build:
 

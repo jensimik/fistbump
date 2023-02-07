@@ -129,4 +129,8 @@ span.white {
 span.orange {
   background-color: #FF851B;
 }
+
+span.rainbow {
+  background-image: linear-gradient(to left, #85144b, #FF4136, #B10DC9, #0074d9, #2ECC40, #FFDC00);
+}
 </style>
