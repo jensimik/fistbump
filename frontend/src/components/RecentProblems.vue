@@ -1,33 +1,44 @@
 <script setup>
-import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js'
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-const items = ref([])
+const items = ref([]);
+const online = ref(true);
 
 // refresh function
 const refresh = async () => {
-    items.value = await ProblemsMethodsAPI.index()
+    try {
+        items.value = await ProblemsMethodsAPI.index();
+        online.value = true;
+    } catch (error) {
+        online.value = false;
+    }
 }
 
 const visibilityChange = async () => {
     if (document.visibilityState === 'visible') {
-        await refresh()
+        await refresh();
     }
+}
+const networkOnline = async () => {
+    await refresh();
 }
 onMounted(async () => {
     await refresh();
-    document.addEventListener('visibilitychange', visibilityChange)
+    document.addEventListener('visibilitychange', visibilityChange);
+    window.addEventListener('online', networkOnline);
 })
 
 onBeforeUnmount(async () => {
-    document.removeEventListener('visibilitychange', visibilityChange)
+    document.removeEventListener('visibilitychange', visibilityChange);
+    window.removeEventListener('online', networkOnline);
 })
 </script>
 
 <template>
     <h2>Problems <span class="small">(<a href="https://www.getstokt.com/">stökt</a> | lumi | probyg | fribyg)</span>
     </h2>
-    <table class="primary">
+    <table v-if="online" class="primary">
         <tbody>
             <tr v-for="item in items" :key="item.id">
                 <td class="time">-{{ item.days_back }}d</td>
@@ -44,6 +55,9 @@ onBeforeUnmount(async () => {
             </tr>
         </tbody>
     </table>
+    <div v-else>
+        could not fetch data - are you online?
+    </div>
 </template>
 
 <style scoped>

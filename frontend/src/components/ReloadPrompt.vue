@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 
-const intervalMS = 60 * 2 * 1000 // every two minutes?
+const intervalMS = 20 * 1000 // every 20 seconds
 
 const {
     offlineReady,
