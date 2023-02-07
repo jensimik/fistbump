@@ -15,6 +15,9 @@ on:
       - ".github/workflows/frontend.yml"
     branches: [ "main" ]
 
+env:
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
 jobs:
   build:
 

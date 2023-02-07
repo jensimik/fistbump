@@ -6,16 +6,19 @@ from .routers import calendar, problems, webp, misc
 from .repeat_every_helper import repeat_every
 from .stokt import refresh_stokt
 from .config import settings
+from fistbump import __version__
+
 
 if settings.sentry_dsn:
     sentry_sdk.init(
         dsn=settings.sentry_dsn,
         traces_sample_rate=1.0,
+        release=__version__,
     )
 
 app = FastAPI(
     title="fistbump-api",
-    version="1.0.0",
+    version=__version__,
 )
 
 app.add_middleware(
