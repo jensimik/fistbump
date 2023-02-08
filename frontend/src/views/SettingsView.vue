@@ -110,6 +110,9 @@ async function link_setter_code(e) {
                 button_data.text
             }}</button>
             <p v-if="!setter_auth">* wait up to 15 seconds after clicking - status should be green</p>
+            <p>
+                <RouterLink :to="{ name: 'setter-stats' }">📊 Setter statistics</RouterLink>
+            </p>
         </div>
     </div>
 </template>
