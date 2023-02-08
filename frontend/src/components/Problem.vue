@@ -68,7 +68,7 @@ const toggleShow = async () => {
                 <span class="label grade big right" :class="item.grade_class">{{
                     item.grade
                 }}</span>
-                <span class="label big setter white">{{ item.setter }}</span>
+                <span class="label big setter white">{{ item.name }} ({{ item.setter }})</span>
             </router-link>
         </div>
     </div>
