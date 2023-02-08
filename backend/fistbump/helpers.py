@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from functools import lru_cache
 from itertools import cycle
 from aiotinydb import AIOTinyDB
@@ -8,6 +9,8 @@ from .config import settings
 
 # the database instance
 DB = AIOTinyDB(settings.problem_db_file)
+
+DB_user = AIOTinyDB(settings.user_db_file)
 
 
 # stökt setup of hold path definitions
@@ -41,6 +44,10 @@ def holds_to_paths(holds_str):
                 }
         elif sw == "T":
             yield {"path": "M" + HOLDS_PATH[hit]["topPolygonStr"], "type": "hand"}
+
+
+def iso_now():
+    return datetime.now(tz=settings.tz).replace(tzinfo=None).isoformat()
 
 
 # grade to color TODO: needs update!

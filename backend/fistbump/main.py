@@ -2,7 +2,7 @@ import sentry_sdk
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import calendar, problems, webp, misc
+from .routers import calendar, problems, webp, me, misc
 from .repeat_every_helper import repeat_every
 from .stokt import refresh_stokt
 from .config import settings
@@ -33,6 +33,7 @@ app.mount("/static", StaticFiles(directory=settings.static_directory), name="sta
 
 app.include_router(calendar.router)
 app.include_router(problems.router)
+app.include_router(me.router)
 app.include_router(misc.router)
 app.include_router(webp.router)
 

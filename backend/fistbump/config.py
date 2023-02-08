@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     auth_token: str
     static_directory: Path = "/static"
     problem_db_file: Path = "/data/feed.json"
+    user_db_file: Path = "/data/user.json"
     google_maps_api_key: str
     google_maps_place_id: str
     stokt_token: str
