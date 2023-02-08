@@ -50,7 +50,7 @@ async def problems(
             paths=[p for p in holds_to_paths(d["holds"])] if "holds" in d else [],
             **d,
         )
-        for d in data[:limit]
+        for d in data
     ]
 
 
