@@ -1,9 +1,14 @@
 <script setup>
 import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
-import { filter_grades, filter_search_text, filter_sections } from '../localStorage'
+import Problem from '../components/Problem.vue'
+import { filter_grades, filter_search_text, filter_sections, filter_gridview } from '../localStorage'
 import { ref, watch } from 'vue';
 
 const items = ref([]);
+
+const toggle_gridview = async () => {
+    filter_gridview = gridview ? false : true;
+}
 
 const refresh = async () => {
     items.value = await ProblemsMethodsAPI.search({ grades: filter_grades.value, sections: filter_sections.value, q: filter_search_text.value, limit: 100 });
@@ -15,7 +20,13 @@ await refresh();
 </script>
 
 <template>
-    <h2>Problems</h2>
+    <div class="flex two">
+        <div class="tight">
+            <h2>Problems</h2>
+        </div>
+        <div class="tight right"><label><input type="checkbox" v-model="filter_gridview" /> <span class="checkable">grid
+                    view</span></label></div>
+    </div>
     <label for="free_text">Search</label>
     <input id="free_text" v-model="filter_search_text" type="search" />
     <div id="filter">
@@ -88,7 +99,14 @@ await refresh();
         </div>
     </div>
 
-    <table class="primary">
+    <div class="flex two" v-if="filter_gridview">
+        <div v-for="item in items" :key="item.id">
+            <Problem :data="item" slim="yes"></Problem>
+        </div>
+    </div>
+
+
+    <table class="primary" v-else>
         <tbody>
             <tr v-for="item in items" :key="item.id">
                 <td class="time">-{{ item.days_back }}d</td>
@@ -112,6 +130,17 @@ await refresh();
 /* .button:not(:last-child) {
     margin-right: 0.5em;
 } */
+
+.right {
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.tight {
+    padding-bottom: 0;
+}
+
 .button {
     margin-right: 0.5em;
 }
