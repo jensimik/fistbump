@@ -264,7 +264,7 @@ async def hold_stats():
     async with DB as db:
         for d in filter(
             lambda t: (t["section"] in ["S1", "S2", "S3", "S4", "S5"])
-            & (t["color"] != "rainbow"),
+            & (t.get("color", "rainbow") != "rainbow"),
             db,
         ):
             count_holds[d["color"]] += len(d.get("annotations", []))
