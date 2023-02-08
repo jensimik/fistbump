@@ -31,6 +31,9 @@ async def problems(
             reverse=True,
         )
     # filtering
+    print(q)
+    print(grades)
+    print(sections)
     if q:
         data = filter(lambda d: q.lower() in d["name"].lower(), data)
     if sections:
