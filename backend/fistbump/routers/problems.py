@@ -33,7 +33,10 @@ async def problems(
         )
     # filtering
     if q:
-        data = filter(lambda d: q.lower() in d["name"].lower(), data)
+        q_lower = q.lower()
+        data = filter(
+            lambda d: (q_lower in d["name"].lower()) or (q_lower in d["setter"]), data
+        )
     if sections:
         sections_split = sections.split(",")
         data = filter(lambda d: d["section"] in sections_split, data)
