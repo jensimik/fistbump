@@ -1,6 +1,7 @@
 import aiofiles
 import json
 import csv
+import itertools
 from uuid import uuid4
 from typing import Literal, Optional
 from fastapi import APIRouter, UploadFile, status, Depends, Form
@@ -31,9 +32,6 @@ async def problems(
             reverse=True,
         )
     # filtering
-    print(q)
-    print(grades)
-    print(sections)
     if q:
         data = filter(lambda d: q.lower() in d["name"].lower(), data)
     if sections:
@@ -50,7 +48,7 @@ async def problems(
             paths=[p for p in holds_to_paths(d["holds"])] if "holds" in d else [],
             **d,
         )
-        for d in data
+        for d in itertools.islice(data, limit)
     ]
 
 
