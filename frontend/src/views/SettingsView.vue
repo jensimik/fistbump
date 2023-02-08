@@ -1,7 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import GradeDistribution from '../components/GradeDistribution.vue';
-import HoldStats from '../components/HoldStats.vue';
 import SetterMethods from '../api/resources/SetterMethods';
 import { name, setter_code, sections, setter, setter_auth, filter_rp_grades, filter_rp_sections } from '../localStorage';
 
@@ -101,10 +99,8 @@ async function link_setter_code(e) {
             </select>
         </div>
         <div v-if="setter == 'yes'">
-            <GradeDistribution></GradeDistribution>
-            <HoldStats></HoldStats>
             <label for="setter_code">
-                <h2>Setter code</h2>
+                Setter code
             </label>
             <input v-model="setter_code" type="text" name="setter_code"
                 placeholder="enter current code for 'grebrum'" />
