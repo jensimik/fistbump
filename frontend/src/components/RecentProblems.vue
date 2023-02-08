@@ -1,5 +1,6 @@
 <script setup>
 import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
+import { filter_rp_grades, filter_rp_sections } from '../localStorage'
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const items = ref([]);
@@ -8,7 +9,7 @@ const online = ref(true);
 // refresh function
 const refresh = async () => {
     try {
-        items.value = await ProblemsMethodsAPI.index();
+        items.value = await ProblemsMethodsAPI.search({ grades: filter_rp_grades.value, sections: filter_rp_sections.value });
         online.value = true;
     } catch (error) {
         online.value = false;
