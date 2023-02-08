@@ -30,6 +30,12 @@ const router = createRouter({
       props: true,
     },
     {
+      path: '/problems',
+      name: 'problems',
+      component: () => import('../views/ProblemsView.vue'),
+      props: true,
+    },
+    {
       path: '/section/:id',
       name: 'section',
       component: () => import('../views/SectionView.vue'),

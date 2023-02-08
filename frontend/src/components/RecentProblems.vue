@@ -36,7 +36,8 @@ onBeforeUnmount(async () => {
 </script>
 
 <template>
-    <h2>Problems <span class="small">(<a href="https://www.getstokt.com/">stökt</a> | lumi | probyg | fribyg)</span>
+    <h2>Problems <span class="small">(<a href="https://www.getstokt.com/">stökt</a> | lumi | probyg |
+            fribyg) </span>
     </h2>
     <table v-if="online" class="primary">
         <tbody>

@@ -1,6 +1,7 @@
 import aiofiles
 import json
 import csv
+import itertools
 from uuid import uuid4
 from typing import Literal, Optional
 from fastapi import APIRouter, UploadFile, status, Depends, Form
@@ -17,14 +18,33 @@ router = APIRouter(tags=["problems"])
 
 # list all problems
 @router.get("/problems")
-async def problems() -> list[schemas.Problem]:
+async def problems(
+    q: str = None,  # free text filter
+    grades: str = None,  # filter by grades
+    sections: str = None,  # filter by sections
+    limit: int = 50,
+) -> list[schemas.Problem]:
     today = datetime.now(tz=settings.tz).replace(tzinfo=None)
     async with DB as db:
         data = sorted(
             filter(lambda d: d["grade"] != "?", db),
             key=lambda d: d["created"],
             reverse=True,
-        )[:50]
+        )
+    # filtering
+    if q:
+        q_lower = q.lower()
+        data = filter(
+            lambda d: (q_lower in d["name"].lower())
+            or (q_lower in d["setter"].lower()),
+            data,
+        )
+    if sections:
+        sections_split = sections.split(",")
+        data = filter(lambda d: d["section"] in sections_split, data)
+    if grades:
+        grades_split = grades.split(",")
+        data = filter(lambda d: GRADE_TO_COLOR.get(d["grade"]) in grades_split, data)
     return [
         schemas.Problem(
             id=d.doc_id,
@@ -33,7 +53,7 @@ async def problems() -> list[schemas.Problem]:
             paths=[p for p in holds_to_paths(d["holds"])] if "holds" in d else [],
             **d,
         )
-        for d in data
+        for d in itertools.islice(data, limit)
     ]
 
 

@@ -13,7 +13,7 @@ const toggleShow = async () => {
 
 <template>
     <div v-if="props.slim" class="slim">
-        <div class="imgw">
+        <div class="imgw" v-if="item.section != 'Ö'">
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
                 <div v-if="item.image_width">
                     <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
@@ -58,6 +58,18 @@ const toggleShow = async () => {
                 item.grade
             }}</span>
             <span class="label big setter white">{{ item.name }} ({{ item.setter }})</span>
+        </div>
+        <div class="imgw" v-else>
+            <router-link :to="{ name: 'problem', params: { id: item.id } }">
+                <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
+                    <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
+                    <path class="hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
+                </svg>
+                <span class="label grade big right" :class="item.grade_class">{{
+                    item.grade
+                }}</span>
+                <span class="label big setter white">{{ item.setter }}</span>
+            </router-link>
         </div>
     </div>
     <div v-else>
