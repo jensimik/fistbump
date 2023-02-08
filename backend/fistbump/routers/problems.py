@@ -19,8 +19,8 @@ router = APIRouter(tags=["problems"])
 @router.get("/problems")
 async def problems(
     q: str = None,  # free text filter
-    grades: list[str] = None,  # filter by grades
-    sections: list[str] = None,  # filter by sections
+    grades: str = None,  # filter by grades
+    sections: str = None,  # filter by sections
     limit: int = 50,
 ) -> list[schemas.Problem]:
     today = datetime.now(tz=settings.tz).replace(tzinfo=None)
@@ -37,9 +37,11 @@ async def problems(
     if q:
         data = filter(lambda d: q.lower() in d["name"].lower(), data)
     if sections:
-        data = filter(lambda d: d["section"] in sections, data)
-    if sections:
-        data = filter(lambda d: GRADE_TO_COLOR.get(d["grade"]) in grades, data)
+        sections_split = sections.split(",")
+        data = filter(lambda d: d["section"] in sections_split, data)
+    if grades:
+        grades_split = grades.split(",")
+        data = filter(lambda d: GRADE_TO_COLOR.get(d["grade"]) in grades_split, data)
     return [
         schemas.Problem(
             id=d.doc_id,
