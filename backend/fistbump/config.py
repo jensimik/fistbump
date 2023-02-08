@@ -31,6 +31,7 @@ class Settings(BaseSettings):
         "purple",
         "brown",
         "orange",
+        "rainbow",
     ]
     tz: tzfile = gettz("Europe/Copenhagen")
 

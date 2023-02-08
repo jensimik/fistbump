@@ -3,15 +3,15 @@ import GradeDistributionMethodsAPI from '../api/resources/GradeDistributionMetho
 import { GChart } from 'vue-google-charts';
 import { ref } from 'vue';
 
-const type = 'BarChart';
+const type = 'ColumnChart';
 
 const options = {
     width: '100%',
     height: '100%',
-    chartArea: { left: '0', top: 0, width: "100%", height: '100%' },
-    bar: { groupWidth: '80%' },
-    isStacked: "percent",
-    legend: { position: "none" },
+    // chartArea: { left: '0', top: 0, width: "100%", height: '100%' },
+    // bar: { groupWidth: '80%' },
+    // isStacked: "percent",
+    legend: { position: 'none' },
     series: {
         0: {
             color: '#2ECC40',
@@ -71,18 +71,17 @@ const data_stokt = [
 <template>
     <h2>Grade distribution</h2>
     <div class="flex one">
-        <div>Boulder</div>
+        <!-- <div>Boulder</div> -->
         <GChart class="distgrid" :data="data_boulder" :options="options" :type="type"></GChart>
     </div>
-    <div class="flex one">
-        <div>Stökt</div>
+    <!-- <div class="flex one">
         <GChart class="distgrid" :data="data_stokt" :options="options" :type="type"></GChart>
-    </div>
+    </div> -->
 </template>
 
 <style scoped>
 .distgrid {
-    height: 3em;
+    height: 10em;
     display: flex;
     align-items: center;
 }

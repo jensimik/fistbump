@@ -9,7 +9,7 @@ const data = ref({
   grade: "6A",
   section: "S1",
   color: "",
-  setter: name,
+  setter: name.value,
   text: "",
   error: "",
   holds_start: 2,
