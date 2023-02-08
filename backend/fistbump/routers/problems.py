@@ -41,6 +41,10 @@ async def problems(
         )
     if sections:
         sections_split = sections.split(",")
+        # B is keyword for all "boulder sections" S1, S2, S3, S4, S5
+        if "B" in sections_split:
+            sections_split.remove("B")
+            sections_split.extend(["S1", "S2", "S3", "S4", "S5"])
         data = filter(lambda d: d["section"] in sections_split, data)
     if grades:
         grades_split = grades.split(",")
