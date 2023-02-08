@@ -87,50 +87,50 @@ body {
   line-height: 1.5;
 }
 
-span.turquoise {
+.turquoise {
   background-color: #39CCCC;
   color: #111111;
 }
 
-span.yellow {
+.yellow {
   background-color: #FFDC00;
   color: #111111;
 }
 
-span.green {
+.green {
   background-color: #2ECC40;
 }
 
-span.blue {
+.blue {
   background-color: #0074d9;
 }
 
-span.purple {
+.purple {
   background-color: #B10DC9;
 }
 
-span.red {
+.red {
   background-color: #FF4136;
 }
 
-span.brown {
+.brown {
   background-color: #85144b;
 }
 
-span.black {
+.black {
   background-color: #111111;
 }
 
-span.white {
+.white {
   background-color: #fff;
   color: #111111;
 }
 
-span.orange {
+.orange {
   background-color: #FF851B;
 }
 
-span.rainbow {
-  background-image: linear-gradient(to left, #85144b, #FF4136, #B10DC9, #0074d9, #2ECC40, #FFDC00);
+.rainbow {
+  background-image: linear-gradient(to left, #85144b, #FF4136, #B10DC9, #0074d9, #2ECC40);
 }
 </style>
