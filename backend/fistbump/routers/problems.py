@@ -19,36 +19,55 @@ router = APIRouter(tags=["problems"])
 # list all problems
 @router.get("/problems")
 async def problems(
-    q: str = None,  # free text filter
-    grades: str = None,  # filter by grades
-    sections: str = None,  # filter by sections
+    q: str = "",  # free text filter
+    grades: str = "",  # filter by grades
+    sections: str = "",  # filter by sections
     limit: int = 50,
 ) -> list[schemas.Problem]:
     today = datetime.now(tz=settings.tz).replace(tzinfo=None)
     async with DB as db:
         data = sorted(
-            filter(lambda d: d["grade"] != "?", db),
+            db,
             key=lambda d: d["created"],
             reverse=True,
         )
-    # filtering
-    if q:
+    # filtering one off filter all
+    if q or sections or grades:
         q_lower = q.lower()
-        data = filter(
-            lambda d: (q_lower in d["name"].lower())
-            or (q_lower in d["setter"].lower()),
-            data,
-        )
-    if sections:
+        # split sections
         sections_split = sections.split(",")
         # B is keyword for all "boulder sections" S1, S2, S3, S4, S5
         if "B" in sections_split:
             sections_split.remove("B")
             sections_split.extend(["S1", "S2", "S3", "S4", "S5"])
-        data = filter(lambda d: d["section"] in sections_split, data)
-    if grades:
         grades_split = grades.split(",")
-        data = filter(lambda d: GRADE_TO_COLOR.get(d["grade"]) in grades_split, data)
+        data = filter(
+            lambda d: (
+                ((q_lower in d["name"].lower()) or (q_lower in d["setter"].lower()))
+                if q
+                else True
+            )
+            and (d["section"] in sections_split if sections else True)
+            and (GRADE_TO_COLOR.get(d["grade"]) in grades_split if grades else True),
+            data,
+        )
+    # if q:
+    #     q_lower = q.lower()
+    #     data = filter(
+    #         lambda d: (q_lower in d["name"].lower())
+    #         or (q_lower in d["setter"].lower()),
+    #         data,
+    #     )
+    # if sections:
+    #     sections_split = sections.split(",")
+    #     # B is keyword for all "boulder sections" S1, S2, S3, S4, S5
+    #     if "B" in sections_split:
+    #         sections_split.remove("B")
+    #         sections_split.extend(["S1", "S2", "S3", "S4", "S5"])
+    #     data = filter(lambda d: d["section"] in sections_split, data)
+    # if grades:
+    #     grades_split = grades.split(",")
+    #     data = filter(lambda d: GRADE_TO_COLOR.get(d["grade"]) in grades_split, data)
     return [
         schemas.Problem(
             id=d.doc_id,
