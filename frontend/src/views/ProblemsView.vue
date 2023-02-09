@@ -29,7 +29,7 @@ await refresh();
     </div>
     <label for="free_text">Search</label>
     <input id="free_text" v-model="filter_search_text" type="search" />
-    <div id="filter">
+    <div id="filters">
         <label>Filters</label>
         <div class="search_options">
             <label><input type="checkbox" name="S1" value="S1" v-model="filter_sections" /><span class="toggle button"
@@ -96,6 +96,11 @@ await refresh();
                         black: filter_grades.includes('black'),
                         fade_button: !filter_grades.includes('black')
                     }">black</span></label>
+            <label><input type="checkbox" name="turquoise" value="turquoise" v-model="filter_grades" /><span
+                    class="toggle button" :class="{
+                        turquoise: filter_grades.includes('turquoise'),
+                        fade_button: !filter_grades.includes('turquoise')
+                    }">?</span></label>
         </div>
     </div>
 
@@ -127,9 +132,9 @@ await refresh();
 </template>
 
 <style scoped>
-/* .button:not(:last-child) {
-    margin-right: 0.5em;
-} */
+#filters {
+    margin-bottom: 1em;
+}
 
 .right {
     text-align: right;

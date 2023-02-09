@@ -89,6 +89,11 @@ async function link_setter_code(e) {
                             black: filter_rp_grades.includes('black'),
                             fade_button: !filter_rp_grades.includes('black')
                         }">black</span></label>
+                <label><input type="checkbox" name="turquoise" value="turquoise" v-model="filter_rp_grades" /><span
+                        class="toggle button" :class="{
+                            turquoise: filter_rp_grades.includes('turquoise'),
+                            fade_button: !filter_rp_grades.includes('turquoise')
+                        }">?</span></label>
             </div>
         </div>
         <label>Do you set problems?</label>
