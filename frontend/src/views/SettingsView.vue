@@ -43,7 +43,7 @@ async function link_setter_code(e) {
             <label class="labelblock" for="problems"><input type="checkbox" id="problems" name="problems"
                     value="problems" v-model="sections" /><span class="checkable">problems</span></label>
             <label>Recent problems filter</label>
-            <div class="search_options">
+            <div class="search_options sol">
                 <label><input type="checkbox" name="B" value="B" v-model="filter_rp_sections" /><span
                         class="toggle button" :class="{
                             fade_button: !filter_rp_sections.includes('B')
@@ -53,7 +53,7 @@ async function link_setter_code(e) {
                             fade_button: !filter_rp_sections.includes('Ö')
                         }">Stökt</span></label>
             </div>
-            <div class="search_options">
+            <div class="search_options sosb">
                 <label><input type="checkbox" name="green" value="green" v-model="filter_rp_grades" /><span
                         class="toggle button" :class="{
                             green: filter_rp_grades.includes('green'),
@@ -124,9 +124,22 @@ async function link_setter_code(e) {
 
 
 <style scoped>
-.search_options .button {
-    font-size: 0.65em;
+.sol {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.sol .button {
     margin-right: 0.2em;
+}
+
+.sosb {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search_options {
+    font-size: 0.65em;
 }
 
 button {

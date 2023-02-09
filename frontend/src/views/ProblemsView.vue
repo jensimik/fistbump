@@ -28,10 +28,11 @@ await refresh();
                     view</span></label></div>
     </div>
     <label for="free_text">Search</label>
-    <input id="free_text" v-model="filter_search_text" type="search" />
+    <input id="free_text" v-model="filter_search_text" type="search"
+        placeholder="search by text in title or setter name" />
     <div id="filters">
         <label>Filters</label>
-        <div class="search_options">
+        <div class="search_options sol">
             <label><input type="checkbox" name="S1" value="S1" v-model="filter_sections" /><span class="toggle button"
                     :class="{
                         fade_button: !filter_sections.includes('S1')
@@ -57,7 +58,7 @@ await refresh();
                         fade_button: !filter_sections.includes('Ö')
                     }">Stökt</span></label>
         </div>
-        <div class="search_options">
+        <div class="search_options sosb">
             <label><input type="checkbox" name="green" value="green" v-model="filter_grades" /><span
                     class="toggle button" :class="{
                         green: filter_grades.includes('green'),
@@ -74,8 +75,6 @@ await refresh();
                         blue: filter_grades.includes('blue'),
                         fade_button: !filter_grades.includes('blue')
                     }">blue</span></label>
-
-
             <label><input type="checkbox" name="purple" value="purple" v-model="filter_grades" /><span
                     class="toggle button" :class="{
                         purple: filter_grades.includes('purple'),
@@ -132,6 +131,20 @@ await refresh();
 </template>
 
 <style scoped>
+.sol {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.sol .button {
+    margin-right: 0.2em;
+}
+
+.sosb {
+    display: flex;
+    justify-content: space-between;
+}
+
 #filters {
     margin-bottom: 1em;
 }
@@ -146,9 +159,9 @@ await refresh();
     padding-bottom: 0;
 }
 
-.button {
-    margin-right: 0.5em;
-}
+/* .button {
+    margin-right: 0.125em;
+} */
 
 .search_options .button {
     font-size: 0.65em;
