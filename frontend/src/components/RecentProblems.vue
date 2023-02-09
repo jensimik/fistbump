@@ -38,7 +38,7 @@ onBeforeUnmount(async () => {
 
 <template>
     <h2><router-link :to="{ name: 'problems' }">Recent Problems</router-link> <span class="small">(<a
-                href="https://www.getstokt.com/">stökt</a> | lumi | probyg |
+                href="https://www.getstokt.com/">stökt</a> | lumo | probyg |
             fribyg) </span>
     </h2>
     <table v-if="online" class="primary">

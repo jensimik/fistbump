@@ -29,7 +29,7 @@ await refresh();
     </div>
     <label for="free_text">Search</label>
     <input id="free_text" v-model="filter_search_text" type="search" />
-    <div id="filter">
+    <div id="filters">
         <label>Filters</label>
         <div class="search_options">
             <label><input type="checkbox" name="S1" value="S1" v-model="filter_sections" /><span class="toggle button"
@@ -132,9 +132,9 @@ await refresh();
 </template>
 
 <style scoped>
-/* .button:not(:last-child) {
-    margin-right: 0.5em;
-} */
+#filters {
+    margin-bottom: 1em;
+}
 
 .right {
     text-align: right;
