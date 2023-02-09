@@ -1,4 +1,4 @@
-aiofiles==22.1.0
+aiofiles==23.1.0
 aiotinydb==2.0.0
 anyio==3.6.2
 appdirs==1.4.4
