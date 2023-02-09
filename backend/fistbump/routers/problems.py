@@ -31,7 +31,7 @@ async def problems(
             key=lambda d: d["created"],
             reverse=True,
         )
-    # filtering one off filter all
+    # filtering once everything
     if q or sections or grades:
         q_lower = q.lower()
         # split sections
@@ -51,23 +51,6 @@ async def problems(
             and (GRADE_TO_COLOR.get(d["grade"]) in grades_split if grades else True),
             data,
         )
-    # if q:
-    #     q_lower = q.lower()
-    #     data = filter(
-    #         lambda d: (q_lower in d["name"].lower())
-    #         or (q_lower in d["setter"].lower()),
-    #         data,
-    #     )
-    # if sections:
-    #     sections_split = sections.split(",")
-    #     # B is keyword for all "boulder sections" S1, S2, S3, S4, S5
-    #     if "B" in sections_split:
-    #         sections_split.remove("B")
-    #         sections_split.extend(["S1", "S2", "S3", "S4", "S5"])
-    #     data = filter(lambda d: d["section"] in sections_split, data)
-    # if grades:
-    #     grades_split = grades.split(",")
-    #     data = filter(lambda d: GRADE_TO_COLOR.get(d["grade"]) in grades_split, data)
     return [
         schemas.Problem(
             id=d.doc_id,
