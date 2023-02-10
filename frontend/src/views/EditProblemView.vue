@@ -136,6 +136,7 @@ preview.value = `https://fbs.gnerd.dk/static/${answer.image_hex}.jpg`;
                 <option value="orange">orange</option>
                 <option value="purple">purple</option>
                 <option value="brown">brown</option>
+                <option value="rainbow">rainbow/mixed</option>
             </select>
             <label for="grade">Grade</label>
             <select v-model="data.grade" name="grade">
