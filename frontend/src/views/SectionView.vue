@@ -36,10 +36,11 @@ onBeforeUnmount(async () => {
     <h2>Problems on section {{ props.id }}</h2>
 
     <div class="flex two">
-        <div>Hold colors used</div>
-        <div class="right"><span class="label" :class="color" v-for="(c, color) in colors">{{ c }}</span></div>
-        <div>Grades</div>
-        <div class="right"><span class="label" :class="c[0]" v-for="c in grades">{{ c[1] }}</span></div>
+        <div class="third">Holds colors</div>
+        <div class="two-third right"><span class="label" :class="color" v-for="(c, color) in colors">{{ c }}</span>
+        </div>
+        <div class="third">Grades</div>
+        <div class="two-third right"><span class="label" :class="c[0]" v-for="c in grades">{{ c[1] }}</span></div>
     </div>
 
     <div class="flex two">

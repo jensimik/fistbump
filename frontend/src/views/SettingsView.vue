@@ -52,6 +52,10 @@ async function link_setter_code(e) {
                         class="toggle button" :class="{
                             fade_button: !filter_rp_sections.includes('Ö')
                         }">Stökt</span></label>
+                <label><input type="checkbox" name="L" value="L" v-model="filter_rp_sections" /><span
+                        class="toggle button" :class="{
+                            fade_button: !filter_rp_sections.includes('L')
+                        }">Lumo</span></label>
             </div>
             <div class="search_options sosb">
                 <label><input type="checkbox" name="green" value="green" v-model="filter_rp_grades" /><span
@@ -124,23 +128,36 @@ async function link_setter_code(e) {
 
 
 <style scoped>
-.sol {
-    display: flex;
-    justify-content: flex-start;
+@media only screen and (max-width: 600px) {
+    .search_options .button {
+        margin-right: none;
+    }
+
+    .sol {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .sol .button {
+        margin-right: 0.5em;
+    }
+
+    .sosb .button {
+        font-size: 0.65em;
+    }
+
+    .sosb {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
-.sol .button {
-    margin-right: 0.2em;
+@media only screen and (min-width: 600px) {
+    .search_options .button {
+        margin-right: 0.5em;
+    }
 }
 
-.sosb {
-    display: flex;
-    justify-content: space-between;
-}
-
-.search_options {
-    font-size: 0.65em;
-}
 
 button {
     width: 100%;

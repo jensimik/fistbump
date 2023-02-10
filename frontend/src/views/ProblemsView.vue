@@ -57,6 +57,11 @@ await refresh();
                     :class="{
                         fade_button: !filter_sections.includes('Ö')
                     }">Stökt</span></label>
+            <label><input type="checkbox" name="L" value="L" v-model="filter_sections" /><span class="toggle button"
+                    :class="{
+                        fade_button: !filter_sections.includes('L')
+                    }">Lumo</span></label>
+
         </div>
         <div class="search_options sosb">
             <label><input type="checkbox" name="green" value="green" v-model="filter_grades" /><span
@@ -131,19 +136,37 @@ await refresh();
 </template>
 
 <style scoped>
-.sol {
-    display: flex;
-    justify-content: flex-start;
+@media only screen and (max-width: 600px) {
+    .search_options .button {
+        margin-right: none;
+    }
+
+    .sol {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .sol .button {
+        font-size: 0.85em;
+    }
+
+    .sosb .button {
+        font-size: 0.65em;
+    }
+
+    .sosb {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
-.sol .button {
-    margin-right: 0.2em;
+@media only screen and (min-width: 600px) {
+    .search_options .button {
+        margin-right: 0.5em;
+    }
 }
 
-.sosb {
-    display: flex;
-    justify-content: space-between;
-}
+
 
 #filters {
     margin-bottom: 1em;
@@ -163,9 +186,6 @@ await refresh();
     margin-right: 0.125em;
 } */
 
-.search_options .button {
-    font-size: 0.65em;
-}
 
 .fade_button {
     background-color: hsl(207.9, 25%, 42.5%);
