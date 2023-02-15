@@ -14,7 +14,7 @@ async def strip() -> schemas.Strip:
         (datetime(2023, 1, 26, 12, 0, 0), "probyg", "Section 4"),
         (datetime(2023, 2, 3, 12, 0, 0), "workshop", "Section 5"),
         (datetime(2023, 2, 9, 12, 0, 0), "probyg", "Section 1"),
-        (datetime(2023, 2, 17, 12, 0, 0), "fribyg", "Section 2"),
+        (datetime(2023, 2, 16, 12, 0, 0), "fribyg", "Section 2"),
         (datetime(2023, 2, 23, 12, 0, 0), "probyg", "Section 3"),
         (datetime(2023, 3, 3, 12, 0, 0), "forbund", "Section 4+5"),
         (datetime(2023, 3, 9, 12, 0, 0), "probyg", "Section 1"),
