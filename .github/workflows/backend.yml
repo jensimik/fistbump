@@ -1,6 +1,6 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: fistbump
+name: fistbump-backend
 
 on:
   push:
@@ -29,8 +29,10 @@ env:
   SENTRY_RELEASE_AUTH_TOKEN: ${{ secrets.SENTRY_RELEASE_AUTH_TOKEN }}
   SENTRY_ORG: gnerd
   SENTRY_PROJECT: python-fastapi
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
     defaults:
@@ -58,3 +60,16 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    name: "deploy to fly.io"
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: test
+    steps:
+    - uses: actions/checkout@v3
+    - uses: superfly/flyctl-actions/setup-flyctl@master
+    - run: flyctl deploy --remote-only
