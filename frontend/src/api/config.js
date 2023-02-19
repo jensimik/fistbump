@@ -4,4 +4,5 @@ export const APISettings = {
     }),
     // baseURL: 'http://localhost:8000'
     baseURL: 'https://fb-api.gnerd.dk',
+    // baseURL: 'https://fistbump-backend.fly.dev'
 }

@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .routers import calendar, problems, webp, misc
 from .repeat_every_helper import repeat_every
 from .stokt import refresh_stokt
+from .helpers import maintenance
 from .config import settings
 from fistbump import __version__
 
@@ -29,7 +30,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.mount("/static", StaticFiles(directory=settings.static_directory), name="static")
 
 app.include_router(calendar.router)
 app.include_router(problems.router)
@@ -44,3 +44,9 @@ if settings.stokt_refresh == 1:
     @repeat_every(seconds=60 * 60)
     async def _refresh_stokt():
         await refresh_stokt()
+
+
+@app.on_event("startup")
+@repeat_every(seconds=60 * 60)
+async def _maintenance():
+    maintenance()

@@ -1,6 +1,8 @@
 import json
+import shutil
 from functools import lru_cache
 from itertools import cycle
+from PIL import Image, ImageOps
 from aiotinydb import AIOTinyDB
 from tinydb import where
 from tinydb.operations import set as tinydb_set
@@ -8,6 +10,32 @@ from .config import settings
 
 # the database instance
 DB = AIOTinyDB(settings.problem_db_file)
+
+
+async def maintenance():
+    # clean out stale images
+    async with DB as db:
+        hexes = [d["image_hex"] for d in db if "image_hex" in d]
+        for p in settings.images_directory.iterdir:
+            if p.suffix == "jpg":
+                if p.stem not in hexes:
+                    p.unlink()
+
+
+# def jpg_to_webp(hex, remove_jpg=True):
+#     webp_filename = settings.images_directory / hex / "original.webp"
+#     webp800_filename = settings.images_directory / hex / "800.webp"
+#     jpg_filename = settings.images_directory / hex / "original.jpg"
+#     with Image.open(jpg_filename) as im:
+#         # rotate it before save as webp don't have the exif about rotation
+#         im = ImageOps.exif_transpose(im)
+#         im.save(webp_filename, format="webp", method=6, quality=40)
+#         width, height = im.size
+#         new_height = int(800 * height / width)
+#         im.thumbnail((800, new_height))
+#         im.save(webp800_filename, format="webp", method=6, quality=50)
+#     if remove_jpg:
+#         jpg_filename.unlink(missing_ok=True)
 
 
 # stökt setup of hold path definitions
