@@ -13,7 +13,7 @@ from fistbump import __version__
 if settings.sentry_dsn:
     sentry_sdk.init(
         dsn=settings.sentry_dsn,
-        traces_sample_rate=1.0,
+        traces_sample_rate=0.1,
         release=__version__,
     )
 
