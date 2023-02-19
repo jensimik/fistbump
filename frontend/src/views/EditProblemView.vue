@@ -113,7 +113,7 @@ data.value.text = answer.text;
 annotations.value = answer.annotations;
 image_size.value.height = answer.image_height;
 image_size.value.width = answer.image_width;
-preview.value = `https://fbs.gnerd.dk/static/${answer.image_hex}.jpg`;
+preview.value = `https://ik.imagekit.io/gnerd/tr:w-800/${answer.image_hex}.jpg`;
 </script>
 
 <template>

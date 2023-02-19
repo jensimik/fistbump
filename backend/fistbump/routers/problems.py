@@ -1,7 +1,7 @@
 import aiofiles
 import json
-import csv
 import itertools
+import shutil
 from uuid import uuid4
 from typing import Literal, Optional
 from fastapi import APIRouter, UploadFile, status, Depends, Form
@@ -15,6 +15,7 @@ from fistbump.helpers import DB, where, GRADE_TO_COLOR, holds_to_paths
 from fistbump.depends import get_api_key
 
 router = APIRouter(tags=["problems"])
+
 
 # list all problems
 @router.get("/problems")
@@ -95,9 +96,8 @@ async def create_problem(
 ) -> schemas.Problem:
     # save image
     hex = uuid4().hex
-    save_filename = f"{hex}.jpg"
     async with aiofiles.open(
-        settings.static_directory / save_filename, "wb"
+        settings.images_directory / hex / "original.jpg", "wb"
     ) as out_file:
         while content := await file.read(1024):  # async read chunk
             await out_file.write(content)  # async write chunk
@@ -110,7 +110,6 @@ async def create_problem(
         "section": section,
         "setter": setter,
         "text": text,
-        "image": f"https://fbs.gnerd.dk/static/{save_filename}",
         "image_hex": hex,
         "image_width": image_width,
         "image_height": image_height,
@@ -135,6 +134,11 @@ async def delete_problem(
     _: APIKey = Depends(get_api_key),
 ) -> schemas.Status:
     async with DB as db:
+        item = db.get(doc_id=item_id)
+        # remove image files
+        if hex := item["image_hex"]:
+            jpg_file = settings.images_directory / f"{hex}.jpg"
+            jpg_file.unlink()
         db.remove(doc_ids=[item_id])
     return schemas.Status(message="deleted problem")
 
@@ -157,7 +161,6 @@ async def update_problem(
     file: Optional[UploadFile] = None,
     _: APIKey = Depends(get_api_key),
 ) -> schemas.Problem:
-
     # get the problem from db
     async with DB as db:
         item = db.get(doc_id=item_id)
@@ -177,16 +180,18 @@ async def update_problem(
 
     # if file provided in update then save it
     if file:
+        old_hex = item["image_hex"]
         hex = uuid4().hex
-        save_filename = f"{hex}.jpg"
         async with aiofiles.open(
-            settings.static_directory / save_filename, "wb"
+            settings.images_directory / hex / "original.jpg", "wb"
         ) as out_file:
             while content := await file.read(1024):  # async read chunk
                 await out_file.write(content)  # async write chunk
-        image_url = f"https://fbs.gnerd.dk/static/{save_filename}"
         item["image_hex"] = hex
-        item["image_url"] = image_url
+        # remove old images
+        if old_hex:
+            old_jpg_file = settings.images_directory / f"{hex}.jpg"
+            old_jpg_file.unlink()
 
     # update in tinydb
     async with DB as db:
@@ -212,11 +217,6 @@ async def feed(section_id: str):
         d["id"] = d.doc_id
         d["grade_class"] = GRADE_TO_COLOR.get(d["grade"])
         d["days_back"] = (today - datetime.fromisoformat(d["created"])).days
-        if "image_hex" in d:
-            d["image_webp"] = "https://fbs.gnerd.dk/webp/{}.webp".format(d["image_hex"])
-            d["image_webp800"] = "https://fbs.gnerd.dk/webp/{}/800.webp".format(
-                d["image_hex"]
-            )
 
     grades_temp = Counter([d["grade_class"] for d in data])
 

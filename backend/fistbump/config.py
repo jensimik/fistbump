@@ -13,7 +13,7 @@ class Settings(BaseSettings):
         "https://fistbump.nkk.dk",
     ]
     auth_token: str
-    static_directory: Path = "/static"
+    images_directory: Path = "/data"
     problem_db_file: Path = "/data/feed.json"
     google_maps_api_key: str
     google_maps_place_id: str

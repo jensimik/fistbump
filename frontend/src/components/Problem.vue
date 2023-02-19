@@ -16,10 +16,10 @@ const toggleShow = async () => {
         <div class="imgw" v-if="item.section != 'Ö'">
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
                 <div v-if="item.image_width">
-                    <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
-                        xmlns="http://www.w3.org/2000/svg" class="problem">
-                        <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}/800.webp`" :width="item.image_width"
-                            :height="item.image_height" class="problem" />
+                    <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height" xmlns="http://www.w3.org/2000/svg"
+                        class="problem">
+                        <image :href="`https://ik.imagekit.io/gnerd/tr:w-400/${item.image_hex}.jpg`"
+                            :width="item.image_width" :height="item.image_height" class="problem" />
                         <g v-show="showHolds">
                             <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="80" :key="index"
                                 v-for="(a, index) in item.annotations" />
@@ -28,30 +28,23 @@ const toggleShow = async () => {
                             <g v-if="item.holds_start == 1">
                                 <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
                                     :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
-                                    class="hold hand fat" :key="index"
-                                    v-for="(a, index) in item.annotations.slice(0, 1)" />
+                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
                                 <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
                                     :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
-                                    class="hold hand fat" :key="index"
-                                    v-for="(a, index) in item.annotations.slice(0, 1)" />
+                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
                             </g>
                             <g v-if="item.holds_start == 2">
                                 <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
                                     :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
-                                    class="hold hand fat" :key="index"
-                                    v-for="(a, index) in item.annotations.slice(0, 1)" />
+                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
                                 <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
                                     :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
-                                    class="hold hand fat" :key="index"
-                                    v-for="(a, index) in item.annotations.slice(1, 2)" />
+                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(1, 2)" />
                             </g>
                         </g>
                     </svg>
                 </div>
-                <picture v-else>
-                    <source type="image/webp" :srcset="`https://fbs.gnerd.dk/webp/${item.image_hex}/800.webp`" />
-                    <img :src="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" class="problem" />
-                </picture>
+                <img v-else :src="`https://ik.imagekit.io/gnerd/tr:w-400/${item.image_hex}.jpg`" class="problem" />
             </router-link>
             <span class="label holds big left" :class="item.color" @click="toggleShow">holds</span>
             <span class="label grade big right" :class="item.grade_class">{{
@@ -93,10 +86,9 @@ const toggleShow = async () => {
             <p v-if="item.text">{{ item.text }}</p>
             <div class="imgw">
                 <div v-if="item.image_width">
-                    <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <image :href="`https://fbs.gnerd.dk/webp/${item.image_hex}/800.webp`" :width="item.image_width"
-                            :height="item.image_height" class="problem" />
+                    <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height" xmlns="http://www.w3.org/2000/svg">
+                        <image :href="`https://ik.imagekit.io/gnerd/tr:w-800/${item.image_hex}.jpg`"
+                            :width="item.image_width" :height="item.image_height" class="problem" />
                         <g v-show="showHolds">
                             <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" r="80" :key="index"
                                 v-for="(a, index) in item.annotations" />
@@ -105,30 +97,23 @@ const toggleShow = async () => {
                             <g v-if="item.holds_start == 1">
                                 <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
                                     :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
-                                    class="hold hand fat" :key="index"
-                                    v-for="(a, index) in item.annotations.slice(0, 1)" />
+                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
                                 <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
                                     :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
-                                    class="hold hand fat" :key="index"
-                                    v-for="(a, index) in item.annotations.slice(0, 1)" />
+                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
                             </g>
                             <g v-if="item.holds_start == 2">
                                 <line :x1="a.cx + (Math.sin(-45) * 80)" :y1="a.cy + (Math.cos(-45) * 80)"
                                     :x2="a.cx + (Math.sin(-45) * 80) - 100" :y2="a.cy + (Math.cos(-45) * 80) + 100"
-                                    class="hold hand fat" :key="index"
-                                    v-for="(a, index) in item.annotations.slice(0, 1)" />
+                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
                                 <line :x1="a.cx + (Math.sin(45) * 80)" :y1="a.cy + (Math.cos(45) * 80)"
                                     :x2="a.cx + (Math.sin(45) * 80) + 100" :y2="a.cy + (Math.cos(45) * 80) + 100"
-                                    class="hold hand fat" :key="index"
-                                    v-for="(a, index) in item.annotations.slice(1, 2)" />
+                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(1, 2)" />
                             </g>
                         </g>
                     </svg>
                 </div>
-                <picture v-else>
-                    <source type="image/webp" :srcset="`https://fbs.gnerd.dk/webp/${item.image_hex}.webp`" />
-                    <img :src="`https://fbs.gnerd.dk/static/${item.image_hex}.jpg`" class="problem" />
-                </picture>
+                <img v-else :src="`https://ik.imagekit.io/gnerd/tr:w-800/${item.image_hex}.jpg`" class="problem" />
                 <span class="label holds big left" :class="item.color" @click="toggleShow">holds</span>
                 <span class="label grade big right" :class="item.grade_class">{{
                     item.grade
