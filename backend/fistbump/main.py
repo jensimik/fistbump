@@ -49,4 +49,4 @@ if settings.stokt_refresh == 1:
 @app.on_event("startup")
 @repeat_every(seconds=60 * 60)
 async def _maintenance():
-    maintenance()
+    await maintenance()
