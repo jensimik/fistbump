@@ -37,6 +37,11 @@ app.include_router(misc.router)
 app.include_router(webp.router)
 
 
+@app.get("/healtz")
+async def healthz():
+    return {"everything": "is awesome"}
+
+
 # sync stokt every hour
 if settings.stokt_refresh == 1:
 
