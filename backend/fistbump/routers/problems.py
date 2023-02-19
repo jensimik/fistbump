@@ -97,7 +97,7 @@ async def create_problem(
     # save image
     hex = uuid4().hex
     async with aiofiles.open(
-        settings.images_directory / hex / "original.jpg", "wb"
+        settings.images_directory / f"{hex}.jpg", "wb"
     ) as out_file:
         while content := await file.read(1024):  # async read chunk
             await out_file.write(content)  # async write chunk
@@ -183,7 +183,7 @@ async def update_problem(
         old_hex = item["image_hex"]
         hex = uuid4().hex
         async with aiofiles.open(
-            settings.images_directory / hex / "original.jpg", "wb"
+            settings.images_directory / f"{hex}.jpg", "wb"
         ) as out_file:
             while content := await file.read(1024):  # async read chunk
                 await out_file.write(content)  # async write chunk

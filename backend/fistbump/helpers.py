@@ -14,12 +14,13 @@ DB = AIOTinyDB(settings.problem_db_file)
 
 async def maintenance():
     # clean out stale images
-    async with DB as db:
-        hexes = [d["image_hex"] for d in db if "image_hex" in d]
-        for p in settings.images_directory.iterdir:
-            if p.suffix == "jpg":
-                if p.stem not in hexes:
-                    p.unlink()
+    pass
+    # async with DB as db:
+    #     hexes = [d["image_hex"] for d in db if "image_hex" in d]
+    #     for p in settings.images_directory.iterdir:
+    #         if p.suffix == "jpg":
+    #             if p.stem not in hexes:
+    #                 p.unlink()
 
 
 # def jpg_to_webp(hex, remove_jpg=True):
