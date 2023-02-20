@@ -1,14 +1,15 @@
 import sentry_sdk
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import calendar, problems, webp, misc
-from .repeat_every_helper import repeat_every
-from .stokt import refresh_stokt
-from .helpers import maintenance
-from .config import settings
+from fastapi.staticfiles import StaticFiles
+
 from fistbump import __version__
 
+from .config import settings
+from .helpers import maintenance
+from .repeat_every_helper import repeat_every
+from .routers import auth, calendar, misc, problems, webp
+from .stokt import refresh_stokt
 
 if settings.sentry_dsn:
     sentry_sdk.init(
@@ -31,6 +32,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth.router)
 app.include_router(calendar.router)
 app.include_router(problems.router)
 app.include_router(misc.router)

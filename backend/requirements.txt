@@ -23,14 +23,15 @@ parse==1.19.0
 Pillow==9.4.0
 pydantic==1.10.5
 pyee==8.2.2
+PyJWT==2.6.0
 pyppeteer==1.0.2
 pyquery==2.0.0
 python-dateutil==2.8.2
 python-dotenv==0.21.1
 python-multipart==0.0.5
 PyYAML==6.0
-requests==2.28.2
 requests-html==0.10.0
+requests==2.28.2
 rfc3986==1.5.0
 sentry-sdk==1.15.0
 six==1.16.0
