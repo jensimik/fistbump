@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     sentry_dsn: str = None
     stokt_refresh: int = 0
     setter_code: Optional[str] = None
+
+    jwt_secret: str = "CHANGE_ME"
+
     hold_colors: list = [
         "yellow",
         "red",
