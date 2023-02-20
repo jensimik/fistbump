@@ -1,6 +1,8 @@
-from pydantic import BaseModel
 from datetime import datetime
-from typing import Literal, Optional, AnyStr
+from typing import AnyStr, Literal, Optional
+from uuid import UUID
+
+from pydantic import BaseModel
 
 
 class Circle(BaseModel):
@@ -77,3 +79,13 @@ class Problem(BaseModel):
 
 class Status(BaseModel):
     message: str
+
+
+
+class AuthToken(BaseModel):
+    access_token: str
+    token_type: str
+
+class Me(BaseModel):
+    uuid: UUID
+

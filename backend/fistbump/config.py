@@ -1,8 +1,9 @@
-from typing import Any
+from pathlib import Path
+from typing import Any, Optional
+
+from dateutil.tz import gettz, tzfile
 from pydantic import BaseSettings
 from pydantic.env_settings import SettingsSourceCallable
-from pathlib import Path
-from dateutil.tz import tzfile, gettz
 
 
 class Settings(BaseSettings):
@@ -12,15 +13,18 @@ class Settings(BaseSettings):
         "http://192.168.1.44:5173",
         "https://fistbump.nkk.dk",
     ]
-    auth_token: str
+    auth_token: Optional[str] = None
     images_directory: Path = "/data"
     problem_db_file: Path = "/data/feed.json"
-    google_maps_api_key: str
-    google_maps_place_id: str
-    stokt_token: str
+    google_maps_api_key: Optional[str] = None
+    google_maps_place_id: str = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
+    stokt_token: Optional[str]
     sentry_dsn: str = None
     stokt_refresh: int = 0
-    setter_code: str
+    setter_code: Optional[str] = None
+
+    jwt_secret: str = "CHANGE_ME"
+
     hold_colors: list = [
         "yellow",
         "red",
