@@ -1,7 +1,7 @@
 import sentry_sdk
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
+from starlette_exporter import PrometheusMiddleware, handle_metrics
 
 from fistbump import __version__
 
@@ -24,6 +24,13 @@ app = FastAPI(
 )
 
 app.add_middleware(
+    PrometheusMiddleware,
+    app_name="fistbump",
+    group_paths=True,
+    skip_paths=["/healtz"],
+)
+
+app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
     allow_origin_regex="https://fistbump-pr-.*\.onrender\.com",  # allow onrender.com pull-requests
@@ -42,6 +49,9 @@ app.include_router(webp.router)
 @app.get("/healtz")
 async def healthz():
     return {"everything": "is awesome"}
+
+
+app.add_route("/metrics", handle_metrics)
 
 
 # sync stokt every hour
