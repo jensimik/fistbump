@@ -81,11 +81,16 @@ class Status(BaseModel):
     message: str
 
 
+class User(BaseModel):
+    id: int
+    name: Optional[str]
+    last_access: datetime
 
-class AuthToken(BaseModel):
+
+class Token(BaseModel):
     access_token: str
     token_type: str
 
-class Me(BaseModel):
-    uuid: UUID
 
+class Me(BaseModel):
+    user_id: int
