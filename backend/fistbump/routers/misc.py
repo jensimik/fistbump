@@ -9,6 +9,14 @@ router = APIRouter(tags=["misc"])
 
 @router.get("/strip")
 async def strip() -> schemas.Strip:
+    return schemas.Strip(
+        datetime=datetime(2023, 1, 1),
+        section="n/a",
+        setters="n/a",
+        days_to_strip=99,
+        date_formatted="????",
+    )
+
     today = datetime.now(tz=settings.tz).replace(tzinfo=None)
     STRIPDATA = [
         (datetime(2023, 1, 26, 12, 0, 0), "probyg", "Section 4"),
