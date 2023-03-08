@@ -24,25 +24,25 @@ const toggleShow = async () => {
                         <image :href="`https://ik.imagekit.io/gnerd/tr:w-400/${item.image_hex}.jpg`"
                             :width="item.image_width" :height="item.image_height" class="problem" />
                         <g v-show="showHolds">
-                            <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" :r="radius" :key="index"
+                            <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" :r="radius" :stroke-width="stroke_width" :key="index"
                                 v-for="(a, index) in item.annotations" />
-                            <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" :r="radius + 35" :key="index"
+                            <circle class="hold hand fat" :cx="a.cx" :cy="a.cy" :r="radius + 35" :stroke-width="stroke_width" :key="index"
                                 v-for="(a, index) in item.annotations.slice(-item.holds_top)" v-if="item.holds_top" />
                             <g v-if="item.holds_start == 1">
                                 <line :x1="a.cx + (Math.sin(-45) * radius)" :y1="a.cy + (Math.cos(-45) * radius)"
                                     :x2="a.cx + (Math.sin(-45) * radius) - radius" :y2="a.cy + (Math.cos(-45) * 80) + radius"
-                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                                    class="hold hand fat" :stroke-width="stroke_width" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
                                 <line :x1="a.cx + (Math.sin(45) * radius)" :y1="a.cy + (Math.cos(45) * radius)"
                                     :x2="a.cx + (Math.sin(45) * radius) + radius" :y2="a.cy + (Math.cos(45) * radius) + radius"
-                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                                    class="hold hand fat" :stroke-width="stroke_width" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
                             </g>
                             <g v-if="item.holds_start == 2">
                                 <line :x1="a.cx + (Math.sin(-45) * radius)" :y1="a.cy + (Math.cos(-45) * radius)"
                                     :x2="a.cx + (Math.sin(-45) * radius) - radius" :y2="a.cy + (Math.cos(-45) * radius) + radius"
-                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
+                                    class="hold hand fat" :stroke-width="stroke_width" :key="index" v-for="(a, index) in item.annotations.slice(0, 1)" />
                                 <line :x1="a.cx + (Math.sin(45) * radius)" :y1="a.cy + (Math.cos(45) * radius)"
                                     :x2="a.cx + (Math.sin(45) * radius) + radius" :y2="a.cy + (Math.cos(45) * radius) + radius"
-                                    class="hold hand fat" :key="index" v-for="(a, index) in item.annotations.slice(1, 2)" />
+                                    class="hold hand fat" :stroke-width="stroke_width" :key="index" v-for="(a, index) in item.annotations.slice(1, 2)" />
                             </g>
                         </g>
                     </svg>
