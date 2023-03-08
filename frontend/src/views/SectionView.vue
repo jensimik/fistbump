@@ -1,4 +1,5 @@
 <script setup>
+import Layout from '../components/Layout.vue';
 import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js'
 import Problem from '../components/Problem.vue'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
@@ -33,21 +34,23 @@ onBeforeUnmount(async () => {
 </script>
 
 <template>
-    <h2>Problems on section {{ props.id }}</h2>
-
-    <div class="flex two">
-        <div class="third">Holds colors</div>
-        <div class="two-third right"><span class="label" :class="color" v-for="(c, color) in colors">{{ c }}</span>
-        </div>
-        <div class="third">Grades</div>
-        <div class="two-third right"><span class="label" :class="c[0]" v-for="c in grades">{{ c[1] }}</span></div>
-    </div>
-
-    <div class="flex two">
-        <div v-for="item in items" :key="item.id">
-            <Problem :data="item" slim="yes"></Problem>
-        </div>
-    </div>
+    <Layout>
+        <template v-slot:content>
+            <h2>Problems on section {{ props.id }}</h2>
+            <div class="flex two">
+                <div class="third">Holds colors</div>
+                <div class="two-third right"><span class="label" :class="color" v-for="(c, color) in colors">{{ c }}</span>
+                </div>
+                <div class="third">Grades</div>
+                <div class="two-third right"><span class="label" :class="c[0]" v-for="c in grades">{{ c[1] }}</span></div>
+            </div>
+            <div class="flex two">
+                <div v-for="item in items" :key="item.id">
+                    <Problem :data="item" slim="yes"></Problem>
+                </div>
+            </div>
+        </template>
+    </Layout>
 </template>
 
 <style scoped>

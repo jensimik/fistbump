@@ -1,4 +1,5 @@
 <script setup>
+import Layout from '../components/Layout.vue';
 import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js'
 import GradeDistribution from '../components/GradeDistribution.vue';
 import HoldStats from '../components/HoldStats.vue';
@@ -19,24 +20,26 @@ for (const property in sections) {
 </script>
 
 <template>
-    <GradeDistribution></GradeDistribution>
-    <HoldStats></HoldStats>
-
-    <div v-for="(section_title, section_key) in sections" style="width:100%;">
-        <h2>{{ section_title }}</h2>
-        <div class="flex two">
-            <div class="third">Holds</div>
-            <div class="two-third right"><span class="label" :class="color" v-for="(c, color) in colors[section_key]">{{
-                c
-            }}</span></div>
-            <div class="third">Grades</div>
-            <div class="two-third right"><span class="label" :class="c[0]" v-for="c in grades[section_key]">{{
-                c[1]
-            }}</span>
+    <Layout>
+        <template v-slot:content>
+            <GradeDistribution></GradeDistribution>
+            <HoldStats></HoldStats>
+            <div v-for="(section_title, section_key) in sections" style="width:100%;">
+                <h2>{{ section_title }}</h2>
+                <div class="flex two">
+                    <div class="third">Holds</div>
+                    <div class="two-third right"><span class="label" :class="color" v-for="(c, color) in colors[section_key]">{{
+                        c
+                    }}</span></div>
+                    <div class="third">Grades</div>
+                    <div class="two-third right"><span class="label" :class="c[0]" v-for="c in grades[section_key]">{{
+                        c[1]
+                    }}</span>
+                    </div>
+                </div>
             </div>
-        </div>
-
-    </div>
+        </template>
+    </Layout>
 </template>
 
 <style scoped>
