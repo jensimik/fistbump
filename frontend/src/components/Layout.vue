@@ -2,7 +2,6 @@
 import { RouterLink } from 'vue-router'
 import addToHomeButton from './addToHomeScreen.vue';
 import ReloadPrompt from './ReloadPrompt.vue';
-import { setter_auth } from '../localStorage';
 </script>
 
 <template>
