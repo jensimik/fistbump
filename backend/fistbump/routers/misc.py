@@ -11,7 +11,7 @@ router = APIRouter(tags=["misc"])
 async def strip() -> schemas.Strip:
     return schemas.Strip(
         datetime=datetime(2023, 1, 1),
-        section="?",
+        section="Section ?",
         setters="n/a",
         days_to_strip=99,
         date_formatted="????",
