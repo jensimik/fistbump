@@ -49,11 +49,9 @@ const toggleShow = async () => {
                 </div>
                 <img v-else :src="`https://ik.imagekit.io/gnerd/tr:w-400/${item.image_hex}.jpg`" class="problem" />
             </router-link>
-            <span class="label holds big left" :class="item.color" @click="toggleShow">holds</span>
-            <span class="label grade big right" :class="item.grade_class">{{
-                item.grade
-            }}</span>
-            <span class="label big setter white">{{ item.name }} ({{ item.setter }})</span>
+            <span class="label info-left hgs" :class="item.color" @click="toggleShow">holds</span>
+            <span class="label info-right hgs" :class="item.grade_class">{{ item.grade }}</span>
+            <span class="label info-left-bottom hgs white">{{ item.name }} ({{ item.setter }})</span>
         </div>
         <div class="imgw" v-else>
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
@@ -61,28 +59,27 @@ const toggleShow = async () => {
                     <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
                     <path class="hold stokt-hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
                 </svg>
-                <span class="label grade big right" :class="item.grade_class">{{
+                <span class="label hgs info-left rainbow">holds</span>
+                <span class="label hgs info-right" :class="item.grade_class">{{
                     item.grade
                 }}</span>
-                <span class="label big setter white">{{ item.name }} ({{ item.setter }})</span>
+                <span class="label hgs info-left-bottom white">{{ item.name }} ({{ item.setter }})</span>
             </router-link>
         </div>
     </div>
     <div v-else>
-        <h2>{{ item.name }} (<router-link v-if="item.section != 'Ö'"
-                :to="{ name: 'section', params: { id: item.section } }">{{
-                    item.section
-                }}</router-link><span v-else>{{ item.section }}</span>)</h2>
         <div v-if="item.section == 'Ö'">
             <div class="imgw">
                 <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
                     <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
-                    <path class="hold stokt-hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
+                    <g v-show="showHolds">
+                        <path class="hold stokt-hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
+                    </g>
                 </svg>
-                <span class="label grade big right" :class="item.grade_class">{{
-                    item.grade
-                }}</span>
-                <span class="label big left white">{{ item.setter }}</span>
+                <span class="label hgs info-right" :class="item.grade_class">{{ item.grade }}</span>
+                <span class="label hgs info-left rainbow" @click="toggleShow">holds</span>
+                <span class="label info-right-bottom hgs white">{{ item.setter }}</span>
+                <span class="label info-left-bottom hgs white">{{ item.name }}</span>
             </div>
         </div>
         <div v-else>
@@ -117,11 +114,10 @@ const toggleShow = async () => {
                     </svg>
                 </div>
                 <img v-else :src="`https://ik.imagekit.io/gnerd/tr:w-800/${item.image_hex}.jpg`" class="problem" />
-                <span class="label holds big left" :class="item.color" @click="toggleShow">holds</span>
-                <span class="label grade big right" :class="item.grade_class">{{
-                    item.grade
-                }}</span>
-                <span class="label big setter white">{{ item.setter }}</span>
+                <span class="label info-left hgs" :class="item.color" @click="toggleShow">holds</span>
+                <span class="label info-right hgs" :class="item.grade_class">{{ item.grade }}</span>
+                <span class="label info-right-bottom hgs white">{{ item.setter }}</span>
+                <span class="label info-left-bottom hgs white">{{ item.name }}</span>
             </div>
         </div>
     </div>
@@ -143,10 +139,6 @@ svg {
 
 .stokt-hold {
     stroke-width: 15px;
-}
-
-.fat {
-    /* stroke-width: 25px; */
 }
 
 .foot {
@@ -174,30 +166,40 @@ wrapper {
     position: relative;
 }
 
-.big {
+.info-left {
     position: absolute;
-    border-radius: 0;
-    font-size: 1.2em;
-    opacity: 0.8;
-}
-
-.slim .big {
-    font-size: 0.8em;
-}
-
-.left {
     top: 0;
     left: 0;
 }
-
-.right {
+.info-left-bottom {
+    position: absolute;
+    bottom: 0.3em;
+    left: 0;
+}
+.slim .info-left-bottom {
+    bottom: 0em;
+    font-size: 0.5em !important;
+}
+.info-right {
+    position: absolute;
     top: 0;
     right: 0;
 }
+.info-right-bottom {
+    position: absolute;
+    bottom: 0.3em;
+    right: 0;
+}
 
-.setter {
-    bottom: 0;
-    left: 0;
-    font-size: 0.5em !important;
+.hgs {
+    border-radius: 0;
+    font-size: 1.2em;
+    opacity: 0.7;
+}
+.white {
+    opacity: 0.5;
+}
+.slim .hgs {
+    font-size: 0.8em;
 }
 </style>
