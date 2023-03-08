@@ -39,7 +39,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth.router)
+# app.include_router(auth.router)
 app.include_router(calendar.router)
 app.include_router(problems.router)
 app.include_router(misc.router)
