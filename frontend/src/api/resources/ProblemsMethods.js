@@ -84,7 +84,7 @@ export default {
     async store(data, auth) {
         return fetch(APISettings.baseURL + '/problems', {
             method: 'POST',
-            headers: { ...APISettings, access_token: auth },
+            headers: { ...APISettings.headers, access_token: auth },
             body: data
         })
             .then(function (response) {

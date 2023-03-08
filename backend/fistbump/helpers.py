@@ -1,5 +1,6 @@
 import json
 import shutil
+from datetime import datetime
 from functools import lru_cache
 from itertools import cycle
 from PIL import Image, ImageOps
@@ -8,8 +9,9 @@ from tinydb import where
 from tinydb.operations import set as tinydb_set
 from .config import settings
 
-# the database instance
+# the database instance(s)
 DB = AIOTinyDB(settings.problem_db_file)
+DB_user = AIOTinyDB(settings.user_db_file)
 
 
 async def maintenance():
@@ -105,3 +107,7 @@ GRADE_TO_COLOR = {
     "8A": "white",
     "7C+-8C": "white",
 }
+
+
+def local_now():
+    return datetime.now(tz=settings.tz).replace(tzinfo=None)

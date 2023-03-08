@@ -75,7 +75,7 @@ onBeforeUnmount(async () => {
                     <path style="fill:none;stroke:#929292;stroke-width:1.05833;stroke-dasharray:none;stroke-opacity:1"
                         d="M 221.59489,76.622435 V 115.14298" id="path1300" />
                     <path style="fill:none;stroke:#929292;stroke-width:1.0392;stroke-dasharray:none;stroke-opacity:1"
-                        d="M 186.54761,76.620752 V 114.53937" id="path1464" />
+                        d="M 180.5,76.620752 V 114.53937" id="path1464" />
                     <path style="fill:none;stroke:#929292;stroke-width:1.05833;stroke-dasharray:none;stroke-opacity:1"
                         d="M 54.470175,76.203769 V 114.66043" id="path1466" /><text xml:space="preserve"
                         transform="matrix(0.26458333,0,0,0.26458333,2.4548234,3.6334749)" id="text1520">

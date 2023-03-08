@@ -1,63 +1,84 @@
-import os
-from hashlib import scrypt
+from datetime import datetime
 from typing import Optional
-from uuid import UUID, uuid4
-
-import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
+from passlib.context import CryptContext
+from fistbump import schemas
+from fistbump.helpers import DB_user, local_now, tinydb_set
 from fistbump.config import settings
-
-SHARE_WHITELIST: set[str] = set()
 
 ALGORITHM = "HS256"
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login_swagger", auto_error=False)
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-def hash_password(password, salt=None) -> tuple[str, str]:
-    if not salt:
-        salt = os.urandom(64).hex()
-    return (
-        scrypt(
-            password=password.encode(), salt=salt.encode(), n=1 << 14, r=8, p=1
-        ).hex(),
-        salt,
-    )
+# def verify_password(plain_password, hashed_password) -> bool:
+#     return pwd_context.verify(plain_password, hashed_password)
 
 
-def verify_password(hashed_password, guessed_password, salt) -> bool:
-    """
-    Verifies if a password is valid by checking a hashed password with a salt
-    """
-    return hashed_password == hash_password(guessed_password, salt)[0]
+# def get_password_hash(password) -> str:
+#     return pwd_context.hash(password)
 
 
-def create_access_token(data: dict) -> str:
-    """
-    Encodes an access token with the given data.
-    """
-    to_encode = data.copy()
-    encoded_jwt = jwt.encode(to_encode, settings.jwt_secret, algorithm=ALGORITHM)
+# async def authenticate_user(username: str, password: str):
+#     user = await get_user(username)
+#     if not user:
+#         return False
+#     if not verify_password(password, user.hashed_password):
+#         return False
+#     return user
+
+
+async def get_user(user_id: int) -> schemas.User:
+    async with DB_user as db:
+        user = db.get(doc_id=user_id)
+    return schemas.User(id=user.doc_id, **user)
+
+
+def create_access_token(user_id: int):
+    encoded_jwt = jwt.encode({"sub": user_id}, settings.jwt_secret, algorithm=ALGORITHM)
     return encoded_jwt
 
 
-def register_user():
-    """
-    Registers a new anon user with just a random UUID for now.
-
-    Can be extended to take username/password etc. and also save the user in some kind of DB.
-    """
-    return create_access_token({"sub": str(uuid4())})
+async def register_user():
+    # create in db
+    async with DB_user as db:
+        doc_id = db.insert({"last_access": local_now().isoformat()})
+    return create_access_token(user_id=doc_id)
 
 
-def authenticated_user(
-    token: str = Depends(oauth2_scheme),
-) -> UUID:
+async def get_current_user(token: str = Depends(oauth2_scheme)) -> schemas.User:
     """
     FastAPI dependency to use on authenticated endpoints.
 
-    Returns the UUID of the authenticated user.
+    Returns the schemas.User of the authenticated user.
+    """
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, settings.jwt_secret, algorithms=[ALGORITHM])
+        user_id: str = payload.get("sub")
+        if user_id is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    user = await get_user(user_id=int(user_id))
+    if user is None:
+        raise credentials_exception
+    return user
+
+
+async def authenticated_user(token: str = Depends(oauth2_scheme)) -> int:
+    """
+    FastAPI dependency to use on authenticated endpoints.
+
+    Returns the user_id of the authenticated user.
     """
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -66,11 +87,13 @@ def authenticated_user(
     )
     try:
         decoded = jwt.decode(token, settings.jwt_secret, algorithms=[ALGORITHM])
-        user_uuid: Optional[str] = decoded.get("sub")
-        if user_uuid is None:
+        user_id_str: Optional[str] = decoded.get("sub")
+        if user_id_str is None:
             raise credentials_exception
-
-        return UUID(user_uuid)
-
-    except (jwt.exceptions.DecodeError, ValueError):
+    except JWTError:
         raise credentials_exception
+    user_id = int(user_id_str)
+    # log last_access
+    async with DB_user as db:
+        db.update(tinydb_set("last_access", local_now().isoformat()), doc_ids=[user_id])
+    return user_id

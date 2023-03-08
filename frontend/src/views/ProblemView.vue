@@ -1,4 +1,5 @@
 <script setup>
+import Layout from '../components/Layout.vue';
 import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
 import Problem from '../components/Problem.vue'
 import { setter_auth } from '../localStorage';
@@ -12,5 +13,12 @@ item.value = await ProblemsMethodsAPI.get(props.id);
 </script>
 
 <template>
-    <Problem :data="item" :auth="setter_auth"></Problem>
+    <Layout>
+        <template v-slot:menu>
+            <router-link v-if="item.section != 'Ö' && setter_auth" class="button" :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link>
+        </template>
+        <template v-slot:content>
+            <Problem :data="item" :auth="setter_auth"></Problem>
+        </template>
+    </Layout>
 </template>

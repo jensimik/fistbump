@@ -1,5 +1,6 @@
 from fastapi import Security, HTTPException, status
 from fastapi.security import APIKeyHeader
+from .auth import authenticated_user, get_current_user
 from .config import settings
 
 api_key_header = APIKeyHeader(name="access_token", auto_error=False)

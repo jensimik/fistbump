@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     auth_token: Optional[str] = None
     images_directory: Path = "/data"
     problem_db_file: Path = "/data/feed.json"
+    user_db_file: Path = "/data/user.json"
     google_maps_api_key: Optional[str] = None
     google_maps_place_id: str = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
     stokt_token: Optional[str]
