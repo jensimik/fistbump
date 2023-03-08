@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     cors_origins: list = [
         "http://localhost:5173",
         "http://192.168.1.44:5173",
+        "http://192.168.1.168:5173",
         "https://fistbump.nkk.dk",
     ]
     auth_token: Optional[str] = None
