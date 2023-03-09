@@ -9,14 +9,13 @@ router = APIRouter(tags=["misc"])
 
 @router.get("/strip")
 async def strip() -> schemas.Strip:
-    return schemas.Strip(
-        datetime=datetime(2023, 1, 1),
-        section="Section ?",
-        setters="n/a",
-        days_to_strip=99,
-        date_formatted="????",
-    )
-
+    # return schemas.Strip(
+    #     datetime=datetime(2023, 1, 1),
+    #     section="Section ?",
+    #     setters="n/a",
+    #     days_to_strip=99,
+    #     date_formatted="????",
+    # )
     today = datetime.now(tz=settings.tz).replace(tzinfo=None)
     STRIPDATA = [
         (datetime(2023, 1, 26, 12, 0, 0), "probyg", "Section 4"),
@@ -24,11 +23,11 @@ async def strip() -> schemas.Strip:
         (datetime(2023, 2, 9, 12, 0, 0), "probyg", "Section 1"),
         (datetime(2023, 2, 16, 12, 0, 0), "fribyg", "Section 2"),
         (datetime(2023, 2, 23, 12, 0, 0), "probyg", "Section 3"),
-        (datetime(2023, 3, 3, 12, 0, 0), "forbund", "Section 4+5"),
-        (datetime(2023, 3, 9, 12, 0, 0), "probyg", "Section 1"),
-        (datetime(2023, 3, 17, 12, 0, 0), "fribyg", "Section 2"),
-        (datetime(2023, 3, 23, 12, 0, 0), "probyg", "Section 3"),
-        (datetime(2023, 3, 31, 12, 0, 0), "workshop", "Section 4"),
+        (datetime(2023, 3, 3, 12, 0, 0), "fribyg", "Section 4"),
+        (datetime(2023, 3, 9, 12, 0, 0), "probyg", "Section 5"),
+        (datetime(2023, 3, 17, 12, 0, 0), "fribyg", "Section 1"),
+        (datetime(2023, 3, 23, 12, 0, 0), "probyg", "Section 2"),
+        (datetime(2023, 3, 31, 12, 0, 0), "workshop", "Section 3"),
         (datetime(2023, 4, 18, 12, 0, 0), "juniorbattle", "Section 1+2+3+4+5"),
     ]
     for next_strip, setters, section in STRIPDATA:
