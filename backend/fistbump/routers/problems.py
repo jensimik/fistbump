@@ -140,7 +140,7 @@ async def delete_problem(
             jpg_file = settings.images_directory / f"{hex}.jpg"
             jpg_file.unlink(missing_ok=True)
         db.remove(doc_ids=[item_id])
-    return schemas.Status(message="deleted problem")
+    return schemas.Status(message="deleted problem ok")
 
 
 # update a problem
