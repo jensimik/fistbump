@@ -138,7 +138,7 @@ async def delete_problem(
         # remove image files
         if hex := item["image_hex"]:
             jpg_file = settings.images_directory / f"{hex}.jpg"
-            jpg_file.unlink()
+            jpg_file.unlink(missing_ok=True)
         db.remove(doc_ids=[item_id])
     return schemas.Status(message="deleted problem")
 
@@ -191,7 +191,7 @@ async def update_problem(
         # remove old images
         if old_hex:
             old_jpg_file = settings.images_directory / f"{hex}.jpg"
-            old_jpg_file.unlink()
+            old_jpg_file.unlink(missing_ok=True)
 
     # update in tinydb
     async with DB as db:
