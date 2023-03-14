@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@sentry/tracing": "^7.39.0",
-    "@sentry/vue": "^7.39.0",
+    "@sentry/vue": "^7.43.0",
     "picnic": "^7.1.0",
     "vue": "^3.2.47",
     "vue-google-charts": "^1.1.0",
