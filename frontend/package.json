@@ -9,7 +9,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@sentry/tracing": "^7.39.0",
+    "@sentry/tracing": "^7.43.0",
     "@sentry/vue": "^7.39.0",
     "picnic": "^7.1.0",
     "vue": "^3.2.47",
