@@ -43,7 +43,7 @@ def _get_popular_times():
 
 @alru_cache(maxsize=2)
 async def _get_opening_hours(today):
-    return {}, "n/a", "n/a"
+    #return {}, "n/a", "n/a"
     data = {}
     hours_today = "n/a"
     hours_tomorrow = "n/a"
