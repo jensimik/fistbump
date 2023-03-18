@@ -51,7 +51,7 @@ starlette-exporter==0.15.1
 tinydb==4.7.1
 tqdm==4.65.0
 typing_extensions==4.5.0
-urllib3==1.26.14
+urllib3==1.26.15
 uvicorn==0.21.1
 uvloop==0.17.0
 w3lib==2.1.1
