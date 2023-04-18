@@ -29,6 +29,7 @@ async def strip() -> schemas.Strip:
         (datetime(2023, 3, 23, 12, 0, 0), "probyg", "Section 2"),
         (datetime(2023, 3, 31, 12, 0, 0), "fribyg", "Section 3"),
         (datetime(2023, 4, 18, 12, 0, 0), "juniorbattle", "Section 1+2+3+4+5"),
+        (datetime(2023, 6, 6, 12, 0, 0), "no plan yet?", "Section ?"),
     ]
     for next_strip, setters, section in STRIPDATA:
         if next_strip >= today:
