@@ -27,7 +27,7 @@ parse==1.19.0
 passlib==1.7.4
 Pillow==9.5.0
 prometheus-client==0.16.0
-pyasn1==0.4.8
+pyasn1==0.5.0
 pycparser==2.21
 pydantic==1.10.7
 pyee==8.2.2
