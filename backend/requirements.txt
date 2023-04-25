@@ -4,7 +4,7 @@ anyio==3.6.2
 appdirs==1.4.4
 async-lru==2.0.2
 bcrypt==4.0.1
-beautifulsoup4==4.12.0
+beautifulsoup4==4.12.2
 bs4==0.0.1
 certifi==2022.12.7
 cffi==1.15.1
