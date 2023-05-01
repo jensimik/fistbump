@@ -6,7 +6,7 @@ from livepopulartimes import get_populartimes_by_place_id
 from datetime import datetime, timedelta
 from fistbump import schemas
 from fistbump.config import settings
-from requests_html import HTML
+from fistbump.parse import HTML
 
 router = APIRouter(tags=["calendar"])
 
@@ -43,7 +43,7 @@ def _get_popular_times():
 
 @alru_cache(maxsize=2)
 async def _get_opening_hours(today):
-    #return {}, "n/a", "n/a"
+    # return {}, "n/a", "n/a"
     data = {}
     hours_today = "n/a"
     hours_tomorrow = "n/a"
