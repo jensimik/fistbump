@@ -64,7 +64,9 @@ export default defineConfig({
       project: "javascript-vue",
 
       // Specify the directory containing build artifacts
-      include: "./dist",
+      sourcemaps: {
+        assets: "./dist",
+      },
 
       // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
       // and needs the `project:releases` and `org:read` scopes
