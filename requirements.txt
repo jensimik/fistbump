@@ -119,7 +119,7 @@ h2==4.1.0
 hpack==4.0.0
 html5lib==1.1
 htmlmin==0.1.12
-httplib2==0.9.1
+httplib2==0.19.0
 httptools==0.5.0
 humanfriendly==10.0
 hypercorn==0.14.3
