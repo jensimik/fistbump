@@ -14,7 +14,7 @@ from .stokt import refresh_stokt
 if settings.sentry_dsn:
     sentry_sdk.init(
         dsn=settings.sentry_dsn,
-        traces_sample_rate=0.1,
+        traces_sample_rate=0,
         release=__version__,
     )
 
