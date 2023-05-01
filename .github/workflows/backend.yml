@@ -7,12 +7,14 @@ on:
     paths:
       - "backend/**/*"
       - ".github/workflows/backend.yml"
-    branches: ["main"]
+    branches:
+      - main
   pull_request:
     paths:
       - "backend/**/*"
       - ".github/workflows/backend.yml"
-    branches: ["main"]
+    branches:
+      - main
 
 permissions:
   contents: read

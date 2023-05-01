@@ -8,12 +8,14 @@ on:
     paths:
       - "frontend/**/*"
       - ".github/workflows/frontend.yml"
-    branches: ["main"]
+    branches:
+      - main
   pull_request:
     paths:
       - "frontend/**/*"
       - ".github/workflows/frontend.yml"
-    branches: ["main"]
+    branches:
+      - main
 
 env:
   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_RELEASE_AUTH_TOKEN }}
