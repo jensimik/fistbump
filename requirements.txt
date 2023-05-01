@@ -282,7 +282,7 @@ SQLAlchemy==1.4.46
 sqlparse==0.4.3
 srsly==2.4.5
 stanza==1.4.2
-starlette==0.22.0
+starlette==0.25.0
 TBB==0.2
 team==1.0
 tenacity==8.2.2
