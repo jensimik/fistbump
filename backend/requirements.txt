@@ -50,5 +50,5 @@ uvicorn==0.22.0
 uvloop==0.17.0
 w3lib==2.1.1
 watchfiles==0.18.1
-websockets==11.0.2
+websockets==11.0.3
 zipp==3.15.0
