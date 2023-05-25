@@ -23,7 +23,7 @@ lxml==4.9.2
 parse==1.19.0
 passlib==1.7.4
 Pillow==9.4.0
-prometheus-client==0.16.0
+prometheus-client==0.17.0
 pyasn1==0.4.8
 pycparser==2.21
 pydantic==1.10.8
