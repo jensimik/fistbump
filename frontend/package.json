@@ -12,7 +12,7 @@
     "@sentry/tracing": "^7.52.1",
     "@sentry/vue": "^7.52.1",
     "picnic": "^7.1.0",
-    "vue": "^3.2.47",
+    "vue": "^3.3.4",
     "vue-google-charts": "^1.1.0",
     "vue-mixpanel": "^2.0.0",
     "vue-router": "^4.2.2",
