@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
+import VueMixpanel from 'vue-mixpanel'
 
 const app = createApp(App)
 
@@ -21,5 +22,12 @@ Sentry.init({
 });
 
 app.use(router)
+app.use(VueMixpanel, {
+    token: "34cedfac2ebbc776f77cc53866e9e63e",
+    config: {
+      debug: true
+    }
+  })
+
 
 app.mount('#app')
