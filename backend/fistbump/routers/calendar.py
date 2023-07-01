@@ -32,6 +32,7 @@ WEEKDAY_REVERSE = {
     "Mandag - Fredag": [0, 1, 2, 3, 4],
     "Tirsdag - Torsdag": [1, 2, 3],
     "Lørdag - Søndag": [5, 6],
+    "Fredag - Søndag": [4, 5, 6],
 }
 
 
