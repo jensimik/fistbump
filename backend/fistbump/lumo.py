@@ -3,6 +3,7 @@ from .helpers import DB, where, lumo_to_grade
 from .config import settings
 import firebase
 from tinydb.operations import delete
+from itertools import iter_index
 
 
 async def refresh_lumo():
@@ -38,6 +39,7 @@ async def refresh_lumo():
                 fire_db.collection("users").document(document["userID"]).get()
             )
             holds_raw = document.get("holds", [])
+            holds_raw = [x for x in holds_raw if x != 255]  # filter out 255 for now :-)
             holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
             name = document.get("name", "n/a")
             data = {
