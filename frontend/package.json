@@ -24,6 +24,6 @@
     "happy-dom": "^9.20.3",
     "vite": "^4.4.0",
     "vite-plugin-pwa": "^0.16.4",
-    "vitest": "^0.32.2"
+    "vitest": "^0.32.4"
   }
 }
