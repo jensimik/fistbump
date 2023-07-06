@@ -35,7 +35,8 @@ async def refresh_lumo():
         user_document = db.collection("users").document(document["userID"]).get()
         async with DB as db:
             holds_raw = document.get("holds", [])
-            holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
+            holds = holds_raw
+            # holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
             data = {
                 "lumo_id": document_id,
                 "section": "L",
