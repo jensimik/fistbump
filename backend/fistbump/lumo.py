@@ -9,7 +9,7 @@ async def refresh_lumo():
     print("going to fetch from lumo")
     try:
         async with DB as db:
-            db.update((delete("holds"), where("section") == "L"))
+            db.update(delete("holds"), where("section") == "L")
     except Exception as ex:
         print(f"failed with {ex}")
 
@@ -56,7 +56,10 @@ async def refresh_lumo():
         print(f"fetched problem {name} with lumo_id {document_id}")
         print(data)
         async with DB as db:
-            db.upsert(data, where("lumo_id") == data["lumo_id"])
+            try:
+                db.upsert(data, where("lumo_id") == data["lumo_id"])
+            except Exception as ex:
+                print(f"failed with {ex}")
     print("finished fetching from lumo")
 
 
