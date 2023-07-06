@@ -23,6 +23,9 @@ class Settings(BaseSettings):
     stokt_token: Optional[str]
     sentry_dsn: str = None
     stokt_refresh: int = 0
+    lumo_firebase_apikey: str = None
+    lumo_username: str = None
+    lumo_password: str = None
     setter_code: Optional[str] = None
 
     jwt_secret: str = "CHANGE_ME"

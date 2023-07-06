@@ -10,6 +10,7 @@ from .helpers import maintenance
 from .repeat_every_helper import repeat_every
 from .routers import auth, calendar, misc, problems, webp
 from .stokt import refresh_stokt
+from .lumo import refresh_lumo
 
 if settings.sentry_dsn:
     sentry_sdk.init(
@@ -61,6 +62,11 @@ if settings.stokt_refresh == 1:
     @repeat_every(seconds=60 * 60)
     async def _refresh_stokt():
         await refresh_stokt()
+
+    @app.on_event("startup")
+    @repeat_every(seconds=60 * 60 * 12)
+    async def _refresh_lumo():
+        await refresh_lumo()
 
 
 @app.on_event("startup")
