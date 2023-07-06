@@ -3,7 +3,6 @@ from .helpers import DB, where, lumo_to_grade
 from .config import settings
 import firebase
 from tinydb.operations import delete
-from itertools import iter_index
 
 
 async def refresh_lumo():
