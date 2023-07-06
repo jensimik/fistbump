@@ -9,6 +9,8 @@ async def refresh_lumo():
     print("going to fetch from lumo")
     async with DB as db:
         db.update((delete("holds"), where("section") == "L"))
+
+    print("finished first update")
     # Firebase configuration
     config = {
         "apiKey": settings.lumo_firebase_apikey,
