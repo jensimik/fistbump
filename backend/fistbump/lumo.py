@@ -7,13 +7,6 @@ from tinydb.operations import delete
 
 async def refresh_lumo():
     print("going to fetch from lumo")
-    try:
-        async with DB as db:
-            db.update(delete("holds"), where("section") == "L")
-    except Exception as ex:
-        print(f"failed with {ex}")
-
-    print("finished first update")
     # Firebase configuration
     config = {
         "apiKey": settings.lumo_firebase_apikey,
@@ -36,11 +29,11 @@ async def refresh_lumo():
         settings.lumo_username, settings.lumo_password
     )
 
-    db = app.firestore()
+    fire_db = app.firestore()
 
-    for document_id in db.collection("problems").list_of_documents():
-        document = db.collection("problems").document(document_id).get()
-        user_document = db.collection("users").document(document["userID"]).get()
+    for document_id in fire_db.collection("problems").list_of_documents():
+        document = fire_db.collection("problems").document(document_id).get()
+        user_document = fire_db.collection("users").document(document["userID"]).get()
         holds_raw = document.get("holds", [])
         holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
         name = document.get("name", "n/a")
@@ -54,7 +47,6 @@ async def refresh_lumo():
             "created": "{0:%Y-%m-%dT%H:%M:%S}".format(document["createdDate"]),
         }
         print(f"fetched problem {name} with lumo_id {document_id}")
-        print(data)
         async with DB as db:
             try:
                 db.upsert(data, where("lumo_id") == data["lumo_id"])
