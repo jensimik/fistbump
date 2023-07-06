@@ -2,6 +2,7 @@
 from .helpers import DB, where, lumo_to_grade
 from .config import settings
 import firebase
+from tinydb.operations import delete
 
 
 async def refresh_lumo():
@@ -35,18 +36,18 @@ async def refresh_lumo():
         user_document = db.collection("users").document(document["userID"]).get()
         async with DB as db:
             holds_raw = document.get("holds", [])
-            holds = holds_raw
-            # holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
+            holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
             data = {
                 "lumo_id": document_id,
                 "section": "L",
                 "name": document.get("name", "n/a"),
                 "grade": lumo_to_grade(document.get("setterGrade", 0)),
-                "holds": holds,
+                "lumo_holds": holds,
                 "setter": user_document["username"],
                 "created": "{0:%Y-%m-%dT%H:%M:%S}".format(document["createdDate"]),
             }
             db.upsert(data, where("lumo_id") == data["lumo_id"])
+            db.update((delete("holds"), where("section") == "L"))
     print("finished fetching from lumo")
 
 
