@@ -32,26 +32,31 @@ async def refresh_lumo():
     fire_db = app.firestore()
 
     for document_id in fire_db.collection("problems").list_of_documents():
-        document = fire_db.collection("problems").document(document_id).get()
-        user_document = fire_db.collection("users").document(document["userID"]).get()
-        holds_raw = document.get("holds", [])
-        holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
-        name = document.get("name", "n/a")
-        data = {
-            "lumo_id": document_id,
-            "section": "L",
-            "name": name,
-            "grade": lumo_to_grade(document.get("setterGrade", 0)),
-            "lumo_holds": holds,
-            "setter": user_document["username"],
-            "created": "{0:%Y-%m-%dT%H:%M:%S}".format(document["createdDate"]),
-        }
-        print(f"fetched problem {name} with lumo_id {document_id}")
-        async with DB as db:
-            try:
-                db.upsert(data, where("lumo_id") == data["lumo_id"])
-            except Exception as ex:
-                print(f"failed with {ex}")
+        try:
+            document = fire_db.collection("problems").document(document_id).get()
+            user_document = (
+                fire_db.collection("users").document(document["userID"]).get()
+            )
+            holds_raw = document.get("holds", [])
+            holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
+            name = document.get("name", "n/a")
+            data = {
+                "lumo_id": document_id,
+                "section": "L",
+                "name": name,
+                "grade": lumo_to_grade(document.get("setterGrade", 0)),
+                "lumo_holds": holds,
+                "setter": user_document["username"],
+                "created": "{0:%Y-%m-%dT%H:%M:%S}".format(document["createdDate"]),
+            }
+            print(f"fetched problem {name} with lumo_id {document_id}")
+            async with DB as db:
+                try:
+                    db.upsert(data, where("lumo_id") == data["lumo_id"])
+                except Exception as ex:
+                    print(f"failed with {ex}")
+        except Exception as ex:
+            print(f"failed with {ex}")
     print("finished fetching from lumo")
 
 
