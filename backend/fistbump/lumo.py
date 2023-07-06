@@ -7,8 +7,11 @@ from tinydb.operations import delete
 
 async def refresh_lumo():
     print("going to fetch from lumo")
-    async with DB as db:
-        db.update((delete("holds"), where("section") == "L"))
+    try:
+        async with DB as db:
+            db.update((delete("holds"), where("section") == "L"))
+    except Exception as ex:
+        print(f"failed with {ex}")
 
     print("finished first update")
     # Firebase configuration
