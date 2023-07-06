@@ -37,15 +37,17 @@ async def refresh_lumo():
         async with DB as db:
             holds_raw = document.get("holds", [])
             holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
+            name = document.get("name", "n/a")
             data = {
                 "lumo_id": document_id,
                 "section": "L",
-                "name": document.get("name", "n/a"),
+                "name": name,
                 "grade": lumo_to_grade(document.get("setterGrade", 0)),
                 "lumo_holds": holds,
                 "setter": user_document["username"],
                 "created": "{0:%Y-%m-%dT%H:%M:%S}".format(document["createdDate"]),
             }
+            print(f"fetched problem {name} with lumo_id {document_id}")
             db.upsert(data, where("lumo_id") == data["lumo_id"])
             db.update((delete("holds"), where("section") == "L"))
     print("finished fetching from lumo")
