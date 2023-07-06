@@ -14,7 +14,7 @@ cssselect==1.2.0
 ecdsa==0.18.0
 fastapi==0.99.1
 h11==0.14.0
-httpcore==0.17.2
+httpcore==0.17.3
 httptools==0.5.0
 httpx==0.24.1
 idna==3.4
