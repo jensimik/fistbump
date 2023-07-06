@@ -16,7 +16,7 @@ const toggleShow = async () => {
 
 <template>
     <div v-if="props.slim" class="slim">
-        <div class="imgw" v-if="item.section != 'Ö'">
+        <div class="imgw" v-if="item.section == 'B'">
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
                 <div v-if="item.image_width">
                     <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height" xmlns="http://www.w3.org/2000/svg"
@@ -53,6 +53,23 @@ const toggleShow = async () => {
             <span class="label info-right hgs" :class="item.grade_class">{{ item.grade }}</span>
             <span class="label info-left-bottom hgs white">{{ item.name }} ({{ item.setter }})</span>
         </div>
+        <div v-else-if="item.section == 'L'" class="imgw">
+            <router-link :to="{ name: 'problem', params: { id: item.id } }">
+                <svg viewBox="0 0 840 840" xmlns="http://www.w3.org/2000/svg" class="problem">
+                    <rect x="0" width="840" height="840" fill="#dfdfdf"></rect>
+                    <g v-for="row in 20" :key="row">
+                        <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="row * 40" fill="none" class="hold hand fat"></circle>
+                    </g>
+                    <g>
+                        <circle v-for="hold in item.lumo_holds" :key="hold" r="15" :cx="hold[0] * 40" :cy="840 - (hold[1] * 40)" fill="#fff" class="hand fat"></circle>
+                    </g>
+                </svg>
+            </router-link>
+            <span class="label hgs info-right" :class="item.grade_class">{{ item.grade }}</span>
+            <span class="label hgs info-left rainbow" @click="toggleShow">holds</span>
+            <span class="label info-right-bottom hgs white">{{ item.setter }}</span>
+            <span class="label info-left-bottom hgs white">{{ item.name }}</span>
+        </div>
         <div class="imgw" v-else>
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
                 <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
@@ -79,6 +96,23 @@ const toggleShow = async () => {
                 <span class="label hgs info-right" :class="item.grade_class">{{ item.grade }}</span>
                 <span class="label hgs info-left rainbow" @click="toggleShow">holds</span>
                 <span class="label info-right-bottom hgs white">{{ item.setter }}</span>
+                <span class="label info-left-bottom hgs white">{{ item.name }}</span>
+            </div>
+        </div>
+        <div v-else-if="item.section == 'L'">
+            <div class="imgw">
+                <svg viewBox="0 0 840 840" xmlns="http://www.w3.org/2000/svg" class="problem">
+                    <rect x="0" width="840" height="840" fill="#dfdfdf"></rect>
+                    <g v-for="row in 20" :key="row">
+                        <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="row * 40" fill="none" class="hold hand fat"></circle>
+                    </g>
+                    <g>
+                        <circle v-for="hold in item.lumo_holds" :key="hold" r="15" :cx="hold[0] * 40" :cy="840 - (hold[1] * 40)" fill="#fff" class="hand fat"></circle>
+                    </g>
+                </svg>
+                <span class="label hgs info-right" :class="item.grade_class">{{ item.grade }}</span>
+                <span class="label hgs info-left rainbow" @click="toggleShow">holds</span>
+                <span class="label info-right-bottom hgs white">{{ item.setter }} </span>
                 <span class="label info-left-bottom hgs white">{{ item.name }}</span>
             </div>
         </div>
