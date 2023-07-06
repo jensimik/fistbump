@@ -5,6 +5,7 @@ import firebase
 
 
 async def refresh_lumo():
+    print("going to fetch from lumo")
     # Firebase configuration
     config = {
         "apiKey": settings.lumo_firebase_apikey,
