@@ -75,6 +75,7 @@ class Problem(BaseModel):
     stokt_id: Optional[str] = None
     # holds only for stokt
     holds: Optional[str] = None
+    lumo_holds: Optional[list[tuple[int, int]]]
 
 
 class Status(BaseModel):
