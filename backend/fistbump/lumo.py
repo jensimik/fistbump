@@ -7,6 +7,8 @@ from tinydb.operations import delete
 
 async def refresh_lumo():
     print("going to fetch from lumo")
+    async with DB as db:
+        db.update((delete("holds"), where("section") == "L"))
     # Firebase configuration
     config = {
         "apiKey": settings.lumo_firebase_apikey,
@@ -34,22 +36,22 @@ async def refresh_lumo():
     for document_id in db.collection("problems").list_of_documents():
         document = db.collection("problems").document(document_id).get()
         user_document = db.collection("users").document(document["userID"]).get()
+        holds_raw = document.get("holds", [])
+        holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
+        name = document.get("name", "n/a")
+        data = {
+            "lumo_id": document_id,
+            "section": "L",
+            "name": name,
+            "grade": lumo_to_grade(document.get("setterGrade", 0)),
+            "lumo_holds": holds,
+            "setter": user_document["username"],
+            "created": "{0:%Y-%m-%dT%H:%M:%S}".format(document["createdDate"]),
+        }
+        print(f"fetched problem {name} with lumo_id {document_id}")
+        print(data)
         async with DB as db:
-            holds_raw = document.get("holds", [])
-            holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
-            name = document.get("name", "n/a")
-            data = {
-                "lumo_id": document_id,
-                "section": "L",
-                "name": name,
-                "grade": lumo_to_grade(document.get("setterGrade", 0)),
-                "lumo_holds": holds,
-                "setter": user_document["username"],
-                "created": "{0:%Y-%m-%dT%H:%M:%S}".format(document["createdDate"]),
-            }
-            print(f"fetched problem {name} with lumo_id {document_id}")
             db.upsert(data, where("lumo_id") == data["lumo_id"])
-            db.update((delete("holds"), where("section") == "L"))
     print("finished fetching from lumo")
 
 
