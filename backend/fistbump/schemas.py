@@ -75,7 +75,9 @@ class Problem(BaseModel):
     stokt_id: Optional[str] = None
     # holds only for stokt
     holds: Optional[str] = None
-    lumo_holds: Optional[list[tuple[int, int]]]
+    lumo_hands: Optional[list[tuple[int, int]]]
+    lumo_feet: Optional[list[tuple[int, int]]]
+    lumo_sf: Optional[list[tuple[int, int]]]
 
 
 class Status(BaseModel):

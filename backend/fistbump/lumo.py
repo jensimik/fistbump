@@ -1,8 +1,11 @@
 # Import Firebase REST API library
-from .helpers import DB, where, lumo_to_grade
-from .config import settings
+import itertools
+
 import firebase
 from tinydb.operations import delete
+
+from .config import settings
+from .helpers import DB, lumo_to_grade, where
 
 
 async def refresh_lumo():
@@ -38,15 +41,21 @@ async def refresh_lumo():
                 fire_db.collection("users").document(document["userID"]).get()
             )
             holds_raw = document.get("holds", [])
-            holds_raw = [x for x in holds_raw if x != 255]  # filter out 255 for now :-)
-            holds = [(x, y) for x, y in zip(holds_raw[0::2], holds_raw[1::2])]
+            hands_index = holds_raw.index(255)
+            hands = itertools.pairwise(holds_raw[:hands_index])
+            feet_index = holds_raw.index(255, hands_index + 1)
+            feet = itertools.pairwise(holds_raw[hands_index + 1 : feet_index])
+            sf_index = holds_raw.index(255, feet_index + 1)
+            sf = itertools.pairwise(holds_raw[feet_index + 1 : sf_index])
             name = document.get("name", "n/a")
             data = {
                 "lumo_id": document_id,
                 "section": "L",
                 "name": name,
                 "grade": lumo_to_grade(document.get("setterGrade", 0)),
-                "lumo_holds": holds,
+                "lumo_hands": hands,
+                "lumo_feet": feet,
+                "lumo_sf": sf,
                 "setter": user_document["username"],
                 "created": "{0:%Y-%m-%dT%H:%M:%S}".format(document["createdDate"]),
             }
