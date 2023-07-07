@@ -82,7 +82,7 @@ const write_lumo = async () => {
         </div>
         <div v-else-if="item.section == 'L'" class="imgw">
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
-                <svg viewBox="0 0 840 840" xmlns="http://www.w3.org/2000/svg" class="problem">
+                <svg viewBox="0 0 840 960" xmlns="http://www.w3.org/2000/svg" class="problem">
                     <rect x="0" width="840" height="960" fill="#dfdfdf"></rect>
                     <g v-for="row in 23" :key="row">
                         <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="row * 40" fill="none" class="hold hand fat"></circle>
@@ -130,7 +130,7 @@ const write_lumo = async () => {
         </div>
         <div v-else-if="item.section == 'L'">
             <div class="imgw">
-                <svg viewBox="0 0 840 840" xmlns="http://www.w3.org/2000/svg" class="problem">
+                <svg viewBox="0 0 840 960" xmlns="http://www.w3.org/2000/svg" class="problem">
                     <rect x="0" width="840" height="960" fill="#dfdfdf"></rect>
                     <g v-for="row in 23" :key="row">
                         <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="row * 40" fill="none" class="hold hand fat"></circle>
