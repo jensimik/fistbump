@@ -88,7 +88,9 @@ const write_lumo = async () => {
                         <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="row * 40" fill="none" class="hold hand fat"></circle>
                     </g>
                     <g>
-                        <circle v-for="hold in item.lumo_holds" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#fff" class="hand fat"></circle>
+                        <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#fff" class="hand fat"></circle>
+                        <circle v-for="hold in item.lumo_feet" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#2ECC40" class="hand fat"></circle>
+                        <circle v-for="hold in item.lumo_sf" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#FFDC00" class="hand fat"></circle>
                     </g>
                 </svg>
             </router-link>
@@ -134,7 +136,9 @@ const write_lumo = async () => {
                         <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="row * 40" fill="none" class="hold hand fat"></circle>
                     </g>
                     <g>
-                        <circle v-for="hold in item.lumo_holds" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#fff" class="hand fat"></circle>
+                        <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#fff" class="hand fat"></circle>
+                        <circle v-for="hold in item.lumo_feet" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#2ECC40" class="hand fat"></circle>
+                        <circle v-for="hold in item.lumo_sf" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#FFDC00" class="hand fat"></circle>
                     </g>
                 </svg>
                 <span class="label hgs info-right" :class="item.grade_class">{{ item.grade }}</span>
