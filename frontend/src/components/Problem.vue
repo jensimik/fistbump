@@ -85,12 +85,12 @@ const write_lumo = async () => {
                 <svg viewBox="0 0 840 960" xmlns="http://www.w3.org/2000/svg" class="problem">
                     <rect x="0" width="840" height="960" fill="#dfdfdf"></rect>
                     <g v-for="row in 23" :key="row">
-                        <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="row * 40" fill="none" class="hold hand fat"></circle>
+                        <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="960 - (row * 40)" fill="none" class="hold hand fat"></circle>
                     </g>
                     <g>
-                        <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#fff" class="hand fat"></circle>
-                        <circle v-for="hold in item.lumo_feet" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#2ECC40" class="hand fat"></circle>
-                        <circle v-for="hold in item.lumo_sf" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#FFDC00" class="hand fat"></circle>
+                        <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#fff" class="lumo-hold"></circle>
+                        <circle v-for="hold in item.lumo_feet" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#2ECC40" class="lumo-hold" :data="hold"></circle>
+                        <circle v-for="hold in item.lumo_sf" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#FFDC00" class="lumo-hold"></circle>
                     </g>
                 </svg>
             </router-link>
@@ -133,12 +133,12 @@ const write_lumo = async () => {
                 <svg viewBox="0 0 840 960" xmlns="http://www.w3.org/2000/svg" class="problem">
                     <rect x="0" width="840" height="960" fill="#dfdfdf"></rect>
                     <g v-for="row in 23" :key="row">
-                        <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="row * 40" fill="none" class="hold hand fat"></circle>
+                        <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="960 - (row * 40)" fill="none" class="hold hand fat"></circle>
                     </g>
                     <g>
-                        <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#fff" class="hand fat"></circle>
-                        <circle v-for="hold in item.lumo_feet" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#2ECC40" class="hand fat"></circle>
-                        <circle v-for="hold in item.lumo_sf" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#FFDC00" class="hand fat"></circle>
+                        <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#fff" class="lumo-hold"></circle>
+                        <circle v-for="hold in item.lumo_feet" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#2ECC40" class="lumo-hold" :data="hold"></circle>
+                        <circle v-for="hold in item.lumo_sf" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#FFDC00" class="lumo-hold"></circle>
                     </g>
                 </svg>
                 <span class="label hgs info-right" :class="item.grade_class">{{ item.grade }}</span>
@@ -204,6 +204,10 @@ svg {
 
 .stokt-hold {
     stroke-width: 15px;
+}
+.lumo-hold {
+    stroke: #000;
+    stroke-width: 4px;
 }
 
 .foot {
