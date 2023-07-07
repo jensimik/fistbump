@@ -15,7 +15,7 @@ item.value = await ProblemsMethodsAPI.get(props.id);
 <template>
     <Layout>
         <template v-slot:menu>
-            <router-link v-if="item.section != 'Ö' && setter_auth" class="button" :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link>
+            <router-link v-if="item.section.startsWith('S') && setter_auth" class="button" :to="{ name: 'problem_edit', params: { id: item.id } }">edit</router-link>
         </template>
         <template v-slot:content>
             <Problem :data="item" :auth="setter_auth"></Problem>
