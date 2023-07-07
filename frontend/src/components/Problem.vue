@@ -12,11 +12,38 @@ const stroke_width = item.image_width / 121;
 const toggleShow = async () => {
     showHolds.value = showHolds.value ? false : true;
 }
+
+var bluetooth_server;
+
+const write_lumo = async () => {
+    navigator.bluetooth.requestDevice({
+        filters: [{ name: "Lumo Wall"}]
+    }).then(function(device) {
+        // connect to it
+        return device.gatt.connect();
+    }).then(function(server) {
+        bluetooth_server = server;
+        // get the service
+        return server.getPrimaryService("1d2f4e96-44e3-437d-b808-2de657f56879");
+    }).then(function(service) {
+        // get the Characteristic
+        return service.getCharacteristic("5ccf53e6-617d-43d4-ad94-4ddb5b5951c1");
+    }).then(function(characteristic) {
+        // write to the characteristic
+        var data = new Uint8Array([10, 10, 10, 11, 255, 10, 12, 255, 10, 13, 10, 14, 255, 0]);
+        return characteristic.writeValueWithoutResponse(data);
+    }).then(function(done) {
+        // disconnect again
+        return bluetooth_server.disconnect();
+    }).catch(function(error) {     console.error('Connection failed!', error);
+  });
+}
+
 </script>
 
 <template>
     <div v-if="props.slim" class="slim">
-        <div class="imgw" v-if="item.section == 'B'">
+        <div class="imgw" v-if="item.section.startsWith('S')">
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
                 <div v-if="item.image_width">
                     <svg :viewBox="'0 0 ' + item.image_width + ' ' + item.image_height" xmlns="http://www.w3.org/2000/svg"
@@ -56,12 +83,12 @@ const toggleShow = async () => {
         <div v-else-if="item.section == 'L'" class="imgw">
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
                 <svg viewBox="0 0 840 840" xmlns="http://www.w3.org/2000/svg" class="problem">
-                    <rect x="0" width="840" height="840" fill="#dfdfdf"></rect>
-                    <g v-for="row in 20" :key="row">
+                    <rect x="0" width="840" height="960" fill="#dfdfdf"></rect>
+                    <g v-for="row in 23" :key="row">
                         <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="row * 40" fill="none" class="hold hand fat"></circle>
                     </g>
                     <g>
-                        <circle v-for="hold in item.lumo_holds" :key="hold" r="15" :cx="hold[0] * 40" :cy="840 - (hold[1] * 40)" fill="#fff" class="hand fat"></circle>
+                        <circle v-for="hold in item.lumo_holds" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#fff" class="hand fat"></circle>
                     </g>
                 </svg>
             </router-link>
@@ -102,12 +129,12 @@ const toggleShow = async () => {
         <div v-else-if="item.section == 'L'">
             <div class="imgw">
                 <svg viewBox="0 0 840 840" xmlns="http://www.w3.org/2000/svg" class="problem">
-                    <rect x="0" width="840" height="840" fill="#dfdfdf"></rect>
-                    <g v-for="row in 20" :key="row">
+                    <rect x="0" width="840" height="960" fill="#dfdfdf"></rect>
+                    <g v-for="row in 23" :key="row">
                         <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="row * 40" fill="none" class="hold hand fat"></circle>
                     </g>
                     <g>
-                        <circle v-for="hold in item.lumo_holds" :key="hold" r="15" :cx="hold[0] * 40" :cy="840 - (hold[1] * 40)" fill="#fff" class="hand fat"></circle>
+                        <circle v-for="hold in item.lumo_holds" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="840 - ((1+hold[1]) * 40)" fill="#fff" class="hand fat"></circle>
                     </g>
                 </svg>
                 <span class="label hgs info-right" :class="item.grade_class">{{ item.grade }}</span>
