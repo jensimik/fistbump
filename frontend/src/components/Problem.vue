@@ -131,9 +131,15 @@ const write_lumo = async () => {
         <div v-else-if="item.section == 'L'">
             <div class="imgw">
                 <svg viewBox="0 0 840 960" xmlns="http://www.w3.org/2000/svg" class="problem">
-                    <rect x="0" width="840" height="960" fill="#dfdfdf"></rect>
+                    <g>
+                        <rect x="0" width="840" height="960" fill="#dfdfdf"></rect>
+                    </g>
                     <g v-for="row in 23" :key="row">
-                        <circle v-for="column in 20" :key="column" r="15" :cx="column * 40" :cy="960 - (row * 40)" fill="none" class="hold hand fat"></circle>
+                        <g v-for="column in 20" :key="column">
+                            <circle r="15" :cx="column * 40" :cy="960 - (row * 40)" fill="#d0d0d0" class="hold hand fat" :title="row + ',' + column"></circle>
+                            <text v-if="row == 1" :x="column * 40" :y="960 - (row * 40)" stroke="#d0d0d0" stroke-width="1px" text-anchor="middle" dominant-baseline="central" class="text">{{ column }}</text>
+                            <text v-if="column == 1" :x="column * 40" :y="960 - (row * 40)" stroke="#d0d0d0" stroke-width="1px" text-anchor="middle" dominant-baseline="central" class="text">{{ row }}</text>
+                        </g>
                     </g>
                     <g>
                         <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#fff" class="lumo-hold"></circle>
@@ -209,7 +215,9 @@ svg {
     stroke: #000;
     stroke-width: 4px;
 }
-
+.text {
+    font-size: 15px;
+}
 .foot {
     stroke: #39CCCC;
 }
