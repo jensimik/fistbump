@@ -42,11 +42,14 @@ async def refresh_lumo():
             )
             holds_raw = document.get("holds", [])
             hands_index = holds_raw.index(255)
-            hands = list(itertools.pairwise(holds_raw[:hands_index]))
+            hands_raw = holds_raw[:hands_index]
+            hands = list(zip(hands_raw[0::2], hands_raw[1::2]))
             feet_index = holds_raw.index(255, hands_index + 1)
-            feet = list(itertools.pairwise(holds_raw[hands_index + 1 : feet_index]))
+            feet_raw = holds_raw[hands_index + 1 : feet_index]
+            feet = list(zip(feet_raw[0::2], feet_raw[1::2]))
             sf_index = holds_raw.index(255, feet_index + 1)
-            sf = list(itertools.pairwise(holds_raw[feet_index + 1 : sf_index]))
+            sf_raw = holds_raw[feet_index + 1 : sf_index]
+            sf = list(zip(sf_raw[0::2], sf_raw[1::2]))
             name = document.get("name", "n/a")
             data = {
                 "lumo_id": document_id,

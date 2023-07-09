@@ -94,9 +94,9 @@ const write_lumo = async () => {
                         </g>
                     </g>
                     <g>
-                        <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#fff" class="lumo-hold"></circle>
-                        <circle v-for="hold in item.lumo_feet" :key="hold" r="7" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#fff" class="lumo-hold" :data="hold"></circle>
-                        <circle v-for="hold in item.lumo_sf" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#FFDC00" class="lumo-hold"></circle>
+                        <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[1]) * 40" :cy="960 - ((1+hold[0]) * 40)" fill="#fff" class="lumo-hold"></circle>
+                        <circle v-for="hold in item.lumo_feet" :key="hold" r="7" :cx="(1+hold[1]) * 40" :cy="960 - ((1+hold[0]) * 40)" fill="#fff" class="lumo-hold" :data="hold"></circle>
+                        <circle v-for="hold in item.lumo_sf" :key="hold" r="15" :cx="(1+hold[1]) * 40" :cy="960 - ((1+hold[0]) * 40)" fill="#FFDC00" class="lumo-hold"></circle>
                     </g>
                 </svg>
             </router-link>
@@ -148,15 +148,15 @@ const write_lumo = async () => {
                         </g>
                     </g>
                     <g>
-                        <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#fff" class="lumo-hold"></circle>
-                        <circle v-for="hold in item.lumo_feet" :key="hold" r="7" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#fff" class="lumo-hold" :data="hold"></circle>
-                        <circle v-for="hold in item.lumo_sf" :key="hold" r="15" :cx="(1+hold[0]) * 40" :cy="960 - ((1+hold[1]) * 40)" fill="#FFDC00" class="lumo-hold"></circle>
+                        <circle v-for="hold in item.lumo_hands" :key="hold" r="15" :cx="(1+hold[1]) * 40" :cy="960 - ((1+hold[0]) * 40)" fill="#fff" class="lumo-hold"></circle>
+                        <circle v-for="hold in item.lumo_feet" :key="hold" r="7" :cx="(1+hold[1]) * 40" :cy="960 - ((1+hold[0]) * 40)" fill="#fff" class="lumo-hold" :data="hold"></circle>
+                        <circle v-for="hold in item.lumo_sf" :key="hold" r="15" :cx="(1+hold[1]) * 40" :cy="960 - ((1+hold[0]) * 40)" fill="#FFDC00" class="lumo-hold"></circle>
                     </g>
                 </svg>
                 <span class="label hgs info-right" :class="item.grade_class">{{ item.grade }}</span>
                 <span class="label hgs info-left rainbow" @click="toggleShow">holds</span>
                 <span class="label info-right-bottom hgs white">{{ item.setter }} </span>
-                <span class="label info-left-bottom hgs white">{{ item.name }}</span>
+                <span class="label info-left-bottom hgs white">{{ item.name }}test</span>
             </div>
         </div>
         <div v-else>
