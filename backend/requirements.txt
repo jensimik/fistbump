@@ -71,4 +71,4 @@ w3lib==2.1.1
 watchfiles==0.18.1
 websockets==11.0.3
 wrapt==1.15.0
-zipp==3.15.0
+zipp==3.16.0
