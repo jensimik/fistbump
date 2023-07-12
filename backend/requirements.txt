@@ -38,7 +38,7 @@ parse==1.19.1
 passlib==1.7.4
 Pillow==10.0.0
 pkce==1.0.3
-prometheus-client==0.17.0
+prometheus-client==0.17.1
 proto-plus==1.22.3
 protobuf==4.23.4
 pyasn1==0.4.8
