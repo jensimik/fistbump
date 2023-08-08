@@ -1,5 +1,6 @@
 aiofiles==23.1.0
 aiotinydb==2.0.0
+annotated-types==0.5.0
 anyio==3.7.1
 appdirs==1.4.4
 async-lru==2.0.3
@@ -44,7 +45,9 @@ protobuf==4.23.4
 pyasn1==0.4.8
 pyasn1-modules==0.3.0
 pycparser==2.21
-pydantic==1.10.9
+pydantic==2.1.1
+pydantic-settings==2.0.2
+pydantic_core==2.4.0
 PyJWT==2.7.0
 pyquery==2.0.0
 python-dateutil==2.8.2
