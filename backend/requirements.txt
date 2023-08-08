@@ -3,7 +3,7 @@ aiotinydb==2.0.0
 annotated-types==0.5.0
 anyio==3.7.1
 appdirs==1.4.4
-async-lru==2.0.3
+async-lru==2.0.4
 bcrypt==4.0.1
 beautifulsoup4==4.11.1
 cachetools==5.3.1
