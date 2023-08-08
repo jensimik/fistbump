@@ -6,8 +6,8 @@ from pydantic import BaseModel
 
 
 class Circle(BaseModel):
-    cx: int
-    cy: int
+    cx: float
+    cy: float
 
 
 class Strip(BaseModel):
