@@ -37,11 +37,11 @@ class Settings(BaseSettings):
     google_maps_api_key: Optional[str] = None
     google_maps_place_id: str = "ChIJ7etYrU1SUkYRu9v7IHXpF5c"
     stokt_token: Optional[str]
-    sentry_dsn: str = None
+    sentry_dsn: Optional[str] = None
     stokt_refresh: int = 0
-    lumo_firebase_apikey: str = None
-    lumo_username: str = None
-    lumo_password: str = None
+    lumo_firebase_apikey: Optional[str] = None
+    lumo_username: Optional[str] = None
+    lumo_password: Optional[str] = None
     setter_code: Optional[str] = None
 
     jwt_secret: str = "CHANGE_ME"
