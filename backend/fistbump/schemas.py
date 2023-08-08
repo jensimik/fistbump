@@ -61,7 +61,7 @@ class Problem(BaseModel):
             "orange",
             "rainbow",
         ]
-    ]
+    ] = ""
     image_width: Optional[int] = None
     image_height: Optional[int] = None
     annotations: Optional[list[Circle]] = []
@@ -70,14 +70,14 @@ class Problem(BaseModel):
     # image_hex only for problems in the boulder
     image_hex: Optional[str] = None
     # paths only for stokt
-    paths: Optional[list[dict[str, str]]]
+    paths: Optional[list[dict[str, str]]] = []
     # stokts_id only for stokt
     stokt_id: Optional[str] = None
     # holds only for stokt
     holds: Optional[str] = None
-    lumo_hands: Optional[list[tuple[int, int]]]
-    lumo_feet: Optional[list[tuple[int, int]]]
-    lumo_sf: Optional[list[tuple[int, int]]]
+    lumo_hands: Optional[list[tuple[int, int]]] = []
+    lumo_feet: Optional[list[tuple[int, int]]] = []
+    lumo_sf: Optional[list[tuple[int, int]]] = []
 
 
 class Status(BaseModel):
