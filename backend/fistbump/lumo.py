@@ -1,7 +1,11 @@
+import logging
+
 import firebase
 
 from .config import settings
 from .helpers import DB, lumo_to_grade, where
+
+log = logging.getLogger(__name__)
 
 
 async def refresh_lumo():
@@ -31,9 +35,14 @@ async def refresh_lumo():
     for document_id in fire_db.collection("problems").list_of_documents():
         try:
             document = fire_db.collection("problems").document(document_id).get()
-            user_document = (
-                fire_db.collection("users").document(document["userID"]).get()
-            )
+            username = "n/a"
+            try:
+                user_document = (
+                    fire_db.collection("users").document(document["userID"]).get()
+                )
+                username = user_document["username"]
+            except Exception as ex:
+                log.exception("failed here")
             holds_raw = document.get("holds", [])
             hands_index = holds_raw.index(255)
             hands_raw = holds_raw[:hands_index]
@@ -53,7 +62,7 @@ async def refresh_lumo():
                 "lumo_hands": hands,
                 "lumo_feet": feet,
                 "lumo_sf": sf,
-                "setter": user_document["username"],
+                "setter": username,
                 "created": "{0:%Y-%m-%dT%H:%M:%S}".format(document["createdDate"]),
             }
             print(f"fetched problem {name} with lumo_id {document_id}")
