@@ -220,13 +220,23 @@ async def feed(section_id: str):
 
     grades_temp = Counter([d["grade_class"] for d in data])
     colors = []
+    grades = []
     if section_id in ["S1", "S2", "S3", "S4", "S5"]:
         colors = Counter({c: 0 for c in settings.hold_colors})
         colors.update([d["color"] for d in data])
-    grades = [
-        (c, grades_temp.get(c, 0))
-        for c in ["green", "yellow", "blue", "purple", "red", "brown", "black", "white"]
-    ]
+        grades = [
+            (c, grades_temp.get(c, 0))
+            for c in [
+                "green",
+                "yellow",
+                "blue",
+                "purple",
+                "red",
+                "brown",
+                "black",
+                "white",
+            ]
+        ]
     return {
         "data": [schemas.Problem(**d) for d in data],
         "colors": colors,

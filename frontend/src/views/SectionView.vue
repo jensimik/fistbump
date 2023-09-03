@@ -37,7 +37,7 @@ onBeforeUnmount(async () => {
     <Layout>
         <template v-slot:content>
             <h2>Problems on section {{ props.id }}</h2>
-            <div class="flex two">
+            <div class="flex two" v-if="props.id != 'L'">
                 <div class="third">Holds colors</div>
                 <div class="two-third right"><span class="label" :class="color" v-for="(c, color) in colors">{{ c }}</span>
                 </div>
