@@ -84,30 +84,38 @@ onBeforeUnmount(async () => {
                                 <tspan id="tspan1873">S1</tspan>
                             </router-link>
                         </tspan>
-                    </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,4.2488621,3.9092222)"
+                    </text>
+                    <text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,4.2488621,3.9092222)"
                         id="text1732">
                         <router-link :to="{ name: 'section', params: { id: 'S2' } }">
                             <tspan x="738.49023" y="398.01568" id="tspan1877">S2</tspan>
                         </router-link>
-                    </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,6.1690048,0)"
+                    </text>
+                    <text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,6.1690048,0)"
                         id="text1738">
                         <router-link :to="{ name: 'section', params: { id: 'S3' } }">
                             <tspan x="579.53711" y="412.32037" id="tspan1879">S3</tspan>
                         </router-link>
-                    </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,5.2459239,3.5023268)"
+                    </text>
+                    <text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,5.2459239,3.5023268)"
                         id="text1744">
                         <router-link :to="{ name: 'section', params: { id: 'S4' } }">
                             <tspan x="270.44336" y="397.47466" id="tspan1881">S4</tspan>
                         </router-link>
-                    </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,2.4699558,6.2715693)"
+                    </text>
+                    <text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,2.4699558,6.2715693)"
                         id="text1750">
                         <router-link :to="{ name: 'section', params: { id: 'S5' } }">
                             <tspan x="120.90039" y="389.07427" id="tspan1883">S5</tspan>
                         </router-link>
-                    </text><text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,0.51618546,2.6935802)"
+                    </text>
+                    <text xml:space="preserve" transform="matrix(0.26458333,0,0,0.26458333,0.51618546,2.6935802)"
                         id="text1756">
-                        <tspan x="24.720703" y="345.20513" id="tspan1885">L</tspan>
-                    </text><text xml:space="preserve" transform="scale(0.26458333)" id="text1762">
+                        <router-link :to="{ name: 'section', params: { id: 'L' } }">
+                            <tspan x="24.720703" y="345.20513" id="tspan1885">L</tspan>
+                        </router-link>
+                    </text>
+                    <text xml:space="preserve" transform="scale(0.26458333)" id="text1762">
                         <tspan x="442.99023" y="351.49029" id="tspan1887">Ö</tspan>
                     </text>
                 </g>
