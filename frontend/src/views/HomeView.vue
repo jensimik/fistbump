@@ -28,7 +28,7 @@ import { sections, setter_auth } from '../localStorage';
           <p style="text-align:right;">🤜🤛 JD</p>
         </div>
         <Calendar v-if="sections.includes('calendar')"></Calendar>
-        <HoursPopular v-if="sections.includes('hours_popular')"></HoursPopular>
+        <HoursPopular v-if="false"></HoursPopular>
         <Strip v-if="sections.includes('strip')"></Strip>
         <RecentProblems v-if="sections.includes('problems')"></RecentProblems>
       </div>
