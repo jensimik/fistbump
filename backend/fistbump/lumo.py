@@ -1,8 +1,4 @@
-# Import Firebase REST API library
-import itertools
-
 import firebase
-from tinydb.operations import delete
 
 from .config import settings
 from .helpers import DB, lumo_to_grade, where
@@ -28,9 +24,7 @@ async def refresh_lumo():
     auth = app.auth()
 
     # Create new user and sign in
-    user = auth.sign_in_with_email_and_password(
-        settings.lumo_username, settings.lumo_password
-    )
+    auth.sign_in_with_email_and_password(settings.lumo_username, settings.lumo_password)
 
     fire_db = app.firestore()
 
