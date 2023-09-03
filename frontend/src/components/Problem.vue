@@ -156,7 +156,7 @@ const write_lumo = async () => {
                 <span class="label hgs info-right" :class="item.grade_class">{{ item.grade }}</span>
                 <span class="label hgs info-left rainbow" @click="toggleShow">holds</span>
                 <span class="label info-right-bottom hgs white">{{ item.setter }} </span>
-                <span class="label info-left-bottom hgs white">{{ item.name }}test</span>
+                <span class="label info-left-bottom hgs white">{{ item.name }}</span>
             </div>
         </div>
         <div v-else>
