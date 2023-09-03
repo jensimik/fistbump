@@ -1,6 +1,7 @@
 import logging
 
 import firebase
+from requests.exceptions import HTTPError
 
 from .config import settings
 from .helpers import DB, lumo_to_grade, where
@@ -41,8 +42,8 @@ async def refresh_lumo():
                     fire_db.collection("users").document(document["userID"]).get()
                 )
                 username = user_document["username"]
-            except Exception as ex:
-                log.exception("failed here")
+            except HTTPError:
+                log.info("could not get username of this problem")
             holds_raw = document.get("holds", [])
             hands_index = holds_raw.index(255)
             hands_raw = holds_raw[:hands_index]
