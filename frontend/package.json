@@ -9,8 +9,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@sentry/tracing": "^7.65.0",
-    "@sentry/vue": "^7.65.0",
+    "@sentry/tracing": "^7.66.0",
+    "@sentry/vue": "^7.66.0",
     "picnic": "^7.1.0",
     "vue": "^3.3.4",
     "vue-google-charts": "^1.1.0",
