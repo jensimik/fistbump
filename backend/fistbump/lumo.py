@@ -1,6 +1,8 @@
 import logging
+from datetime import datetime, timedelta
 
 import firebase
+from google.api_core.datetime_helpers import DatetimeWithNanoseconds
 from requests.exceptions import HTTPError
 
 from .config import settings
@@ -33,9 +35,17 @@ async def refresh_lumo():
 
     fire_db = app.firestore()
 
-    for document_id in fire_db.collection("problems").list_of_documents():
+    offset = DatetimeWithNanoseconds.now() - timedelta(days=3)
+
+    for raw_document in (
+        fire_db.collection("problems")
+        .order_by("createdDate")
+        .start_at({"createdDate": offset})
+        .limit_to_first(50)
+        .get()
+    ):
+        [(document_id, document)] = raw_document.items()
         try:
-            document = fire_db.collection("problems").document(document_id).get()
             username = "n/a"
             try:
                 user_document = (
