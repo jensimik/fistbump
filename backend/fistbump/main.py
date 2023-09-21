@@ -56,20 +56,20 @@ app.add_route("/metrics", handle_metrics)
 
 
 # sync stokt every hour
-if settings.stokt_refresh == 1:
+# if settings.stokt_refresh == 1:
 
-    @app.on_event("startup")
-    @repeat_every(seconds=60 * 60 * 2)
-    async def _refresh_stokt():
-        await refresh_stokt()
+#     @app.on_event("startup")
+#     @repeat_every(seconds=60 * 60 * 2)
+#     async def _refresh_stokt():
+#         await refresh_stokt()
 
-    @app.on_event("startup")
-    @repeat_every(seconds=60 * 60 * 2)
-    async def _refresh_lumo():
-        await refresh_lumo()
+#     @app.on_event("startup")
+#     @repeat_every(seconds=60 * 60 * 2)
+#     async def _refresh_lumo():
+#         await refresh_lumo()
 
 
-@app.on_event("startup")
-@repeat_every(seconds=60 * 60)
-async def _maintenance():
-    await maintenance()
+# @app.on_event("startup")
+# @repeat_every(seconds=60 * 60)
+# async def _maintenance():
+#     await maintenance()
