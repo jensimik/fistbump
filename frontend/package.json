@@ -14,16 +14,16 @@
     "picnic": "^7.1.0",
     "vue": "^3.3.4",
     "vue-google-charts": "^1.1.0",
-    "vue-router": "^4.2.4",
+    "vue-router": "^4.2.5",
     "vue3-touch-events": "^4.1.4"
   },
   "devDependencies": {
     "@sentry/vite-plugin": "^2.7.1",
     "@testing-library/vue": "^7.0.0",
     "@vitejs/plugin-vue": "^4.3.4",
-    "happy-dom": "^12.1.5",
+    "happy-dom": "^12.1.6",
     "vite": "^4.4.9",
     "vite-plugin-pwa": "^0.16.5",
-    "vitest": "^0.34.4"
+    "vitest": "^0.34.5"
   }
 }
