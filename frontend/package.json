@@ -20,7 +20,7 @@
   "devDependencies": {
     "@sentry/vite-plugin": "^2.7.1",
     "@testing-library/vue": "^7.0.0",
-    "@vitejs/plugin-vue": "^4.3.4",
+    "@vitejs/plugin-vue": "^4.4.0",
     "happy-dom": "^12.1.5",
     "vite": "^4.4.9",
     "vite-plugin-pwa": "^0.16.5",
