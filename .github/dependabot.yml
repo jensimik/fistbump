@@ -13,8 +13,6 @@ updates:
       pip-dependencies:
         patterns:
           - "*"
-        exclude-patterns:
-          - "starlette"
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
