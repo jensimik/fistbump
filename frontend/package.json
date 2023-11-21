@@ -11,6 +11,7 @@
   "dependencies": {
     "@sentry/tracing": "^7.73.0",
     "@sentry/vue": "^7.73.0",
+    "chroma-js": "^2.4.2",
     "picnic": "^7.1.0",
     "vue": "^3.3.4",
     "vue-google-charts": "^1.1.0",
