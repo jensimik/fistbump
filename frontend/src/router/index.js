@@ -50,6 +50,11 @@ const router = createRouter({
       path: '/setter-stats',
       name: 'setter-stats',
       component: () => import('../views/SetterStatsView.vue'),
+    },
+    {
+      path: '/stokt-stats',
+      name: 'stokt-stats',
+      component: () => import('../views/StoktStatsView.vue'),
     }
   ],
   scrollBehavior(to, from, savedPosition) {
