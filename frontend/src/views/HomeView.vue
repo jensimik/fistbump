@@ -18,12 +18,28 @@ import { sections, setter_auth } from '../localStorage';
       <div>
         <Calendar v-if="sections.includes('calendar')"></Calendar>
         <Occupancy></Occupancy>
-        <h2>Board updates last 7 days</h2>
-        <div class="flex two">
-          <div>Lumo</div>
-          <div>0</div>
-          <div>Stökt</div>
-          <div>0</div>
+        <h2>Boards (20 most recent)</h2>
+        <div class="flex one">
+          <div>Saftevand i køleskabet (6a+/stökt)</div>
+          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
+          <div>Saftevand i køleskabet (6a+/stökt)</div>
+          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
+          <div>Saftevand i køleskabet (6a+/stökt)</div>
+          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
+          <div>Saftevand i køleskabet (6a+/stökt)</div>
+          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
+          <div>Saftevand i køleskabet (6a+/stökt)</div>
+          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
+          <div>Saftevand i køleskabet (6a+/stökt)</div>
+          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
+          <div>Saftevand i køleskabet (6a+/stökt)</div>
+          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
+          <div>Saftevand i køleskabet (6a+/stökt)</div>
+          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
+          <div>Saftevand i køleskabet (6a+/stökt)</div>
+          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
+          <div>Saftevand i køleskabet (6a+/stökt)</div>
+          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
         </div>
         <!-- <HoursPopular v-if="false"></HoursPopular> -->
         <Strip v-if="sections.includes('strip')"></Strip>
