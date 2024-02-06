@@ -14,7 +14,7 @@ import ReloadPrompt from './ReloadPrompt.vue';
       <div class="menu">
         <addToHomeButton></addToHomeButton>
         <slot name="menu"></slot>
-        <router-link :to="{ name: 'settings' }" class="button">⚙️</router-link>
+<!--        <router-link :to="{ name: 'settings' }" class="button">⚙️</router-link>-->
       </div>
     </nav>
 

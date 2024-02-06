@@ -12,7 +12,7 @@ import { sections, setter_auth } from '../localStorage';
 <template>
   <Layout>
     <template v-slot:menu>
-      <router-link v-if="setter_auth" :to="{ name: 'add_problem' }" class="button">➕</router-link>
+<!--      <router-link v-if="setter_auth" :to="{ name: 'add_problem' }" class="button">➕</router-link>-->
     </template>
     <template v-slot:content>
       <div>
