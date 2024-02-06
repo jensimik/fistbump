@@ -48,7 +48,7 @@ onBeforeUnmount(async () => {
 </script>
 
 <template>
-    <h2>Calendar <span class="small">(<a href="https://nkk.klub-modul.dk/cms/Activity.aspx">klubmodul</a> | <a
+    <h2>Today <span class="small">(<a href="https://nkk.klub-modul.dk/cms/Activity.aspx">klubmodul</a> | <a
                 href="https://kulturogfritidn.kk.dk/noerrebrohallen">nørrebrohallen</a>)</span></h2>
 
     <div v-if="online_hours" class="flex two">

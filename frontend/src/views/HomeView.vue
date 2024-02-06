@@ -16,9 +16,9 @@ import { sections, setter_auth } from '../localStorage';
     <template v-slot:content>
       <div>
         <Calendar v-if="sections.includes('calendar')"></Calendar>
-        <!-- <HoursPopular v-if="false"></HoursPopular>
-        <Strip v-if="sections.includes('strip')"></Strip> -->
-        <div class="unhidden">
+        <!-- <HoursPopular v-if="false"></HoursPopular> -->
+        <Strip v-if="sections.includes('strip')"></Strip>
+        <div class="hidden">
           <p class="deprecate">⚠️ fistbump is closing down ⚠️</p>
           <p>it proved too difficult to get people to add problems to the app manually (and it is not sustainable for me to keep adding all the problems).</p>
           <p style="text-align:right;">🤜🤛 JD</p>
