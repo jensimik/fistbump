@@ -18,7 +18,7 @@ async def strip() -> schemas.Strip:
     # )
     today = datetime.now(tz=settings.tz).replace(tzinfo=None)
     STRIPDATA = [
-        (datetime(2024, 2, 18, 12, 0, 0), "bouldercup", "Section 1+2+3+4+5"),
+        (datetime(2024, 2, 18, 12, 0, 0), "bouldercup", "Section ALL"),
         (datetime(2024, 3, 1, 12, 0, 0), "fribyg", "Section 1"),
         (datetime(2024, 3, 7, 12, 0, 0), "probyg", "Section 2"),
         (datetime(2024, 3, 15, 12, 0, 0), "fribyg", "Section 3"),
