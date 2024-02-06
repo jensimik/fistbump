@@ -21,26 +21,26 @@ import { sections, setter_auth } from '../localStorage';
         <Strip v-if="sections.includes('strip')"></Strip>
         <h2>Boards (20 most recent)</h2>
         <div class="flex two">
-          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
-          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
-          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
-          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
-          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
-          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
-          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
-          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
-          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
-          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
-          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
-          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
-          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
-          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
-          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
-          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
-          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
-          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
-          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
-          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
+          <div>Saftevand i køleskabet</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer!</div><div>7a</div>
+          <div>Saftevand i køleskabet</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer!</div><div>7a</div>
+          <div>Saftevand i køleskabet</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer!</div><div>7a</div>
+          <div>Saftevand i køleskabet</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer!</div><div>7a</div>
+          <div>Saftevand i køleskabet</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer!</div><div>7a</div>
+          <div>Saftevand i køleskabet</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer!</div><div>7a</div>
+          <div>Saftevand i køleskabet</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer!</div><div>7a</div>
+          <div>Saftevand i køleskabet</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer!</div><div>7a</div>
+          <div>Saftevand i køleskabet</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer!</div><div>7a</div>
+          <div>Saftevand i køleskabet</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer!</div><div>7a</div>
         </div>
         <!-- <HoursPopular v-if="false"></HoursPopular> -->
         <div class="hidden">
