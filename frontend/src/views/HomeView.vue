@@ -1,10 +1,11 @@
 <script setup>
 import Layout from '../components/Layout.vue';
 import { RouterLink } from 'vue-router'
-import RecentProblems from '../components/RecentProblems.vue';
-import HoursPopular from '../components/HoursPopular.vue';
+//import RecentProblems from '../components/RecentProblems.vue';
+//import HoursPopular from '../components/HoursPopular.vue';
 import Calendar from '../components/Calendar.vue';
 import Strip from '../components/NextStrip.vue';
+import Occupancy from '../components/Occupancy.vue';
 import { sections, setter_auth } from '../localStorage';
 </script>
 
@@ -16,6 +17,14 @@ import { sections, setter_auth } from '../localStorage';
     <template v-slot:content>
       <div>
         <Calendar v-if="sections.includes('calendar')"></Calendar>
+        <Occupancy></Occupancy>
+        <h2>Board updates last 7 days</h2>
+        <div class="flex two">
+          <div>Lumo</div>
+          <div>0</div>
+          <div>Stökt</div>
+          <div>0</div>
+        </div>
         <!-- <HoursPopular v-if="false"></HoursPopular> -->
         <Strip v-if="sections.includes('strip')"></Strip>
         <div class="hidden">
