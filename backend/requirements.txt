@@ -15,7 +15,7 @@ cryptography==42.0.2
 cssselect==1.2.0
 Deprecated==1.2.14
 ecdsa==0.18.0
-fastapi==0.109.0
+fastapi==0.109.1
 firebase-rest-api==1.11.0
 google-api-core==2.16.1
 google-auth==2.27.0
