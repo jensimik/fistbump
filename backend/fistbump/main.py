@@ -10,7 +10,8 @@ from .helpers import maintenance
 from .repeat_every_helper import repeat_every
 from .routers import auth, calendar, misc, problems, webp
 from .stokt import refresh_stokt
-from .lumo import refresh_lumo
+
+# from .lumo import refresh_lumo
 
 if settings.sentry_dsn:
     sentry_sdk.init(
@@ -42,7 +43,7 @@ app.add_middleware(
 
 # app.include_router(auth.router)
 app.include_router(calendar.router)
-app.include_router(problems.router)
+# app.include_router(problems.router)
 app.include_router(misc.router)
 app.include_router(webp.router)
 
