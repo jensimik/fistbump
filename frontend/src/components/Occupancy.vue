@@ -39,13 +39,18 @@ onBeforeUnmount(async () => {
 <template>
     <div v-if="online">
         <h2>Lockoff</h2>
-        <div class="flex one">
-            <div v-if="occupancy.currently < (occupancy.historical - 2)">💚 less busy than usual (<span :title="occupancy.currently + ' checkins last hour where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</div>
-            <div v-if="(occupancy.currently >= (occupancy.historical -2)) & (occupancy.currently <= (occupancy.historical + 2))">💛 average busyness (<span :title="occupancy.currently + ' checkins last hour where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</div>
-            <div v-if="occupancy.currently > (occupancy.historical + 2)">🔥 more busy than usual (<span :title="occupancy.currently + ' checkins last hour where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</div>
-        </div>
+        <p v-if="occupancy.currently < (occupancy.historical - 2)">💚 less busy than usual (<span :title="occupancy.currently + ' checkins last hour where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</p>
+        <p v-if="(occupancy.currently >= (occupancy.historical -2)) & (occupancy.currently <= (occupancy.historical + 2))">💛 average busyness (<span :title="occupancy.currently + ' checkins last hour where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</p>
+        <p v-if="occupancy.currently > (occupancy.historical + 2)">🔥 more busy than usual (<span :title="occupancy.currently + ' checkins last hour where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</p>
     </div>
 </template>
 
 <style scoped>
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+h2 {
+    padding-top: 0;
+}
 </style>

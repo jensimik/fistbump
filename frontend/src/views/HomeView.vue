@@ -18,31 +18,31 @@ import { sections, setter_auth } from '../localStorage';
       <div>
         <Calendar v-if="sections.includes('calendar')"></Calendar>
         <Occupancy></Occupancy>
+        <Strip v-if="sections.includes('strip')"></Strip>
         <h2>Boards (20 most recent)</h2>
-        <div class="flex one">
-          <div>Saftevand i køleskabet (6a+/stökt)</div>
-          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
-          <div>Saftevand i køleskabet (6a+/stökt)</div>
-          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
-          <div>Saftevand i køleskabet (6a+/stökt)</div>
-          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
-          <div>Saftevand i køleskabet (6a+/stökt)</div>
-          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
-          <div>Saftevand i køleskabet (6a+/stökt)</div>
-          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
-          <div>Saftevand i køleskabet (6a+/stökt)</div>
-          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
-          <div>Saftevand i køleskabet (6a+/stökt)</div>
-          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
-          <div>Saftevand i køleskabet (6a+/stökt)</div>
-          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
-          <div>Saftevand i køleskabet (6a+/stökt)</div>
-          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
-          <div>Saftevand i køleskabet (6a+/stökt)</div>
-          <div>Yogahold, Tilmeld jer! (7a/Stökt)</div>
+        <div class="flex two">
+          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
+          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
+          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
+          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
+          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
+          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
+          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
+          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
+          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
+          <div>Saftevand i køleskabet (ö)</div><div>6a+</div>
+          <div>Yogahold, Tilmeld jer! (ö)</div><div>7a</div>
         </div>
         <!-- <HoursPopular v-if="false"></HoursPopular> -->
-        <Strip v-if="sections.includes('strip')"></Strip>
         <div class="hidden">
           <p class="deprecate">⚠️ fistbump is closing down ⚠️</p>
           <p>it proved too difficult to get people to add problems to the app manually (and it is not sustainable for me to keep adding all the problems).</p>

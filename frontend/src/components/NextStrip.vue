@@ -40,7 +40,7 @@ onBeforeUnmount(async () => {
     <div v-if="online">
         <h2>{{ strip.section }} strip {{ strip.date_formatted }}</h2>
         <p>{{ strip.setters }} | {{ strip.days_to_strip }} days left to close it</p>
-        <div>
+        <div style="display: none;">
             <svg width="276.38361mm" height="40.095062mm" viewBox="0 0 276.38361 40.095062" version="1.1" id="svg5"
                 xml:space="preserve" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
                 xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg"
