@@ -17,6 +17,7 @@ async def refresh_stokt():
         "Accept-Language": "en-GB,en;q=0.9",
         "Authorization": f"Token {settings.stokt_token}",
     }
+    timestamp = int(datetime.utcnow().timestamp())
     async with httpx.AsyncClient() as client:
         r = await client.get(
             "https://www.sostokt.com/api/gyms/1ada530f-887b-44b2-b817-976f058e6696/new-climbs",
@@ -39,11 +40,13 @@ async def refresh_stokt():
                 }
                 for p in data
             ]
+    problem_ids = [p["stokt_id"] for p in problems]
     async with DB as db:
         for problem in problems:
             if problem["hidden"]:
                 db.remove(where("stokt_id") == problem["stokt_id"])
             else:
                 db.upsert(problem, where("stokt_id") == problem["stokt_id"])
+        db.remove(~where("stokt_id").any(problem_ids))
 
     print("finished fetching from stokt")
