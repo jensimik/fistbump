@@ -50,6 +50,5 @@ async def refresh_stokt():
                 db.remove(where("stokt_id") == problem["stokt_id"])
             else:
                 db.upsert(problem, where("stokt_id") == problem["stokt_id"])
-        db.remove(~where("stokt_id").any(problem_ids))
 
     print("finished fetching from stokt")
