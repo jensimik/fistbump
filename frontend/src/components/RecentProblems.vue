@@ -1,10 +1,13 @@
 <script setup>
 import ProblemsMethodsAPI from '../api/resources/ProblemsMethods.js';
-import { filter_rp_grades, filter_rp_sections } from '../localStorage'
+//import { filter_rp_grades, filter_rp_sections } from '../localStorage'
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const items = ref([]);
 const online = ref(true);
+
+const filter_rp_grades = ['green', 'yellow', 'blue', 'purple', 'red', 'brown', 'black', 'white' or 'turquoise'];
+const filter_rp_sections = ['Ö'];
 
 // refresh function
 const refresh = async () => {
@@ -37,9 +40,8 @@ onBeforeUnmount(async () => {
 </script>
 
 <template>
-    <h2><router-link :to="{ name: 'problems' }">Recent Problems</router-link> <span class="small">(<a
-                href="https://www.getstokt.com/">stökt</a> | lumo | probyg |
-            fribyg) </span>
+    <h2>Recent Problems <span class="small">(<a
+                href="https://www.getstokt.com/">stökt</a> | lumo) </span>
     </h2>
     <table v-if="online" class="primary">
         <tbody>
@@ -49,9 +51,7 @@ onBeforeUnmount(async () => {
                         :title="'holds color ' + item.color">{{ item.section }}</span><span v-else>{{
                             item.section
                         }}</span></td>
-                <td class="name"><span><router-link :to="{ name: 'problem', params: { id: item.id } }">{{
-                    item.name
-                }}</router-link></span></td>
+                <td class="name"><span>{{ item.name }}</span></td>
                 <td class="tdgrade"><span class="label grade" :class="item.grade_class">{{
                     item.grade
                 }}</span></td>
