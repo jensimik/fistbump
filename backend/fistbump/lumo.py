@@ -27,6 +27,8 @@ async def refresh_lumo():
     # Instantiates a Firebase app
     app = firebase.initialize_app(config)
 
+    print("firebase init")
+
     # Firebase Authentication
     auth = app.auth()
 
@@ -34,6 +36,8 @@ async def refresh_lumo():
     auth.sign_in_with_email_and_password(settings.lumo_username, settings.lumo_password)
 
     fire_db = app.firestore()
+
+    print("lumo signed in")
 
     offset = DatetimeWithNanoseconds.now() - timedelta(days=3)
 
