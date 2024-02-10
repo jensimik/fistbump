@@ -7,7 +7,7 @@ const items = ref([]);
 const online = ref(true);
 
 const filter_rp_grades = ["green", "yellow", "blue", "purple", "red", "brown", "black", "white", "turquoise"];
-const filter_rp_sections = ["Ö"];
+const filter_rp_sections = ["Ö", "L"];
 
 // refresh function
 const refresh = async () => {
