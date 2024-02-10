@@ -49,7 +49,9 @@ onBeforeUnmount(async () => {
                         :title="'holds color ' + item.color">{{ item.section }}</span><span v-else>{{
                             item.section
                         }}</span></td>
-                <td class="name"><span>{{ item.name }}</span></td>
+                <td class="name"><span><router-link :to="{ name: 'problem', params: { id: item.id } }">{{
+                            item.name
+                        }}</router-link></span></td>
                 <td class="tdgrade"><span class="label grade" :class="item.grade_class">{{
                     item.grade
                 }}</span></td>
