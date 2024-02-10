@@ -43,7 +43,7 @@ app.add_middleware(
 
 # app.include_router(auth.router)
 app.include_router(calendar.router)
-# app.include_router(problems.router)
+app.include_router(problems.router)
 app.include_router(misc.router)
 app.include_router(webp.router)
 
