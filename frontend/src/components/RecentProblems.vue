@@ -40,9 +40,7 @@ onBeforeUnmount(async () => {
 </script>
 
 <template>
-    <h2>Recent Problems <span class="small">(<a
-                href="https://www.getstokt.com/">stökt</a> | lumo) </span>
-    </h2>
+    <h2>Board updates</h2>
     <table v-if="online" class="primary">
         <tbody>
             <tr v-for="item in items" :key="item.id">
