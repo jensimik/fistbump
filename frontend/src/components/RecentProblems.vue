@@ -12,7 +12,7 @@ const filter_rp_sections = ["Ö"];
 // refresh function
 const refresh = async () => {
     try {
-        items.value = await ProblemsMethodsAPI.search({ grades: filter_rp_grades, sections: filter_rp_sections });
+        items.value = await ProblemsMethodsAPI.search({ grades: filter_rp_grades, sections: filter_rp_sections, limit: 20});
         online.value = true;
     } catch (error) {
         online.value = false;
