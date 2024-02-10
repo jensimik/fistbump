@@ -43,6 +43,9 @@ async def refresh_stokt():
     problem_ids = [p["stokt_id"] for p in problems]
     async with DB as db:
         for problem in problems:
+            print(
+                "stokt problem " + problem["name"] + "with setter " + problem["setter"]
+            )
             if problem["hidden"]:
                 db.remove(where("stokt_id") == problem["stokt_id"])
             else:
