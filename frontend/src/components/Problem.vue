@@ -107,8 +107,8 @@ const write_lumo = async () => {
         </div>
         <div class="imgw" v-else>
             <router-link :to="{ name: 'problem', params: { id: item.id } }">
-                <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
-                    <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
+                <svg width="100%" viewBox="0 0 2195 3000" xmlns="http://www.w3.org/2000/svg">
+                    <image href="@/assets/stokt-wall.jpg" height="3000" width="2195" />
                     <path class="hold stokt-hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
                 </svg>
                 <span class="label hgs info-left rainbow">holds</span>
@@ -122,8 +122,8 @@ const write_lumo = async () => {
     <div v-else>
         <div v-if="item.section == 'Ö'">
             <div class="imgw">
-                <svg width="100%" viewBox="0 0 2330 3000" xmlns="http://www.w3.org/2000/svg">
-                    <image href="@/assets/stokt-wall.jpg" height="3000" width="2330" />
+                <svg width="100%" viewBox="0 0 2195 3000" xmlns="http://www.w3.org/2000/svg">
+                    <image href="@/assets/stokt-wall.jpg" height="3000" width="2195" />
                     <g v-show="showHolds">
                         <path class="hold stokt-hold" :class="d.type" :d="d.path" v-for="d in item.paths" />
                     </g>
