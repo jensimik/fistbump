@@ -59,12 +59,12 @@ app.add_route("/metrics", handle_metrics)
 if settings.stokt_refresh == 1:
 
     @app.on_event("startup")
-    @repeat_every(seconds=60 * 60 * 2)
+    @repeat_every(seconds=60 * 60)
     async def _refresh_stokt():
         await refresh_stokt()
 
     @app.on_event("startup")
-    @repeat_every(seconds=60 * 60 * 2)
+    @repeat_every(seconds=60 * 60)
     async def _refresh_lumo():
         await refresh_lumo()
 

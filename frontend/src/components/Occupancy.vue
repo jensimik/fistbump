@@ -39,9 +39,9 @@ onBeforeUnmount(async () => {
 <template>
     <div v-if="online">
         <h2>Lockoff</h2>
-        <p v-if="occupancy.currently < (occupancy.historical - 2)">💚 less busy than usual (<span :title="occupancy.currently + ' checkins last hour where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</p>
-        <p v-if="(occupancy.currently >= (occupancy.historical -2)) & (occupancy.currently <= (occupancy.historical + 2))">💛 average busyness (<span :title="occupancy.currently + ' checkins last hour where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</p>
-        <p v-if="occupancy.currently > (occupancy.historical + 2)">🔥 more busy than usual (<span :title="occupancy.currently + ' checkins last hour where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</p>
+        <p v-if="occupancy.currently < (occupancy.historical - 2)">💚 less busy than usual (<span :title="occupancy.currently + ' checkins last 2 hours where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</p>
+        <p v-if="(occupancy.currently >= (occupancy.historical -2)) & (occupancy.currently <= (occupancy.historical + 2))">💛 average busyness (<span :title="occupancy.currently + ' checkins last 2 hours where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</p>
+        <p v-if="occupancy.currently > (occupancy.historical + 2)">🔥 more busy than usual (<span :title="occupancy.currently + ' checkins last 2 hours where the average is ' + occupancy.historical + ' for this hour/day'">curr {{ occupancy.currently }} avg {{ occupancy.historical }}</span>)</p>
     </div>
 </template>
 
