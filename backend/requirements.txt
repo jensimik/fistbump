@@ -11,7 +11,7 @@ certifi==2024.2.2
 cffi==1.16.0
 charset-normalizer==3.3.2
 click==8.1.7
-cryptography==42.0.2
+cryptography==42.0.4
 cssselect==1.2.0
 Deprecated==1.2.14
 ecdsa==0.18.0
