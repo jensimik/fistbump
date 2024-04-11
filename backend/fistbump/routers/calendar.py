@@ -107,6 +107,7 @@ async def get_calendar_ics():
         event = Event()
         day = datetime.strptime(entry["date"], "%d.%m.%Y")
         rdtstart, rdtend = entry["time"].split(" - ")
+        rdtend = "23:59" if rdtend == "24:00" else rdtend
         dtstart = datetime(
             year=day.year,
             month=day.month,
