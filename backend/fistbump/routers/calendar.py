@@ -108,7 +108,7 @@ async def get_calendar_ics():
         day = datetime.strptime(entry["date"], "%d.%m.%Y")
         rdtstart, rdtend = entry["time"].split(" - ")
         rdtend = "23:59" if rdtend == "24:00" else rdtend
-        event["uid"] = "%(eventid)s@nkk.dk".format(eventid=entry["eventid"])
+        event["uid"] = entry["eventid"] + "@nkk.dk"
         event.add("priority", 5)
         dtstart = datetime(
             year=day.year,
