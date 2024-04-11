@@ -22,7 +22,7 @@ async def get_calendar_agenda():
                 event_name = row.find("div.km-agenda-eventname", first=True)
                 entry_title = event_name.text
                 eventid = event_id_regex.search(
-                    event_name.find("a").attrs["href"]
+                    event_name.find("a", first=True).attrs["href"]
                 ).group("eventid")
                 yield {
                     "eventid": eventid,
