@@ -91,7 +91,7 @@ async def _get_calendar_agenda(today):
 
 
 @router.get("/calendar")
-async def get_calendar_agenda():
+async def get_calendar():
     today = datetime.now(tz=settings.tz).date()
     return await _get_calendar_agenda(today)
 
