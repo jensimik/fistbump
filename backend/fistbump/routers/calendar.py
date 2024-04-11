@@ -99,7 +99,7 @@ async def get_calendar():
 @router.get("/calendar.ics")
 async def get_calendar_ics():
     cal = Calendar()
-    cal.add("prodid", "-//NKK calandar//")
+    cal.add("prodid", "-//NKK calandar//nkk.dk//")
     cal.add("version", "2.0")
     noerrebrohallen = vText("Nørrebrohallen, Copenhagen, Denmark")
     tz = pytz.timezone("Europe/Copenhagen")
@@ -108,6 +108,8 @@ async def get_calendar_ics():
         day = datetime.strptime(entry["date"], "%d.%m.%Y")
         rdtstart, rdtend = entry["time"].split(" - ")
         rdtend = "23:59" if rdtend == "24:00" else rdtend
+        event["uid"] = "%(eventid)s@nkk.dk".format(eventid=entry["eventid"])
+        event.add("priority", 5)
         dtstart = datetime(
             year=day.year,
             month=day.month,

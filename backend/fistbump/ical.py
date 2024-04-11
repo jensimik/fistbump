@@ -1,5 +1,10 @@
 import httpx
+import re
 from fistbump.parse import HTML
+
+event_id_regex = re.compile(
+    r"^CalendarEventShowPopUp\.aspx\?CalendarEventID=(?P<eventid>\d+)&amp;CalendarEventTimeID=\d+&amp;HashCode=\d+$"
+)
 
 
 async def get_calendar_agenda():
@@ -14,8 +19,13 @@ async def get_calendar_agenda():
                 entry_datetime = row.find("div.km-agenda-time", first=True).text
                 entry_date = entry_datetime[:10]
                 entry_time = entry_datetime[11:]
-                entry_title = row.find("div.km-agenda-eventname", first=True).text
+                event_name = row.find("div.km-agenda-eventname", first=True)
+                entry_title = event_name.text
+                event_id = event_id_regex.search(
+                    event_name.find("a").attrs["href"]
+                ).group("eventid")
                 yield {
+                    "eventid": eventid,
                     "datetime": entry_datetime,
                     "date": entry_date,
                     "time": " - ".join(entry_time.split("-")),
