@@ -27,7 +27,9 @@ async def get_calendar_agenda():
                     event_name.find("a", first=True).attrs["href"]
                 )
                 eventid = (
-                    eventid_match.group("eventid") if eventidmatch else uuid.uuid4().hex
+                    eventid_match.group("eventid")
+                    if eventid_match
+                    else uuid.uuid4().hex
                 )
                 yield {
                     "eventid": eventid,
