@@ -1,5 +1,6 @@
 import httpx
 import re
+import uuid
 from fistbump.parse import HTML
 
 event_id_regex = re.compile(
@@ -21,9 +22,13 @@ async def get_calendar_agenda():
                 entry_time = entry_datetime[11:]
                 event_name = row.find("div.km-agenda-eventname", first=True)
                 entry_title = event_name.text
-                eventid = event_id_regex.search(
+                print(event_name.find("a", first=True).attrs["href"])
+                eventid_match = event_id_regex.search(
                     event_name.find("a", first=True).attrs["href"]
-                ).group("eventid")
+                )
+                eventid = (
+                    eventid_match.group("eventid") if eventidmatch else uuid.uuid4().hex
+                )
                 yield {
                     "eventid": eventid,
                     "datetime": entry_datetime,
