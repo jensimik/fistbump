@@ -22,7 +22,6 @@ async def get_calendar_agenda():
                 entry_time = entry_datetime[11:]
                 event_name = row.find("div.km-agenda-eventname", first=True)
                 entry_title = event_name.text
-                print(event_name.find("a", first=True).attrs["href"])
                 eventid_match = event_id_regex.search(
                     event_name.find("a", first=True).attrs["href"]
                 )
