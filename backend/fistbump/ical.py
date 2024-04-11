@@ -4,7 +4,7 @@ import uuid
 from fistbump.parse import HTML
 
 event_id_regex = re.compile(
-    r"^CalendarEventShowPopUp\.aspx\?CalendarEventID=(?P<eventid>\d+)&amp;CalendarEventTimeID=\d+&amp;HashCode=\d+$"
+    r"^CalendarEventShowPopUp\.aspx\?CalendarEventID=(?P<eventid>\d+)&CalendarEventTimeID=\d+&HashCode=[\d-]+$"
 )
 
 
