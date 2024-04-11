@@ -41,7 +41,7 @@ Pillow==10.3.0
 pkce==1.0.3
 prometheus-client==0.20.0
 proto-plus==1.23.0
-protobuf==5.26.1
+protobuf==4.25.3
 pyasn1==0.6.0
 pyasn1-modules==0.4.0
 pycparser==2.22
