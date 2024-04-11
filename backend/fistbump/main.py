@@ -11,7 +11,6 @@ from .repeat_every_helper import repeat_every
 from .routers import auth, calendar, misc, problems, webp
 from .stokt import refresh_stokt
 from .lumo import refresh_lumo
-from .ical import refresh_ical
 
 if settings.sentry_dsn:
     sentry_sdk.init(
