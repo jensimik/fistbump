@@ -1,5 +1,5 @@
 import httpx
-from fastapi import APIRouter
+from fastapi import APIRouter, Response
 from functools import lru_cache
 from async_lru import alru_cache
 from livepopulartimes import get_populartimes_by_place_id
@@ -7,6 +7,8 @@ from datetime import datetime, timedelta
 from fistbump import schemas
 from fistbump.config import settings
 from fistbump.parse import HTML
+from fistbump.ical import get_calendar_agenda
+from icalendar import Calendar, Event, vText
 
 router = APIRouter(tags=["calendar"])
 
@@ -81,35 +83,50 @@ async def get_opening_hours() -> schemas.Hours:
 @alru_cache(maxsize=2)
 async def _get_calendar_agenda(today):
     today_str = "{0:%d}.{0:%m}.{0:%Y}".format(today)
-    # tomorrow_str = "{0:%d}.{0:%m}.{0:%Y}".format(today + timedelta(days=1))
-    today = []
-    async with httpx.AsyncClient() as client:
-        r = await client.get(
-            "https://nkk.klub-modul.dk/cms/activity.aspx?CalendarType=Agenda"
-        )
-        if r.is_success:
-            html = HTML(html=r.content)
-            div_calendar = html.find("div#km_cal_agenda", first=True)
-            for row in div_calendar.find("div.km-agenda-item"):
-                entry_datetime = row.find("div.km-agenda-time", first=True).text
-                entry_date = entry_datetime[:10]
-                entry_time = entry_datetime[11:]
-                entry_title = row.find("div.km-agenda-eventname", first=True).text
-                d = {
-                    "datetime": entry_datetime,
-                    "date": entry_date,
-                    "time": " - ".join(entry_time.split("-")),
-                    "title": entry_title,
-                }
-                if entry_date == today_str:
-                    today.append(d)
-    return today
+    async for entry in get_calendar_agenda():
+        if entry["date"] == today_str:
+            return entry
+    return []
 
 
 @router.get("/calendar")
 async def get_calendar_agenda():
     today = datetime.now(tz=settings.tz).date()
     return await _get_calendar_agenda(today)
+
+
+@router.get("/calendar.ics")
+async def get_calendar_ics():
+    cal = Calendar()
+    cal.add("prodid", "-//NKK calandar//")
+    cal.add("version", "2.0")
+    noerrebrohallen = vText("Nørrebrohallen, Copenhagen, Denmark")
+    tz = pytz.timezone("Europe/Copenhagen")
+    async for entry in get_calendar_agenda():
+        event = Event()
+        day = datetime.strptime(event["date"], "%d.%m.%Y")
+        rdtstart, rdtend = entry["time"].split(" - ")
+        dtstart = datetime(
+            year=day.year,
+            month=day.month,
+            day=day.day,
+            hour=int(rdtstart.split(":")[0]),
+            minute=int(rdtstart.split(":")[1]),
+        )
+        dtend = datetime(
+            year=day.year,
+            month=day.month,
+            day=day.day,
+            hour=int(rdtend.split(":")[0]),
+            minute=int(rdtend.split(":")[1]),
+        )
+        event.add("summary", entry["title"])
+        event.add("dtstart", dtstart)
+        event.add("dtend", dtend)
+        event.add("dtstamp", dtstart)
+        event["location"] = noerrebrohallen
+        cal.add_component(event)
+    return Response(content=cal.to_ical(), media_type="text/calendar")
 
 
 @router.get("/popular_hours")
