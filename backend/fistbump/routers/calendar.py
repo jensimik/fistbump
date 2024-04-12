@@ -116,7 +116,7 @@ async def get_calendar_ics():
             day=day.day,
             hour=int(rdtstart.split(":")[0]),
             minute=int(rdtstart.split(":")[1]),
-            timezone=tz,
+            tzinfo=tz,
         )
         dtend = datetime(
             year=day.year,
@@ -124,7 +124,7 @@ async def get_calendar_ics():
             day=day.day,
             hour=int(rdtend.split(":")[0]),
             minute=int(rdtend.split(":")[1]),
-            timezone=tz,
+            tzinfo=tz,
         )
         event.add("summary", entry["title"])
         event.add("dtstart", dtstart)
