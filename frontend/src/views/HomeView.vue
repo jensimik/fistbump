@@ -18,7 +18,7 @@ import { sections, setter_auth } from '../localStorage';
       <div>
         <Calendar v-if="sections.includes('calendar')"></Calendar>
         <Occupancy></Occupancy>
-        <Strip v-if="sections.includes('strip')"></Strip>
+        <!-- <Strip v-if="sections.includes('strip')"></Strip>-->
         <RecentProblems></RecentProblems>
         <!-- <HoursPopular v-if="false"></HoursPopular> -->
         <div class="hidden">
