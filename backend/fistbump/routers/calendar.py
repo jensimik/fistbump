@@ -84,7 +84,7 @@ async def get_opening_hours() -> schemas.Hours:
 
 @alru_cache(maxsize=2)
 async def _get_calendar_agenda(today):
-    today_str = "{0:%d}.{0:%m}.{0:%Y}".format(today)
+    today_str = "{0:%Y}-{0:%m}-{0:%d}".format(today)
     async for entry in get_calendar_agenda():
         if entry["date"] == today_str:
             return entry
