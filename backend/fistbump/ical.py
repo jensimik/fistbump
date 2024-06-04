@@ -17,7 +17,7 @@ async def get_calendar_agenda():
             script_tag = html.find("script")[-3]
             data = json.loads(
                 script_tag.text.split("var jsonData = ")[1].split(
-                    "\;new Sys.WebForms.Menu"
+                    ";new Sys.WebForms.Menu"
                 )[0]
             )
             for event in data:
