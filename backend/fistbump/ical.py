@@ -1,6 +1,7 @@
 import httpx
 import re
 import uuid
+import json
 from fistbump.parse import HTML
 
 event_id_regex = re.compile(
@@ -10,30 +11,22 @@ event_id_regex = re.compile(
 
 async def get_calendar_agenda():
     async with httpx.AsyncClient() as client:
-        r = await client.get(
-            "https://nkk.klub-modul.dk/cms/activity.aspx?CalendarType=Agenda"
-        )
+        r = await client.get("https://nkk.klub-modul.dk/cms/Activity.aspx")
         if r.is_success:
             html = HTML(html=r.content)
-            div_calendar = html.find("div#km_cal_agenda", first=True)
-            for row in div_calendar.find("div.km-agenda-item"):
-                entry_datetime = row.find("div.km-agenda-time", first=True).text
-                entry_date = entry_datetime[:10]
-                entry_time = entry_datetime[11:]
-                event_name = row.find("div.km-agenda-eventname", first=True)
-                entry_title = event_name.text
-                eventid_match = event_id_regex.search(
-                    event_name.find("a", first=True).attrs["href"]
-                )
-                eventid = (
-                    eventid_match.group("eventid") + entry_date + entry_time
-                    if eventid_match
-                    else uuid.uuid4().hex
-                )
+            script_tag = html.find("script")[-3]
+            data = json.loads(
+                script_tag.text.split("var jsonData = ")[1].split(
+                    "\;new Sys.WebForms.Menu"
+                )[0]
+            )
+            for event in data:
+                hour_start = event["start"].split("T")[1]
+                hour_end = event["end"].split("T")[1]
                 yield {
-                    "eventid": eventid,
-                    "datetime": entry_datetime,
-                    "date": entry_date,
-                    "time": " - ".join(entry_time.split("-")),
-                    "title": entry_title,
+                    "eventid": event["id"] + event["start"],
+                    "datetime": event["start"],
+                    "date": event["start"][:10],
+                    "time": " - ".join([hour_start, hour_end]),
+                    "title": event["title"],
                 }
