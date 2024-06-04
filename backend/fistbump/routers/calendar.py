@@ -105,7 +105,7 @@ async def get_calendar_ics():
     tz = pytz.timezone("Europe/Copenhagen")
     async for entry in get_calendar_agenda():
         event = Event()
-        day = datetime.strptime(entry["date"], "%d.%m.%Y")
+        day = datetime.strptime(entry["date"], "%Y-%m-%d")
         rdtstart, rdtend = entry["time"].split(" - ")
         rdtend = "23:59" if rdtend == "24:00" else rdtend
         event["uid"] = entry["eventid"] + "@nkk.dk"
