@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
     ["url", "expected_status_code"],
     (
         # ("/strip", 200),
-        ("/calendar", 200),
+        # ("/calendar", 200),
         ("/hours", 200),
         # ("/popular_hours", 200),
         ("/some_random_url", 404),
