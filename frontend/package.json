@@ -22,7 +22,7 @@
     "@sentry/vite-plugin": "^2.22.7",
     "@testing-library/vue": "^8.1.0",
     "@vitejs/plugin-vue": "^5.2.1",
-    "happy-dom": "^16.2.8",
+    "happy-dom": "^16.2.9",
     "vite": "^6.0.6",
     "vite-plugin-pwa": "^0.21.1",
     "vitest": "^2.1.8"
