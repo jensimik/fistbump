@@ -9,22 +9,22 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@sentry/tracing": "^7.114.0",
-    "@sentry/vue": "^8.47.0",
+    "@sentry/tracing": "^7.120.3",
+    "@sentry/vue": "^8.53.0",
     "chroma-js": "^3.1.2",
     "picnic": "^7.1.0",
     "vue": "^3.5.13",
     "vue-google-charts": "^1.1.0",
     "vue-router": "^4.5.0",
-    "vue3-touch-events": "^4.2.0"
+    "vue3-touch-events": "^5.0.13"
   },
   "devDependencies": {
-    "@sentry/vite-plugin": "^2.22.7",
+    "@sentry/vite-plugin": "^3.1.1",
     "@testing-library/vue": "^8.1.0",
     "@vitejs/plugin-vue": "^5.2.1",
-    "happy-dom": "^16.2.8",
-    "vite": "^6.0.6",
+    "happy-dom": "^16.8.1",
+    "vite": "^6.0.11",
     "vite-plugin-pwa": "^0.21.1",
-    "vitest": "^2.1.8"
+    "vitest": "^3.0.4"
   }
 }
